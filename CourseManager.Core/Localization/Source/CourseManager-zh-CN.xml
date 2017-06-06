@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<localizationDictionary culture="zh-CN">
+  <texts>
+    <text name="HomePage" value="主页" />
+
+    <text name="About" value="关于我们" />
+    <text name="WellcomeMessage" value="欢迎使用 贝课!" />
+
+    <text name="FormIsNotValidMessage" value="部分输入信息不符合要求，请检查并改正.." />
+    <text name="TenantNameCanNotBeEmpty" value="租户名不能为空" />
+
+    <text name="InvalidUserNameOrPassword" value="用户名或密码无效" />
+    <text name="ThereIsNoTenantDefinedWithName{0}" value="租户 {0}不存在" />
+    <text name="TenantIsNotActive" value="租户 {0} 未激活." />
+    <text name="UserIsNotActiveAndCanNotLogin" value="用户 {0} 未激活，不能登录." />
+    <text name="PleaseEnterLoginInformation" value="请输入登录信息" />
+    <text name="TenancyName" value="租户名称" />
+    <text name="UserNameOrEmail" value="用户名或邮箱地址" />
+    <text name="Password" value="密码" />
+    <text name="RememberMe" value="记住我" />
+    <text name="LogIn" value="登录" />
+
+    <text name="LoginFailed" value="登录失败!" />
+
+    <text name="Users" value="系统用户" />
+    <text name="IsActive" value="是否激活" />
+    <text name="FullName" value="全名" />
+    <text name="CreateNewUser" value="添加用户" />
+    <text name="Yes" value="是" />
+    <text name="No" value="否" />
+    <text name="Optional" value="可选" />
+
+
+
+    <text name="Students" value="学生" />
+    <text name="CnName" value="中文名" />
+    <text name="EnName" value="英文名" />
+    <text name="LocalCountryName" value="本国名" />
+    <text name="CountryName" value="国家" />
+    <text name="Age" value="年龄" />
+    <text name="Sex" value="性别" />
+    <text name="Position" value="职位" />
+    <text name="AddStu" value="添加学生" />
+
+    <text name="CourseManager" value="贝课" />
+    <text name="SignIn" value="上课签到" />
+    <text name="AbsentCheckIn" value="异常登记（未上课记录）" />
+    <text name="ClassHourStatistics" value="课时统计" />
+    <text name="OfficeHourStatistics" value="坐班时间统计" />
+    <text name="PayCalculation" value="工资结算" />
+
+
+    <!--签到记录 记录给某个学生某堂课上课和下课时间 是否是正常上课还是学生旷课或者老师请假-->
+    <text name="StudentName" value="学生名" />
+    <text name="BeginTime" value="上课时间" />
+    <text name="EndTime" value="下课时间" />
+    <text name="ClassType" value="课程类型（班级课/1v1）" />
+    <text name="Type" value="上课情况" />
+
+  </texts>
+</localizationDictionary>

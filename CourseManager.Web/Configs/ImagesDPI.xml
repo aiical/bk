@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ImagesDpiGroup>
+  <ImagesDpiDetail id="TeacherPic" desc="名师头像" def="240X240">
+    <SectionItem sortno="0" width="100" height="100" dpi="100X100"></SectionItem>
+    <SectionItem sortno="1" width="240" height="240" dpi="240X240"></SectionItem>
+  </ImagesDpiDetail>
+  <ImagesDpiDetail id="Banner" desc="banner图" def="1920X580">
+    <SectionItem sortno="0" width="100" height="100" dpi="100X100"></SectionItem>
+    <SectionItem sortno="1" width="1920" height="580" dpi="1920X580"></SectionItem>
+  </ImagesDpiDetail>
+  <ImagesDpiDetail id="SuccessCasePic" desc="成功案例学生头像" def="240X240">
+    <SectionItem sortno="0" width="100" height="100" dpi="100X100"></SectionItem>
+    <SectionItem sortno="1" width="240" height="240" dpi="240X240"></SectionItem>
+    <SectionItem sortno="2" width="103" height="103" dpi="103X103"></SectionItem>
+  </ImagesDpiDetail>
+  <ImagesDpiDetail id="SuccessCaseAdmission" desc="录取通知书" def="530X530">
+    <SectionItem sortno="0" width="100" height="100" dpi="100X100"></SectionItem>
+    <SectionItem sortno="0" width="530" height="530" dpi="530X530"></SectionItem>
+  </ImagesDpiDetail>
+</ImagesDpiGroup>

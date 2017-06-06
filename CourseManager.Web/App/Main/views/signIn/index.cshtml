@@ -1,0 +1,27 @@
+﻿<div ng-controller="app.views.signIn.index as vm">
+    <div class="row">
+        <div class="col-md-12">
+            <button ng-click="vm.openSignInModal()" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> @L("SignIn")</button>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>@L("StudentName")</th>
+                        <th>@L("BeginTime")</th>
+                        <th>@L("EndTime")</th>
+                        <th>@L("ClassType")</th>
+                        <th>@L("Type")</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="sign in vm.signIn">
+                        <td>{{sign.studentName}}</td>
+                        <td>{{sign.beginTime}}</td>@*上课时间*@
+                        <td>{{sign.endTime}}</td>@*下课时间*@
+                        <td>{{user.classType}}</td>
+                        <td>{{user.type}}</td>@*正常上课/旷课*@
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
