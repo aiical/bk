@@ -17,29 +17,19 @@ namespace CourseManager.Users
     [AbpAuthorize(PermissionNames.Pages_Users)]
     public class StudentAppService : CourseManagerAppServiceBase, IStudentAppService
     {
-        private readonly IRepository<User, long> _userRepository;
-        private readonly IPermissionManager _permissionManager;
+        private readonly IRepository<Student.Students, string> _studentRepository;
 
-        public StudentAppService(IRepository<User, long> userRepository, IPermissionManager permissionManager)
+        public StudentAppService(IRepository<Student.Students, string> studentRepository )
         {
-            _userRepository = userRepository;
-            _permissionManager = permissionManager;
-        }
-
-        public async Task ProhibitPermission(Students.Dto.ProhibitPermissionInput input)
-        {
-            var user = await UserManager.GetUserByIdAsync(input.UserId);
-            var permission = _permissionManager.GetPermission(input.PermissionName);
-
-            await UserManager.ProhibitPermissionAsync(user, permission);
+            _studentRepository = studentRepository;
         }
 
         public async Task<ListResultDto<StudentListDto>> GetStudents()
         {
-            var users = await _userRepository.GetAllListAsync();
+            var stus = await _studentRepository.GetAllListAsync();
 
             return new ListResultDto<StudentListDto>(
-                users.MapTo<List<StudentListDto>>()
+                stus.MapTo<List<StudentListDto>>()
                 );
         }
 

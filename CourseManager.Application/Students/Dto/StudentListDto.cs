@@ -5,7 +5,7 @@ using Abp.AutoMapper;
 namespace CourseManager.Students.Dto
 {
     [AutoMapFrom(typeof(Student.Students))]
-    public class StudentListDto : EntityDto<long>
+    public class StudentListDto : EntityDto<string>
     {
         public string CnName { get; set; }
 
@@ -18,6 +18,8 @@ namespace CourseManager.Students.Dto
         public string Position { get; set; }
 
         public int Age { get; set; }
+        public string Mobile { get; set; }
+        public string CountryName { get; set; }
 
         public bool IsActive { get; set; }
 

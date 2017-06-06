@@ -12,6 +12,7 @@
                         <th>@L("Age")</th>
                         <th>@L("Position")</th>
                         <th>@L("Mobile")</th>
+                       <th>@L("CountryName")</th>
                         <th>@L("IsActive")</th>
                     </tr>
                 </thead>
@@ -20,6 +21,11 @@
                         <td>{{student.cnName}}</td>
                         <td>{{student.enName}}</td>
                         <td>{{student.localCountryName}}</td>
+                        <td>{{student.sex==1?"男":"女"}}</td>
+                        <td>{{student.age}}</td>
+                        <td>{{student.position}}</td>
+                        <td>{{student.mobile}}</td>
+                        <td>{{student.countryName}}</td>
                         <td>{{student.isActive ? '@L("Yes")' : '@L("No")'}}</td>
                     </tr>
                 </tbody>

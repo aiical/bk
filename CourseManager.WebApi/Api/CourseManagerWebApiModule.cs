@@ -4,6 +4,7 @@ using Abp.Application.Services;
 using Abp.Configuration.Startup;
 using Abp.Modules;
 using Abp.WebApi;
+using CourseManager.Students;
 
 namespace CourseManager.Api
 {
@@ -17,7 +18,9 @@ namespace CourseManager.Api
             Configuration.Modules.AbpWebApi().DynamicApiControllerBuilder
                 .ForAll<IApplicationService>(typeof(CourseManagerApplicationModule).Assembly, "app")
                 .Build();
-
+            //Configuration.Modules.AbpWebApi().DynamicApiControllerBuilder
+            //    .For<IStudentAppService>("app/student")
+            //    .Build();
             Configuration.Modules.AbpWebApi().HttpConfiguration.Filters.Add(new HostAuthenticationFilter("Bearer"));
         }
     }

@@ -7,8 +7,6 @@ namespace CourseManager.Students
 {
     public interface IStudentAppService : IApplicationService
     {
-        Task ProhibitPermission(ProhibitPermissionInput input);
-
 
         Task<ListResultDto<StudentListDto>> GetStudents();
 
