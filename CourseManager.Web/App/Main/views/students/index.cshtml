@@ -1,23 +1,26 @@
-﻿<div ng-controller="app.views.users.index as vm">
-    <h1>@L("Users")</h1>
+﻿<div ng-controller="app.views.student.index as vm">
     <div class="row">
         <div class="col-md-12">
-            <button ng-click="vm.openUserCreationModal()" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> @L("CreateNewUser")</button>
+            <button ng-click="vm.openStudentCreationModal()" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> @L("AddStu")</button>
             <table class="table">
                 <thead>
                     <tr>
-                        <th>@L("UserName")</th>
-                        <th>@L("FullName")</th>
-                        <th>@L("EmailAddress")</th>
+                        <th>@L("CnName")</th>
+                        <th>@L("EnName")</th>
+                        <th>@L("LocalCountryName")</th>
+                        <th>@L("Sex")</th>
+                        <th>@L("Age")</th>
+                        <th>@L("Position")</th>
+                        <th>@L("Mobile")</th>
                         <th>@L("IsActive")</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="user in vm.users">
-                        <td>{{user.userName}}</td>
-                        <td>{{user.fullName}}</td>
-                        <td>{{user.emailAddress}}</td>
-                        <td>{{user.isActive ? '@L("Yes")' : '@L("No")'}}</td>
+                    <tr ng-repeat="student in vm.students">
+                        <td>{{student.cnName}}</td>
+                        <td>{{student.enName}}</td>
+                        <td>{{student.localCountryName}}</td>
+                        <td>{{student.isActive ? '@L("Yes")' : '@L("No")'}}</td>
                     </tr>
                 </tbody>
             </table>

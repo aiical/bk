@@ -27,7 +27,7 @@
                         templateUrl: '/App/Main/views/users/index.cshtml',
                         menu: 'Users' //Matches to name of 'Users' menu in CourseManagerNavigationProvider
                     });
-                $urlRouterProvider.otherwise('/users');
+                $urlRouterProvider.otherwise('/'); //如果没有匹配到路由 就默认回到站点首页
             }
 
             //if (abp.auth.hasPermission('Pages.Tenants')) {
@@ -55,12 +55,17 @@
                     url: '/absentCheckIn',
                     templateUrl: '/App/Main/views/absentCheckIn/index.cshtml',
                     menu: 'AbsentCheckIn'
+                })
+                .state('students', {
+                    url: '/students',
+                    templateUrl: '/App/Main/views/students/index.cshtml',
+                    menu: 'Students'
                 });
-                //.state('about', {
-                //    url: '/about',
-                //    templateUrl: '/App/Main/views/about/about.cshtml',
-                //    menu: 'About' //Matches to name of 'About' menu in CourseManagerNavigationProvider
-                //});
+            //.state('about', {
+            //    url: '/about',
+            //    templateUrl: '/App/Main/views/about/about.cshtml',
+            //    menu: 'About' //Matches to name of 'About' menu in CourseManagerNavigationProvider
+            //});
         }
     ]);
 })();

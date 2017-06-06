@@ -1,15 +1,15 @@
 ﻿(function () {
-    angular.module('app').controller('app.views.users.createModal', [
-        '$scope', '$uibModalInstance', 'abp.services.app.user',
-        function ($scope, $uibModalInstance, userService) {
+    angular.module('app').controller('app.views.student.createModal', [
+        '$scope', '$uibModalInstance', 'abp.services.app.student',
+        function ($scope, $uibModalInstance, $studentService) {
             var vm = this;
 
-            vm.user = {
+            vm.student = {
                 isActive: true
             };
 
             vm.save = function () {
-                userService.createUser(vm.user)
+                $studentService.createUser(vm.user)
                     .then(function () {
                         abp.notify.info(App.localize('SavedSuccessfully'));
                         $uibModalInstance.close();

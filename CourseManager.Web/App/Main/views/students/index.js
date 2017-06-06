@@ -1,21 +1,21 @@
 ﻿(function() {
-    angular.module('app').controller('app.views.users.index', [
-        '$scope', '$uibModal', 'abp.services.app.user',
-        function ($scope, $uibModal, studentService) {
+    angular.module('app').controller('app.views.student.index', [
+        '$scope', '$uibModal', 'abp.services.app.student',
+        function ($scope, $uibModal, $studentService) {
             var vm = this;
 
-            vm.users = [];
+            vm.students = [];
 
             function getStudents() {
-                studentService.getStudents({}).then(function (result) {
-                    vm.users = result.data.items;
+                $studentService.getStudents({}).then(function (result) {
+                    vm.students = result.data.items;
                 });
             }
 
-            vm.openUserCreationModal = function() {
+            vm.openStudentCreationModal = function() {
                 var modalInstance = $uibModal.open({
-                    templateUrl: '/App/Main/views/users/createModal.cshtml',
-                    controller: 'app.views.users.createModal as vm',
+                    templateUrl: '/App/Main/views/students/createModal.cshtml',
+                    controller: 'app.views.student.createModal as vm',
                     backdrop: 'static'
                 });
 

@@ -3,14 +3,13 @@
     <form name="userCreateForm" role="form" novalidate class="form-validation">
         <div class="modal-header">
             <h4 class="modal-title">
-                <span>@L("CreateNewUser")</span>
+                <span>@L("AddStu")</span>
             </h4>
         </div>
         <div class="modal-body">
-
             <div class="form-group">
-                <label>@L("UserName")</label>
-                <input class="form-control" type="text" name="TenancyName" ng-model="vm.user.userName" required maxlength="@AbpUserBase.MaxUserNameLength">
+                <label>@L("CnName")</label>
+                <input class="form-control" type="text" name="CnName" ng-model="vm.user.userName" required maxlength="@AbpUserBase.MaxUserNameLength">
             </div>
 
             <div class="form-group">
