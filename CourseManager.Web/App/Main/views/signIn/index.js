@@ -1,6 +1,7 @@
 ﻿(function () {
+    var signInControllerId = "app.views.signIn.index";
     angular.module('app').controller(
-        'app.views.signIn.index',
+        signInControllerId,
         [
             '$scope',
             '$uibModal',

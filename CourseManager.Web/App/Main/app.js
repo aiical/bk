@@ -53,7 +53,7 @@
                 })
                 .state('absentCheckIn', {
                     url: '/absentCheckIn',
-                    templateUrl: '/App/Main/views/signIn/index.cshtml',
+                    templateUrl: '/App/Main/views/absentCheckIn/index.cshtml',
                     menu: 'AbsentCheckIn'
                 });
                 //.state('about', {
