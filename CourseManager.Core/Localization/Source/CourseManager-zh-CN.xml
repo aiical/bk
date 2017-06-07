@@ -25,7 +25,8 @@
     <text name="LoginFailed" value="登录失败!" />
 
     <text name="SavedSuccessfully" value="保存成功"/>
-
+    <text name="DeleteSuccessfully" value="删除成功"/>
+    <text name="ToggleSuccessfully" value="切换成功"/>
     <!--华丽分割线-->
     <text name="Operation" value="操作" />
     <text name="Edit" value="编辑" />

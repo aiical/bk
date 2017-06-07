@@ -1,15 +1,17 @@
 ﻿(function () {
-    angular.module('app').controller('app.views.student.index', [
+ //新建模块名为app的模块，依赖于tm.pagination模块
+    angular.module('app').controller('app.views.student.index', [//, ['tm.pagination']
         '$scope', '$uibModal', 'abp.services.app.student',
         function ($scope, $uibModal, $studentService) {
             var vm = this;
             vm.students = [];
-            function getStudents() {
-                $studentService.getStudentsAsync({}).then(function (result) {
-                    console.log(result);
-                    vm.students = result.data.items;
-                });
-            }
+            //function getStudents(postData) {
+            //    postData = postData || {};
+            //    $studentService.getStudentsAsync(postData).then(function (result) {
+            //        // console.log(result);
+            //        vm.students = result.data.items;
+            //    });
+            //}
 
             vm.openStudentCreationModal = function (id) {
                 $scope.id = id;
@@ -36,15 +38,59 @@
                         if (isConfirmed) {
                             $studentService.deleteStudent(student.id)
                                 .then(function () {
-                                    abp.notify.info(App.localize('SavedSuccessfully'));
+                                    abp.notify.info(App.localize('DeleteSuccessfully'));
                                     getStudents();
                                 });
                         }
                     }
-                );
-
+                )
             };
-            getStudents();
+
+            vm.updateActiveState = function (student) {
+                $studentService.updateActiveState(student)
+                    .then(function () {
+                        abp.notify.info(App.localize('ToggleSuccessfully'));
+                        getStudents();
+                    });
+            };
+
+
+            //分页
+            function getStudents() {
+                // 发送给后台的请求数据
+                var postData = {
+                    pIndex: $scope.paginationConf.currentPage,
+                    pSize: $scope.paginationConf.itemsPerPage
+                };
+                $studentService.getPagedStudents(postData).then(function (result) {
+                    console.log(result);
+                    console.log(result.data.totalCount);
+                    console.log(result.data.items);
+                    // 变更分页的总数
+                    $scope.paginationConf.totalItems = result.data.totalCount;
+                    // 变更产品条目
+                    $scope.students = result.data.items;
+                    vm.students = result.data.items;
+
+                    console.log($scope.paginationConf);
+                });
+
+            }
+
+            //配置分页基本参数
+            $scope.paginationConf = {
+                currentPage: 1,
+                itemsPerPage: 2
+            };
+
+            /***************************************************************
+            当页码和页面记录数发生变化时监控后台查询
+            如果把currentPage和itemsPerPage分开监控的话则会触发两次后台事件。
+            通过$watch currentPage和itemperPage 当他们一变化的时候，重新获取数据条目
+            ***************************************************************/
+            $scope.$watch('paginationConf.currentPage + paginationConf.itemsPerPage', getStudents);
+
+            //getStudents();
         }
     ]);
 })();

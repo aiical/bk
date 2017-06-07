@@ -64,6 +64,8 @@ namespace CourseManager.Users
         {
             var query = GetStudentsByCondition(input);
             var count = query.Count();
+            input.SkipCount = (input.PIndex ?? 1 - 1) * input.PSize ?? 10;
+            input.MaxResultCount = input.PSize ?? 10;
             var list = query.PageBy(input).ToList();
 
             return new PagedResultDto<StudentListDto>(count, list.MapTo<List<StudentListDto>>());
@@ -78,30 +80,24 @@ namespace CourseManager.Users
                 await _studentRepository.InsertAsync(student);
             }
         }
-        public ResultData UpdateActiveState(StudentUpdateInput updateInput)
+        public void UpdateActiveState(StudentUpdateInput updateInput)
         {
-            ResultData result = new ResultData();
             var model = _studentRepository.Get(updateInput.Id);
             if (model != null)
             {
-                model.IsActive = updateInput.IsActive;
+                model.IsActive = !updateInput.IsActive;
                 _studentRepository.Update(model);
             }
-            else
-            {
-                result.isSuccess = false;
-            }
-            return result;
         }
         public void DeleteStudent(string id)
         {
             var student = _studentRepository.Get(id);
             if (student != null)
-            //  _studentRepository.Delete(id);
-            {
-                student.IsActive = false;
-                _studentRepository.Update(student);
-            }
+                _studentRepository.Delete(id);
+            //{
+            //    student.IsActive = false;
+            //    _studentRepository.Update(student);
+            //}
         }
     }
 }

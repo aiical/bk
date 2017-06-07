@@ -8,6 +8,8 @@ namespace CourseManager.Dto
     /// </summary>
     public class PagedInputDto : IPagedResultRequest
     {
+        public int? PIndex { get; set; }
+        public int? PSize { get; set; }
         [Range(1, CourseManagerConsts.MaxPageSize)]
         public int MaxResultCount { get; set; }
 

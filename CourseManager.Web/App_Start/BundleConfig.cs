@@ -29,7 +29,7 @@ namespace CourseManager.Web
                         "~/Scripts/json2.min.js",
 
                         "~/Scripts/modernizr-2.8.3.js",
-                        
+
                         "~/Scripts/jquery-2.2.0.min.js",
                         "~/Scripts/jquery-ui-1.11.4.min.js",
 
@@ -58,8 +58,8 @@ namespace CourseManager.Web
                         "~/Abp/Framework/scripts/libs/abp.spin.js",
                         "~/Abp/Framework/scripts/libs/abp.sweet-alert.js",
                         "~/Abp/Framework/scripts/libs/angularjs/abp.ng.js",
-
-                        "~/Scripts/jquery.signalR-2.2.1.min.js"
+                        "~/Assets/js/tm.pagination.js"
+                    //"~/Scripts/jquery.signalR-2.2.1.min.js"
                     )
                 );
 

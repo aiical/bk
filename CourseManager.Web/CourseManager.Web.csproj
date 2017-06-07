@@ -347,6 +347,7 @@
     <Content Include="App\Main\views\tenants\index.js" />
     <Content Include="App\Main\_libconfig.js" />
     <Content Include="Assets\images\404.png" />
+    <Content Include="Assets\js\tm.pagination.js" />
     <Content Include="Common\Scripts\helpers.js" />
     <Content Include="Configs\ffmpeg\ffmpeg.exe" />
     <Content Include="Configs\ffmpeg\libamrnb-3.dll" />
@@ -1322,7 +1323,6 @@
     <Folder Include="App\Main\views\payCalculation\" />
     <Folder Include="App_Data\" />
     <Folder Include="Assets\css\" />
-    <Folder Include="Assets\js\" />
     <Folder Include="Assets\libsReference\" />
   </ItemGroup>
   <ItemGroup>

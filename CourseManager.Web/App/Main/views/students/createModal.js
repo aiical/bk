@@ -12,12 +12,12 @@
             function getStudent(id) {
                 $studentService.getStudent({ "Id": $scope.id })
                     .then(function (result) {
-                        console.log(result);
+                        //console.log(result);
                         vm.student = result.data;
                     });
             }
             vm.save = function () {
-                console.log(vm.student);
+                //console.log(vm.student);
                 $studentService.createStudent(vm.student)
                     .then(function () {
                         abp.notify.info(App.localize('SavedSuccessfully'));
