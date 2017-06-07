@@ -8,8 +8,8 @@ namespace CourseManager.Students
     public interface IStudentAppService : IApplicationService
     {
 
-        Task<ListResultDto<StudentListDto>> GetStudents();
-
+        Task<ListResultDto<StudentListDto>> GetStudentsAsync();
+        ListResultDto<StudentListDto> GetStudents();
         Task CreateStudent(CreateStudentInput input);
     }
 }

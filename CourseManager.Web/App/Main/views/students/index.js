@@ -7,7 +7,7 @@
             vm.students = [];
 
             function getStudents() {
-                $studentService.getStudents({}).then(function (result) {
+                $studentService.GetStudentsAsync({}).then(function (result) {
                     console.log(result);
                     vm.students = result.data.items;
                 });

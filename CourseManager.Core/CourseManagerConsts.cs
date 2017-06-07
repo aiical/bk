@@ -10,6 +10,9 @@
         /// </summary>
         public const bool MultiTenancyUnEnabled = false;
 
+        public const int MaxPageSize = 200;
+        public const int DefaultPageSize = 10;
+
         #region 业务相关
         /// <summary>
         /// 外派补助

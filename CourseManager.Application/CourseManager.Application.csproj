@@ -137,6 +137,10 @@
   <ItemGroup>
     <Compile Include="CourseManagerApplicationModule.cs" />
     <Compile Include="CourseManagerAppServiceBase.cs" />
+    <Compile Include="Dto\PagedAndFilteredInputDto.cs" />
+    <Compile Include="Dto\PagedAndSortedInputDto.cs" />
+    <Compile Include="Dto\PagedInputDto.cs" />
+    <Compile Include="Dto\PagedSortedAndFilteredInputDto.cs" />
     <Compile Include="File\FileAppService.cs" />
     <Compile Include="File\IFileAppService.cs" />
     <Compile Include="MultiTenancy\Dto\CreateTenantInput.cs" />
@@ -148,7 +152,9 @@
     <Compile Include="Roles\Dto\UpdateRolePermissionsInput.cs" />
     <Compile Include="Students\Dto\CreateStudentInput.cs" />
     <Compile Include="Students\Dto\ProhibitPermissionInput.cs" />
+    <Compile Include="Students\Dto\StudentInput.cs" />
     <Compile Include="Students\Dto\StudentListDto.cs" />
+    <Compile Include="Students\Dto\StudentUpdateInput.cs" />
     <Compile Include="Students\IStudentAppService.cs" />
     <Compile Include="Students\StudentAppService.cs" />
     <Compile Include="Users\Dto\CreateUserInput.cs" />
