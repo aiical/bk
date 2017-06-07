@@ -7,7 +7,7 @@ namespace CourseManager.Students
 {
     public interface IStudentAppService : IApplicationService
     {
-
+        Student.Students GetStudent(StudentInput input);
         Task<ListResultDto<StudentListDto>> GetStudentsAsync();
         ListResultDto<StudentListDto> GetStudents();
         Task CreateStudent(CreateStudentInput input);

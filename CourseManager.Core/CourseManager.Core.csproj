@@ -147,6 +147,7 @@
     </None>
     <None Include="CourseArrange\Readme.md" />
     <None Include="packages.config" />
+    <None Include="Readme.md" />
     <None Include="SignIn\Readme.md" />
     <None Include="Student\Readme.md" />
   </ItemGroup>

@@ -24,6 +24,11 @@ namespace CourseManager.Users
             _studentRepository = studentRepository;
         }
 
+        public Student.Students GetStudent(StudentInput input)
+        {
+            return _studentRepository.Get(input.Id);
+        }
+
         public async Task<ListResultDto<StudentListDto>> GetStudentsAsync()
         {
             var stus = await _studentRepository.GetAllListAsync();

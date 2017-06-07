@@ -14,18 +14,7 @@ namespace CourseManager.Web
     {
         public override void SetNavigation(INavigationProviderContext context)
         {
-            context.Manager.MainMenu
-                .AddItem(
-                    new MenuItemDefinition(
-                        "Home",
-                        L("CourseManager"),
-                        //new LocalizableString("HomePage", CourseManagerConsts.LocalizationSourceName),
-                        url: "#/",
-                        icon: "fa fa-home",
-                        requiresAuthentication: true
-                        )
-                )
-                     //.AddItem(
+            //.AddItem(
                      //    new MenuItemDefinition(
                      //        "Tenants",
                      //        L("Tenants"),
@@ -34,28 +23,58 @@ namespace CourseManager.Web
                      //        requiredPermissionName: PermissionNames.Pages_Tenants
                      //        )
                      //)
-                     .AddItem(
-                    new MenuItemDefinition(
-                        "SignIn",
-                        L("SignIn"),
-                        url: "#signIn",
-                        icon: "fa fa-globe"
-                        )
-                )
+            context.Manager.MainMenu
                 .AddItem(
                     new MenuItemDefinition(
-                        "AbsentCheckIn",
-                        L("AbsentCheckIn"),
-                        url: "#absentCheckIn",
-                        icon: "fa fa-globe"
+                        "Home",//一个常量，控制菜单是否被选中
+                        L("CourseManager"),////菜单显示名称，在语言文件中配置
+                                           //new LocalizableString("HomePage", CourseManagerConsts.LocalizationSourceName),
+                        url: "#/",
+                        icon: "fa fa-home",
+                        requiresAuthentication: true
                         )
                 )
-                  .AddItem(
+                    .AddItem(new MenuItemDefinition(
+                            "ArrangeCourse",
+                            L("ArrangeCourse"),
+                            icon: "fa fa-calendar"
+                        ).AddItem(
+                            new MenuItemDefinition(
+                            "TeacherArrange",
+                            L("TeacherArrange"),
+                            url: "#teacherArrange",
+                            icon: "fa fa-calendar"
+                        )).AddItem(
+                         new MenuItemDefinition(
+                            "StudentArrange",
+                            L("StudentArrange"),
+                            url: "#studentArrange",
+                            icon: "fa fa-calendar"
+                        )
+                ))
+                .AddItem(new MenuItemDefinition(
+                            "Sign",
+                            L("Sign"),
+                            icon: "fa  fa-check-circle"
+                        ).AddItem(
+                            new MenuItemDefinition(
+                            "SignIn",
+                            L("SignIn"),
+                            url: "#signIn",
+                            icon: "fa fa-check-circle"
+                        )).AddItem(
+                         new MenuItemDefinition(
+                            "AbsentCheckIn",
+                            L("AbsentCheckIn"),
+                            url: "#absentCheckIn",
+                            icon: "fa fa-check-circle"
+                        )
+                )).AddItem(
                     new MenuItemDefinition(
                         "ClassHourStatistics",
                         L("ClassHourStatistics"),
                         url: "#classHourStatistics",
-                        icon: "fa fa-info"
+                        icon: "fa fa-bar-chart-o"
                         )
                 )
                   .AddItem(
@@ -63,14 +82,14 @@ namespace CourseManager.Web
                         "OfficeHourStatistics",
                         L("OfficeHourStatistics"),
                         url: "#officeHourStatistics",
-                        icon: "fa fa-info"
+                        icon: "fa fa-bar-chart-o"
                         )
                 ).AddItem(
                     new MenuItemDefinition(
                         "PayCalculation",
                         L("PayCalculation"),
                         url: "#payCalculation",
-                        icon: "fa fa-info"
+                        icon: "fa fa-cny"
                         )
                 )
                 .AddItem(
@@ -90,14 +109,14 @@ namespace CourseManager.Web
                         requiredPermissionName: PermissionNames.Pages_Users
                         )
                 );
-                //.AddItem(
-                //    new MenuItemDefinition(
-                //        "About",
-                //        new LocalizableString("About", CourseManagerConsts.LocalizationSourceName),
-                //        url: "#/about",
-                //        icon: "fa fa-info"
-                //        )
-                //);
+            //.AddItem(
+            //    new MenuItemDefinition(
+            //        "About",
+            //        new LocalizableString("About", CourseManagerConsts.LocalizationSourceName),
+            //        url: "#/about",
+            //        icon: "fa fa-info"
+            //        )
+            //);
         }
 
         private static ILocalizableString L(string name)

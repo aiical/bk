@@ -56,13 +56,43 @@
     <text name="No" value="No" />
     <text name="Optional" value="Optional" />
 
-
+  
     <!--业务相关-->
+    <text name="Operation" value="Operation" />
+    <text name="Edit" value="Edit" />
+    <text name="Delete" value="Delete" />
+  <!--菜单-->
+    <text name="ArrangeCourse" value="ArrangeCourse" />
+    <text name="TeacherArrange" value="TeacherArrange" />
+    <text name="StudentArrange" value="StudentArrange" />
+    
+    <text name="Students" value="Students" />
+    <text name="CnName" value="CnName" />
+    <text name="EnName" value="EnName" />
+    <text name="LocalCountryName" value="LocalCountryName" />
+    <text name="CountryName" value="CountryName" />
+    <text name="Age" value="Age" />
+    <text name="Sex" value="Sex" />
+    <text name="Male" value="Male" />
+    <text name="Female" value="Female" />
+    <text name="Position" value="Position" />
+    <text name="Mobile" value="Mobile"/>
+    <text name="AddStu" value="AddStudent" />
+
+    <text name="CourseManager" value="CourseManager" />
+    <text name="Sign" value="Sign" />
+    <text name="SignIn" value="SignIn" />
+    <text name="AbsentCheckIn" value="AbsentCheckIn" />
+    
+    <!--签到记录 记录给某个学生某堂课上课和下课时间 是否是正常上课还是学生旷课或者老师请假-->
+    <text name="StudentName" value="StudentName" />
+    <text name="BeginTime" value="BeginTime" />
+    <text name="EndTime" value="EndTime" />
+    <text name="ClassType" value="ClassType" />
+    <text name="Type" value="Type" />
+    
     <text name="ClassHourStatistics" value="ClassHourStatistics" />
     <text name="OfficeHourStatistics" value="OfficeHourStatistics" />
     <text name="PayCalculation" value="PayCalculation" />
-
-    <text name="Male" value="Male" />
-    <text name="Female" value="Female" />
   </texts>
 </localizationDictionary>

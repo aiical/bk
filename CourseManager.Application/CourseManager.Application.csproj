@@ -178,6 +178,7 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Readme.md" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CourseManager.Core\CourseManager.Core.csproj">

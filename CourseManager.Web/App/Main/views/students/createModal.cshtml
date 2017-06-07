@@ -1,64 +1,66 @@
 ﻿@using StudentNamespace = CourseManager.Student.Students
-<div>
-    <form name="studentCreateForm" role="form" novalidate class="form-validation">
-        <div class="modal-header">
-            <h4 class="modal-title">
-                <span>@L("AddStu")</span>
-            </h4>
-        </div>
-        <div class="modal-body">
-            <div class="form-group">
-                <div class="col-md-6">
-                    <label>@L("CnName")</label>
-                    <input class="form-control form-inline" type="text" name="CnName" ng-model="vm.student.cnName" required maxlength="@StudentNamespace.MaxCnNameLength">
+    <div>
+        <form name="studentCreateForm" role="form" novalidate class="form-validation">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span>@L("AddStu")</span>
+                    <h3>{{vm.student.cnName}}</h3>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <label>@L("CnName")</label>
+                        <input type="hidden" value="{{vm.student.id}}" name="Id" />
+                        <input class="form-control form-inline" type="text" name="CnName" ng-model="vm.student.cnName" required maxlength="@StudentNamespace.MaxCnNameLength">
+                    </div>
+                    <div class="col-md-6">
+                        <label>@L("EnName")</label>
+                        <input type="text" name="EnName" class="form-control form-inline" ng-model="vm.student.enName" required maxlength="@StudentNamespace.MaxEnNameLength">
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <label>@L("EnName")</label>
-                    <input type="text" name="EnName" class="form-control form-inline" ng-model="vm.student.enName" required maxlength="@CourseManager.Student.Students.MaxEnNameLength">
+
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <label>@L("LocalCountryName")</label>
+                        <input type="text" name="LocalCountryName" class="form-control" ng-model="vm.student.localCountryName" required maxlength="@StudentNamespace.MaxLocalCountryNameLength">
+                    </div>
+                    <div class="col-md-6">
+                        <label>@L("Mobile")</label>
+                        <input type="text" name="Mobile" class="form-control" ng-model="vm.student.mobile">
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <label>@L("Position")</label>
+                        <input type="text" name="Position" class="form-control" ng-model="vm.student.position" maxlength="@StudentNamespace.MaxPositionLength">
+                    </div>
+                    <div class="col-md-6">
+                        <label>@L("CountryName")</label>
+                        <input type="text" name="CountryName" class="form-control" ng-model="vm.student.countryName" maxlength="@StudentNamespace.MaxCountryNameLength">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <label>@L("Age")</label>
+                        <input type="number" name="Age" class="form-control" ng-model="vm.student.age">
+                    </div>
+                    <div class="col-md-3 checkbox" style="padding-left:35px;margin-top:35px;">
+                        <input type="checkbox" name="IsActive" ng-model="vm.student.isActive" value="true"> @L("IsActive")
+                    </div>
+                    <div class="col-md-3" style="margin-top:35px;">
+                        <input type="radio" name="Sex" ng-model="vm.student.sex" > 男
+                        <input type="radio" name="Sex" ng-model="vm.student.sex" > 女
+                    </div>
                 </div>
             </div>
-
-            <div class="form-group">
-                <div class="col-md-6">
-                    <label>@L("LocalCountryName")</label>
-                    <input type="text" name="LocalCountryName" class="form-control" ng-model="vm.student.localCountryName" required maxlength="@StudentNamespace.MaxLocalCountryNameLength">
-                </div>
-                <div class="col-md-6">
-                    <label>@L("Mobile")</label>
-                    <input type="text" name="Mobile" class="form-control" ng-model="vm.student.mobile">
-                </div>
+            <div class="clearfix"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="vm.cancel()">@L("Cancel")</button>
+                <button type="submit" class="btn btn-primary blue" ng-click="vm.save()" ng-disabled="studentCreateForm.$invalid"><i class="fa fa-save"></i> <span>@L("Save")</span></button>
             </div>
-
-
-            <div class="form-group">
-                <div class="col-md-6">
-                    <label>@L("Position")</label>
-                    <input type="text" name="Position" class="form-control" ng-model="vm.student.position" maxlength="@StudentNamespace.MaxPositionLength">
-                </div>
-                <div class="col-md-6">
-                    <label>@L("CountryName")</label>
-                    <input type="text" name="CountryName" class="form-control" ng-model="vm.student.countryName" maxlength="@StudentNamespace.MaxCountryNameLength">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-6">
-                    <label>@L("Age")</label>
-                    <input type="number" name="Age" class="form-control" ng-model="vm.student.age">
-                </div>
-                <div class="col-md-3 checkbox" style="padding-left:35px;margin-top:35px;">
-                    <input type="checkbox" name="IsActive" ng-model="vm.student.isActive" value="true"> @L("IsActive")
-                </div>
-                <div class="col-md-3" style="margin-top:35px;">
-                    <input type="radio" name="Sex" ng-model="vm.student.sex" value="true"> 男
-                    <input type="radio" name="Sex" ng-model="vm.student.sex" value="false"> 女
-                </div>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" ng-click="vm.cancel()">@L("Cancel")</button>
-            <button type="submit" class="btn btn-primary blue" ng-click="vm.save()" ng-disabled="studentCreateForm.$invalid"><i class="fa fa-save"></i> <span>@L("Save")</span></button>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>

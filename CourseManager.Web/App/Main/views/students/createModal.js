@@ -6,6 +6,16 @@
             vm.student = {
                 isActive: true
             };
+            if (typeof $scope.id != 'undefined')
+                getStudent($scope.id);
+
+            function getStudent(id) {
+                $studentService.getStudent({ "Id": $scope.id })
+                    .then(function (result) {
+                        console.log(result);
+                        vm.student = result.data.items;
+                    });
+            }
             vm.save = function () {
                 $studentService.createStudent(vm.student)
                     .then(function () {

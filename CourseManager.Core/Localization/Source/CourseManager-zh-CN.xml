@@ -21,12 +21,22 @@
     <text name="LogIn" value="登录" />
     <text name="UserName" value="用户名" />
     <text name="EmailAddress" value="邮箱" />
-   
+
     <text name="LoginFailed" value="登录失败!" />
 
     <text name="SavedSuccessfully" value="保存成功"/>
-    
+
     <!--华丽分割线-->
+    <text name="Operation" value="操作" />
+    <text name="Edit" value="编辑" />
+    <text name="Delete" value="删除" />
+    <!--菜单-->
+    <text name="ArrangeCourse" value="排课" />
+    <text name="TeacherArrange" value="老师排课" />
+    <text name="StudentArrange" value="学生排课" />
+
+
+
     <text name="Users" value="系统用户" />
     <text name="IsActive" value="是否激活" />
     <text name="FullName" value="全名" />
@@ -51,6 +61,7 @@
     <text name="AddStu" value="添加学生" />
 
     <text name="CourseManager" value="贝课" />
+    <text name="Sign" value="签到" />
     <text name="SignIn" value="上课签到" />
     <text name="AbsentCheckIn" value="异常登记（未上课记录）" />
     <text name="ClassHourStatistics" value="课时统计" />
