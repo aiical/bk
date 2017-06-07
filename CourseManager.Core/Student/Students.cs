@@ -12,6 +12,15 @@ namespace CourseManager.Student
 {
     public class Students : Entity<string>, IHasCreationTime
     {
+
+        #region 字段长度声明 方便前端统一验证
+        public const int MaxCnNameLength = 36;
+        public const int MaxEnNameLength = 128;
+        public const int MaxCountryNameLength = 128;
+        public const int MaxPositionLength = 36;
+        public const int MaxMobileLength = 36;
+        public const int MaxLocalCountryNameLength = 128;
+        #endregion
         public Students()
         {
             CreationTime = Clock.Now;
@@ -23,17 +32,17 @@ namespace CourseManager.Student
         /// 中文名
         /// </summary>
         [Required]
-        [MaxLength(36)]
+        [MaxLength(MaxCnNameLength)]
         public string CnName { get; set; }
 
-        [MaxLength(128)]
+        [MaxLength(MaxEnNameLength)]
         public string EnName { get; set; }
         /// <summary>
         /// 学生是哪个国家的人
         /// </summary>
-        [MaxLength(128)]
+        [MaxLength(MaxCountryNameLength)]
         public string CountryName { get; set; }
-        [MaxLength(36)]
+        [MaxLength(MaxMobileLength)]
         public string Mobile { get; set; }
         /// <summary>
         /// 性别男1女2
@@ -43,12 +52,12 @@ namespace CourseManager.Student
         /// <summary>
         /// 工作职位（可选）
         /// </summary>
-        [MaxLength(36)]
+        [MaxLength(MaxPositionLength)]
         public string Position { get; set; }
         /// <summary>
         /// 学生本国语言姓名
         /// </summary>
-        [MaxLength(128)]
+        [MaxLength(MaxLocalCountryNameLength)]
         public string LocalCountryName { get; set; }
         public int TenantId { get; set; }
         public bool IsActive { get; set; }

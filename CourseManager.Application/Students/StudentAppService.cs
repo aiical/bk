@@ -13,13 +13,12 @@ using System;
 
 namespace CourseManager.Users
 {
-    /* THIS IS JUST A SAMPLE. */
     [AbpAuthorize(PermissionNames.Pages_Users)]
     public class StudentAppService : CourseManagerAppServiceBase, IStudentAppService
     {
         private readonly IRepository<Student.Students, string> _studentRepository;
 
-        public StudentAppService(IRepository<Student.Students, string> studentRepository )
+        public StudentAppService(IRepository<Student.Students, string> studentRepository)
         {
             _studentRepository = studentRepository;
         }
@@ -35,12 +34,8 @@ namespace CourseManager.Users
 
         public async Task CreateStudent(CreateStudentInput input)
         {
-            var user = input.MapTo<User>();
-
-            user.TenantId = AbpSession.TenantId;
-            
-
-            CheckErrors(await UserManager.CreateAsync(user));
+            var student = input.MapTo<Student.Students>();
+            await _studentRepository.InsertAsync(student);
         }
     }
 }

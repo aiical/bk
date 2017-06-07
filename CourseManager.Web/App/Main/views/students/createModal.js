@@ -3,13 +3,11 @@
         '$scope', '$uibModalInstance', 'abp.services.app.student',
         function ($scope, $uibModalInstance, $studentService) {
             var vm = this;
-
             vm.student = {
                 isActive: true
             };
-
             vm.save = function () {
-                $studentService.createUser(vm.user)
+                $studentService.createStudent(vm.student)
                     .then(function () {
                         abp.notify.info(App.localize('SavedSuccessfully'));
                         $uibModalInstance.close();

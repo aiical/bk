@@ -24,6 +24,9 @@
    
     <text name="LoginFailed" value="登录失败!" />
 
+    <text name="SavedSuccessfully" value="保存成功"/>
+    
+    <!--华丽分割线-->
     <text name="Users" value="系统用户" />
     <text name="IsActive" value="是否激活" />
     <text name="FullName" value="全名" />
@@ -41,6 +44,8 @@
     <text name="CountryName" value="国家" />
     <text name="Age" value="年龄" />
     <text name="Sex" value="性别" />
+    <text name="Male" value="男" />
+    <text name="Female" value="女" />
     <text name="Position" value="职位" />
     <text name="Mobile" value="电话"/>
     <text name="AddStu" value="添加学生" />

@@ -19,7 +19,7 @@
                     controller: 'app.views.student.createModal as vm',
                     backdrop: 'static'
                 });
-
+                console.log(modalInstance);
                 modalInstance.result.then(function () {
                     getStudents();
                 });

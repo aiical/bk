@@ -1,6 +1,6 @@
-﻿@using Abp.Authorization.Users
+﻿@using StudentNamespace = CourseManager.Student.Students
 <div>
-    <form name="userCreateForm" role="form" novalidate class="form-validation">
+    <form name="studentCreateForm" role="form" novalidate class="form-validation">
         <div class="modal-header">
             <h4 class="modal-title">
                 <span>@L("AddStu")</span>
@@ -8,45 +8,57 @@
         </div>
         <div class="modal-body">
             <div class="form-group">
-                <label>@L("CnName")</label>
-                <input class="form-control" type="text" name="CnName" ng-model="vm.user.userName" required maxlength="@AbpUserBase.MaxUserNameLength">
-
-                
+                <div class="col-md-6">
+                    <label>@L("CnName")</label>
+                    <input class="form-control form-inline" type="text" name="CnName" ng-model="vm.student.cnName" required maxlength="@StudentNamespace.MaxCnNameLength">
+                </div>
+                <div class="col-md-6">
+                    <label>@L("EnName")</label>
+                    <input type="text" name="EnName" class="form-control form-inline" ng-model="vm.student.enName" required maxlength="@CourseManager.Student.Students.MaxEnNameLength">
+                </div>
             </div>
 
             <div class="form-group">
-                <label>@L("EnName")</label>
-                <input type="text" name="EnName" class="form-control" ng-model="vm.user.name" required maxlength="@CourseManager.Users.User.MaxNameLength">
+                <div class="col-md-6">
+                    <label>@L("LocalCountryName")</label>
+                    <input type="text" name="LocalCountryName" class="form-control" ng-model="vm.student.localCountryName" required maxlength="@StudentNamespace.MaxLocalCountryNameLength">
+                </div>
+                <div class="col-md-6">
+                    <label>@L("Mobile")</label>
+                    <input type="text" name="Mobile" class="form-control" ng-model="vm.student.mobile">
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-6">
+                    <label>@L("Position")</label>
+                    <input type="text" name="Position" class="form-control" ng-model="vm.student.position" maxlength="@StudentNamespace.MaxPositionLength">
+                </div>
+                <div class="col-md-6">
+                    <label>@L("CountryName")</label>
+                    <input type="text" name="CountryName" class="form-control" ng-model="vm.student.countryName" maxlength="@StudentNamespace.MaxCountryNameLength">
+                </div>
             </div>
 
             <div class="form-group">
-                <label>@L("LocalCountryName")</label>
-                <input type="text" name="LocalCountryName" class="form-control" ng-model="vm.user.surname" required maxlength="@CourseManager.Users.User.MaxSurnameLength">
+                <div class="col-md-6">
+                    <label>@L("Age")</label>
+                    <input type="number" name="Age" class="form-control" ng-model="vm.student.age">
+                </div>
+                <div class="col-md-3 checkbox" style="padding-left:35px;margin-top:35px;">
+                    <input type="checkbox" name="IsActive" ng-model="vm.student.isActive" value="true"> @L("IsActive")
+                </div>
+                <div class="col-md-3" style="margin-top:35px;">
+                    <input type="radio" name="Sex" ng-model="vm.student.sex" value="true"> 男
+                    <input type="radio" name="Sex" ng-model="vm.student.sex" value="false"> 女
+                </div>
             </div>
-
-            <div class="form-group">
-                <label>@L("Mobile")</label>
-                <input type="number" name="Mobile" class="form-control" ng-model="vm.user.emailAddress" required maxlength="@CourseManager.Users.User.MaxEmailAddressLength">
-            </div>
-
-            <div class="form-group">
-                <label>@L("Position")</label>
-                <input type="text" name="Position" class="form-control" ng-model="vm.user.password" maxlength="@CourseManager.Users.User.MaxPlainPasswordLength">
-            </div>
-            <div class="form-group">
-                <label>@L("CountryName")</label>
-                <input type="text" name="CountryName" class="form-control" ng-model="vm.user.password" maxlength="@CourseManager.Users.User.MaxPlainPasswordLength">
-            </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" name="IsActive" ng-model="vm.user.isActive" value="true"> @L("IsActive")
-                </label>
-            </div>
-
         </div>
+        <div class="clearfix"></div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" ng-click="vm.cancel()">@L("Cancel")</button>
-            <button type="submit" class="btn btn-primary blue" ng-click="vm.save()" ng-disabled="userCreateForm.$invalid"><i class="fa fa-save"></i> <span>@L("Save")</span></button>
+            <button type="submit" class="btn btn-primary blue" ng-click="vm.save()" ng-disabled="studentCreateForm.$invalid"><i class="fa fa-save"></i> <span>@L("Save")</span></button>
         </div>
     </form>
 </div>

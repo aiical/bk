@@ -61,5 +61,8 @@
     <text name="ClassHourStatistics" value="ClassHourStatistics" />
     <text name="OfficeHourStatistics" value="OfficeHourStatistics" />
     <text name="PayCalculation" value="PayCalculation" />
+
+    <text name="Male" value="Male" />
+    <text name="Female" value="Female" />
   </texts>
 </localizationDictionary>
