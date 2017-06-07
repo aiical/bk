@@ -67,8 +67,11 @@
     <text name="ArrangeCourse" value="ArrangeCourse" />
     <text name="TeacherArrange" value="TeacherArrange" />
     <text name="StudentArrange" value="StudentArrange" />
+    <text name="TeacherClassHourStatistics" value="TeacherClassHourStatistics"/>
+    <text name="StudentClassHourStatistics" value="StudentClassHourStatistics"/>
     
     <text name="Students" value="Students" />
+    <text name="Teachers" value="Teachers" />
     <text name="CnName" value="CnName" />
     <text name="EnName" value="EnName" />
     <text name="LocalCountryName" value="LocalCountryName" />

@@ -15,14 +15,14 @@ namespace CourseManager.Web
         public override void SetNavigation(INavigationProviderContext context)
         {
             //.AddItem(
-                     //    new MenuItemDefinition(
-                     //        "Tenants",
-                     //        L("Tenants"),
-                     //        url: "#tenants",
-                     //        icon: "fa fa-globe",
-                     //        requiredPermissionName: PermissionNames.Pages_Tenants
-                     //        )
-                     //)
+            //    new MenuItemDefinition(
+            //        "Tenants",
+            //        L("Tenants"),
+            //        url: "#tenants",
+            //        icon: "fa fa-globe",
+            //        requiredPermissionName: PermissionNames.Pages_Tenants
+            //        )
+            //)
             context.Manager.MainMenu
                 .AddItem(
                     new MenuItemDefinition(
@@ -73,10 +73,23 @@ namespace CourseManager.Web
                     new MenuItemDefinition(
                         "ClassHourStatistics",
                         L("ClassHourStatistics"),
-                        url: "#classHourStatistics",
                         icon: "fa fa-bar-chart-o"
+                        ).AddItem(
+                            new MenuItemDefinition(
+                                "TeacherClassHourStatistics",
+                                L("TeacherClassHourStatistics"),
+                                url: "#teacherClassHourStatistics",
+                                icon: "fa fa-bar-chart-o"
+                            )
+                        ).AddItem(
+                        new MenuItemDefinition(
+                            "StudentClassHourStatistics",
+                            L("StudentClassHourStatistics"),
+                            url: "#studentClassHourStatistics",
+                            icon: "fa fa-bar-chart-o"
                         )
-                )
+                    )
+                  )
                   .AddItem(
                     new MenuItemDefinition(
                         "OfficeHourStatistics",
@@ -97,6 +110,13 @@ namespace CourseManager.Web
                         "Students",
                         L("Students"),
                         url: "#students",
+                        icon: "fa fa-users"
+                        )
+                ).AddItem(
+                    new MenuItemDefinition(
+                        "Teachers",
+                        L("Teachers"),
+                        url: "#teachers",
                         icon: "fa fa-users"
                         )
                 )

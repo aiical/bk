@@ -20,16 +20,6 @@
             $urlRouterProvider.otherwise('/');
             $qProvider.errorOnUnhandledRejections(false);
 
-            if (abp.auth.hasPermission('Pages.Users')) {
-                $stateProvider
-                    .state('users', {
-                        url: '/users',
-                        templateUrl: '/App/Main/views/users/index.cshtml',
-                        menu: 'Users' //Matches to name of 'Users' menu in CourseManagerNavigationProvider
-                    });
-                $urlRouterProvider.otherwise('/'); //如果没有匹配到路由 就默认回到站点首页
-            }
-
             //if (abp.auth.hasPermission('Pages.Tenants')) {
             //    $stateProvider
             //        .state('tenants', {
@@ -46,6 +36,16 @@
                     templateUrl: '/App/Main/views/home/home.cshtml',
                     menu: 'Home' //Matches to name of 'Home' menu in CourseManagerNavigationProvider
                 })
+                .state('teacherArrange', {
+                    url: '/teacherArrange',
+                    templateUrl: '/App/Main/views/courseArrange/teacherArrange/index.cshtml',
+                    menu: 'TeacherArrange'
+                })
+                .state('studentArrange', {
+                    url: '/studentArrange',
+                    templateUrl: '/App/Main/views/courseArrange/studentArrange/index.cshtml',
+                    menu: 'StudentArrange'
+                })
                 .state('signIn', {
                     url: '/signIn',
                     templateUrl: '/App/Main/views/signIn/index.cshtml',
@@ -60,7 +60,21 @@
                     url: '/students',
                     templateUrl: '/App/Main/views/students/index.cshtml',
                     menu: 'Students'
+                }).state('teachers', {
+                    url: '/teachers',
+                    templateUrl: '/App/Main/views/teachers/index.cshtml',
+                    menu: 'Teachers'
                 });
+            if (abp.auth.hasPermission('Pages.Users')) {
+                $stateProvider
+                    .state('users', {
+                        url: '/users',
+                        templateUrl: '/App/Main/views/users/index.cshtml',
+                        menu: 'Users' //Matches to name of 'Users' menu in CourseManagerNavigationProvider
+                    });
+                $urlRouterProvider.otherwise('/'); //如果没有匹配到路由 就默认回到站点首页
+            }
+
             //.state('about', {
             //    url: '/about',
             //    templateUrl: '/App/Main/views/about/about.cshtml',

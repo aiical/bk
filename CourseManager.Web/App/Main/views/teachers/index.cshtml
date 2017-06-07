@@ -1,0 +1,81 @@
+﻿<style type="text/css">
+    .page-list .pagination {
+        float: left;
+    }
+
+        .page-list .pagination span {
+            cursor: pointer;
+        }
+
+        .page-list .pagination .separate span {
+            cursor: default;
+            border-top: none;
+            border-bottom: none;
+        }
+
+            .page-list .pagination .separate span:hover {
+                background: none;
+            }
+
+    .page-list .page-total {
+        float: left;
+        margin: 25px 20px;
+    }
+
+        .page-list .page-total input, .page-list .page-total select {
+            height: 26px;
+            border: 1px solid #ddd;
+        }
+
+        .page-list .page-total input {
+            width: 40px;
+            padding-left: 3px;
+        }
+
+        .page-list .page-total select {
+            width: 50px;
+        }
+</style>
+<div  ng-controller="app.views.student.index as vm">
+    <div class="row">
+        <div class="col-md-12">
+            <button ng-click="vm.openStudentCreationModal()" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> @L("AddStu")</button>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>@L("CnName")</th>
+                        <th>@L("EnName")</th>
+                        <th>@L("LocalCountryName")</th>
+                        <th>@L("Sex")</th>
+                        <th>@L("Age")</th>
+                        <th>@L("Position")</th>
+                        <th>@L("Mobile")</th>
+                        <th>@L("CountryName")</th>
+                        <th>@L("IsActive")</th>
+                        <th>@L("Operation")</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="student in vm.students">
+                        <td>{{student.cnName}}</td>
+                        <td>{{student.enName}}</td>
+                        <td>{{student.localCountryName}}</td>
+                        <td>{{student.sex==1?"男":"女"}}</td>
+                        <td>{{student.age}}</td>
+                        <td>{{student.position}}</td>
+                        <td>{{student.mobile}}</td>
+                        <td>{{student.countryName}}</td>
+                        <td>{{student.isActive ? '@L("Yes")' : '@L("No")'}}</td>
+                        <td>
+                            <a href="javascript:void(0)" ng-click='vm.openStudentCreationModal(student.id)' class="fa fa-edit">@L("Edit")</a>&nbsp;
+                            <a href="javascript:void(0)" ng-click="vm.deleteStudent(student)" class="fa  fa-trash-o">@L("Delete")</a>
+                            &nbsp;
+                            <a href="javascript:void(0)" ng-click="vm.updateActiveState(student)" class="fa   fa-lock">切换状态</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <tm-pagination conf="paginationConf"></tm-pagination>
+</div>

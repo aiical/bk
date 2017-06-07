@@ -35,7 +35,8 @@
     <text name="ArrangeCourse" value="排课" />
     <text name="TeacherArrange" value="老师排课" />
     <text name="StudentArrange" value="学生排课" />
-
+    <text name="TeacherClassHourStatistics" value="教师课时统计"/>
+    <text name="StudentClassHourStatistics" value="学生课时统计"/>
 
 
     <text name="Users" value="系统用户" />
@@ -49,6 +50,7 @@
 
 
     <text name="Students" value="学生" />
+    <text name="Teachers" value="教师" />
     <text name="CnName" value="中文名" />
     <text name="EnName" value="英文名" />
     <text name="LocalCountryName" value="本国名" />
