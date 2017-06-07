@@ -78,7 +78,8 @@
     <text name="Position" value="Position" />
     <text name="Mobile" value="Mobile"/>
     <text name="AddStu" value="AddStudent" />
-
+    <text name="StudentDeleteWarningMessage" value="StudentDeleteWarningMessage" />
+    
     <text name="CourseManager" value="CourseManager" />
     <text name="Sign" value="Sign" />
     <text name="SignIn" value="SignIn" />

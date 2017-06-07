@@ -11,5 +11,7 @@ namespace CourseManager.Students
         Task<ListResultDto<StudentListDto>> GetStudentsAsync();
         ListResultDto<StudentListDto> GetStudents();
         Task CreateStudent(CreateStudentInput input);
+        PagedResultDto<StudentListDto> GetPagedStudents(StudentInput input);
+        void DeleteStudent(string id);
     }
 }

@@ -59,6 +59,7 @@
     <text name="Position" value="职位" />
     <text name="Mobile" value="电话"/>
     <text name="AddStu" value="添加学生" />
+    <text name="StudentDeleteWarningMessage" value="学生{0}将被删除" />
 
     <text name="CourseManager" value="贝课" />
     <text name="Sign" value="签到" />

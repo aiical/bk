@@ -13,17 +13,18 @@
                 $studentService.getStudent({ "Id": $scope.id })
                     .then(function (result) {
                         console.log(result);
-                        vm.student = result.data.items;
+                        vm.student = result.data;
                     });
             }
             vm.save = function () {
+                console.log(vm.student);
                 $studentService.createStudent(vm.student)
                     .then(function () {
                         abp.notify.info(App.localize('SavedSuccessfully'));
                         $uibModalInstance.close();
                     });
             };
-
+          
             vm.cancel = function () {
                 $uibModalInstance.dismiss({});
             };

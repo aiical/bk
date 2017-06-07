@@ -1,4 +1,4 @@
-﻿(function() {
+﻿(function () {
     angular.module('app').controller('app.views.student.index', [
         '$scope', '$uibModal', 'abp.services.app.student',
         function ($scope, $uibModal, $studentService) {
@@ -10,7 +10,7 @@
                     vm.students = result.data.items;
                 });
             }
-           
+
             vm.openStudentCreationModal = function (id) {
                 $scope.id = id;
                 var modalInstance = $uibModal.open({
@@ -28,6 +28,21 @@
                 modalInstance.result.then(function () {
                     getStudents();
                 });
+            };
+            vm.deleteStudent = function (student) {
+                abp.message.confirm(
+                    App.localize('StudentDeleteWarningMessage', student.cnName),
+                    function (isConfirmed) {
+                        if (isConfirmed) {
+                            $studentService.deleteStudent(student.id)
+                                .then(function () {
+                                    abp.notify.info(App.localize('SavedSuccessfully'));
+                                    getStudents();
+                                });
+                        }
+                    }
+                );
+
             };
             getStudents();
         }

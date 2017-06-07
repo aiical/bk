@@ -1,6 +1,4 @@
 using Abp.AutoMapper;
-using CourseManager.Common;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace CourseManager.Students.Dto
@@ -30,9 +28,6 @@ namespace CourseManager.Students.Dto
         public string CountryName { get; set; }
 
         public bool IsActive { get; set; }
-        public CreateStudentInput()
-        {
-            this.Id = IdentityCreator.NewGuid;
-        }
+       
     }
 }

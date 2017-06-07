@@ -6,6 +6,7 @@ using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using CourseManager.Authorization;
+using CourseManager.Common;
 using CourseManager.Core.EntitiesFromCustom;
 using CourseManager.Students;
 using CourseManager.Students.Dto;
@@ -59,7 +60,7 @@ namespace CourseManager.Users
             return query;
         }
 
-        public PagedResultDto<StudentListDto> GetPagedDegrees(StudentInput input)
+        public PagedResultDto<StudentListDto> GetPagedStudents(StudentInput input)
         {
             var query = GetStudentsByCondition(input);
             var count = query.Count();
@@ -70,7 +71,12 @@ namespace CourseManager.Users
         public async Task CreateStudent(CreateStudentInput input)
         {
             var student = input.MapTo<Student.Students>();
-            await _studentRepository.InsertAsync(student);
+            if (!string.IsNullOrEmpty(input.Id)) await _studentRepository.UpdateAsync(student);
+            else
+            {
+                student.Id = IdentityCreator.NewGuid;
+                await _studentRepository.InsertAsync(student);
+            }
         }
         public ResultData UpdateActiveState(StudentUpdateInput updateInput)
         {
@@ -89,8 +95,13 @@ namespace CourseManager.Users
         }
         public void DeleteStudent(string id)
         {
-            if (_studentRepository.Get(id) != null)
-                _studentRepository.Delete(id);
+            var student = _studentRepository.Get(id);
+            if (student != null)
+            //  _studentRepository.Delete(id);
+            {
+                student.IsActive = false;
+                _studentRepository.Update(student);
+            }
         }
     }
 }
