@@ -1,27 +1,25 @@
 ﻿(function () {
-    var signInControllerId = "app.views.signIn.index";
+    var signInControllerId = "app.views.signInRecord.index";
     angular.module('app').controller(
         signInControllerId,
         [
             '$scope',
             '$uibModal',
-            'abp.services.app.signIn',
+            'abp.services.app.signInRecord',
             function ($scope, $uibModal, $signInService) {
-                console.log(this);
                 var vm = this;
-                vm.signIn = [];
+                vm.signInRecord = [];
                 function getSignInRecord() {
-                    $signInService.getSignInRecord({}).then(function (result) {
+                    $signInService.getSignInRecords({}).then(function (result) {
                         console.log(result);
-                        vm.signIn = result.data.items;
+                        vm.signInRecord = result.data.items;
                     });
                 }
 
                 vm.openSignInModal = function () {
-                    alert(1);
                     var modalInstance = $uibModal.open({
                         templateUrl: '/App/Main/views/signIn/createModal.cshtml',
-                        controller: 'app.views.signIn.createModal as vm',
+                        controller: 'app.views.signInRecord.createModal as vm',
                         backdrop: 'static'
                     });
 

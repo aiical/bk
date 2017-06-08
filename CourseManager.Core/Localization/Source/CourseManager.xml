@@ -88,6 +88,7 @@
     <text name="CourseManager" value="CourseManager" />
     <text name="Sign" value="Sign" />
     <text name="SignIn" value="SignIn" />
+    <text name="Address" value="Address" />
     <text name="AbsentCheckIn" value="AbsentCheckIn" />
     
     <!--签到记录 记录给某个学生某堂课上课和下课时间 是否是正常上课还是学生旷课或者老师请假-->
@@ -96,7 +97,10 @@
     <text name="EndTime" value="EndTime" />
     <text name="ClassType" value="ClassType" />
     <text name="Type" value="Type" />
-    
+    <text name="UnNormalType" value="UnNormalType" />
+    <text name="Reason" value="Reason" />
+    <text name="Remark" value="Remark" />
+
     <text name="ClassHourStatistics" value="ClassHourStatistics" />
     <text name="OfficeHourStatistics" value="OfficeHourStatistics" />
     <text name="PayCalculation" value="PayCalculation" />

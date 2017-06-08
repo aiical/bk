@@ -64,8 +64,8 @@ namespace CourseManager.SignIn
 
         public ListResultDto<SignInListDto> GetSignInRecords()
         {
-            var stus = _signInRepository.GetAllListAsync();
-
+            var stus = _signInRepository.GetAllList();
+            if (stus == null) return new ListResultDto<SignInListDto>();
             return new ListResultDto<SignInListDto>(
                 stus.MapTo<List<SignInListDto>>()
                 );

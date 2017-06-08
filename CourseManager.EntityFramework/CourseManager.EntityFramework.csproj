@@ -166,6 +166,10 @@
     <Compile Include="Migrations\201706080312475_Update_Entity_SignInRecord.Designer.cs">
       <DependentUpon>201706080312475_Update_Entity_SignInRecord.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706081510540_Update_SignInRecord_Entity.cs" />
+    <Compile Include="Migrations\201706081510540_Update_SignInRecord_Entity.Designer.cs">
+      <DependentUpon>201706081510540_Update_SignInRecord_Entity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="CourseManagerDataModule.cs" />
@@ -218,6 +222,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706080312475_Update_Entity_SignInRecord.resx">
       <DependentUpon>201706080312475_Update_Entity_SignInRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706081510540_Update_SignInRecord_Entity.resx">
+      <DependentUpon>201706081510540_Update_SignInRecord_Entity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

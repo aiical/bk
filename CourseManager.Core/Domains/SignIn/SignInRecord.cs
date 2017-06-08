@@ -48,6 +48,10 @@ namespace CourseManager.SignIn
         /// </summary>
         public DateTime EndTime { get; set; }
 
+        /// <summary>
+        /// 上课地点 如蛇口东角头 侨城东 
+        /// </summary>
+        public string Address { get; set; }
         public bool IsDeleted { get; set; }
         public long? CreatorUserId { get; set; }
         /// <summary>

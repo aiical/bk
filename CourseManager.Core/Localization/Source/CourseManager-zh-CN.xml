@@ -67,6 +67,8 @@
     <text name="CourseManager" value="贝课" />
     <text name="Sign" value="签到" />
     <text name="SignIn" value="上课签到" />
+    <text name="Address" value="上课地点" />
+    
     <text name="AbsentCheckIn" value="异常登记（未上课记录）" />
     <text name="ClassHourStatistics" value="课时统计" />
     <text name="OfficeHourStatistics" value="坐班时间统计" />
@@ -78,7 +80,9 @@
     <text name="BeginTime" value="上课时间" />
     <text name="EndTime" value="下课时间" />
     <text name="ClassType" value="课程类型（班级课/1v1）" />
-    <text name="Type" value="上课情况" />
-
+    <text name="Type" value="上课情况" /><!--迟到 正常上课 未上课-->
+    <text name="UnNormalType" value="未上课原因" /><!--学生请假，老师请假 其他原因-->
+    <text name="Reason" value="原因" />   <!--如果迟到或者旷课 请填写原因说明-->
+    <text name="Remark" value="备注" />
   </texts>
 </localizationDictionary>

@@ -1,48 +1,48 @@
 ﻿@using Abp.Authorization.Users
 <div>
-    <form name="userCreateForm" role="form" novalidate class="form-validation">
+    <form name="signInRecordCreateForm" role="form"  class="form-validation">
         <div class="modal-header">
             <h4 class="modal-title">
-                <span>@L("SignIn")</span>
+                <span>@L("SignIn")</span> @*上课签到*@
             </h4>
         </div>
         <div class="modal-body">
 
             <div class="form-group">
-                <label>@L("CnName")</label>
-                <input class="form-control" type="text" name="CnName" ng-model="vm.signIn.cnName" required maxlength="@AbpUserBase.MaxUserNameLength">
+                <label>@L("Address")</label>
+                <input class="form-control" type="text" name="Address" ng-model="vm.signInRecord.address" required>
             </div>
 
             <div class="form-group">
-                <label>@L("Name")</label>
-                <input type="text" name="Name" class="form-control" ng-model="vm.user.name" required maxlength="@CourseManager.Users.User.MaxNameLength">
+                <label>@L("BeginTime")</label>
+                <input type="text" name="BeginTime" class="form-control" ng-model="vm.signInRecord.beginTime" required>
             </div>
 
             <div class="form-group">
-                <label>@L("Surname")</label>
-                <input type="text" name="Surname" class="form-control" ng-model="vm.user.surname" required maxlength="@CourseManager.Users.User.MaxSurnameLength">
+                <label>@L("EndTime")</label>
+                <input type="text" name="EndTime" class="form-control" ng-model="vm.signInRecord.endTime" required >
             </div>
-
             <div class="form-group">
-                <label>@L("EmailAddress")</label>
-                <input type="email" name="EmailAddress" class="form-control" ng-model="vm.user.emailAddress" required maxlength="@CourseManager.Users.User.MaxEmailAddressLength">
+                <div class="col-md-6">
+                    <label>@L("Type"):</label>
+                    <select ng-model="selectedType" ng-options="option.CategoryName for option in  vm.signInRecord.type"></select>
+                    @*<span>你选择的值是: {{selectedType}}</span>*@
+                </div>
+                <div class="col-md-6">
+                    <label>@L("UnNormalType"):</label>
+                    <select>
+                        <option ng-repeat="x in vm.signInRecord.unNormalType">{{x}}</option>
+                    </select>
+                </div>
             </div>
-
-            <div class="form-group">
-                <label>@L("Password")</label>
-                <input type="password" name="Password" class="form-control" ng-model="vm.user.password" maxlength="@CourseManager.Users.User.MaxPlainPasswordLength">
+                <div class="form-group">
+                    <label>@L("Reason"):</label>
+                    <input class="form-control" type="text" name="Reason" ng-model="vm.signInRecord.reason">
+                </div>
             </div>
-
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" name="IsActive" ng-model="vm.user.isActive" value="true"> @L("IsActive")
-                </label>
-            </div>
-
-        </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" ng-click="vm.cancel()">@L("Cancel")</button>
-            <button type="submit" class="btn btn-primary blue" ng-click="vm.save()" ng-disabled="userCreateForm.$invalid"><i class="fa fa-save"></i> <span>@L("Save")</span></button>
+            <button type="submit" class="btn btn-primary blue" ng-click="vm.save()" ng-disabled="signInRecordCreateForm.$invalid"><i class="fa fa-save"></i> <span>@L("Save")</span></button>
         </div>
     </form>
 </div>
