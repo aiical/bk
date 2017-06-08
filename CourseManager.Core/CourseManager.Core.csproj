@@ -113,8 +113,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cache\CacheKeys.cs" />
-    <Compile Include="Category\Categorys.cs" />
-    <Compile Include="CourseArrange\TeacherCourseArrange.cs" />
+    <Compile Include="Domains\Category\Categorys.cs" />
+    <Compile Include="Domains\CourseArrange\TeacherCourseArrange.cs" />
     <Compile Include="CourseManagerConsts.cs" />
     <Compile Include="CourseManagerCoreModule.cs" />
     <Compile Include="Authorization\CourseManagerAuthorizationProvider.cs" />
@@ -130,29 +130,29 @@
     <Compile Include="CustomEntities\UploadifySetting.cs" />
     <Compile Include="Editions\EditionManager.cs" />
     <Compile Include="Features\FeatureValueStore.cs" />
-    <Compile Include="File\Files.cs" />
+    <Compile Include="Domains\File\Files.cs" />
     <Compile Include="IRepositories\IFileRepository.cs" />
-    <Compile Include="MultiTenancy\Tenant.cs" />
-    <Compile Include="MultiTenancy\TenantManager.cs" />
+    <Compile Include="Domains\MultiTenancy\Tenant.cs" />
+    <Compile Include="Domains\MultiTenancy\TenantManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Authorization\Roles\Role.cs" />
     <Compile Include="Authorization\Roles\RoleManager.cs" />
     <Compile Include="Authorization\Roles\RoleStore.cs" />
-    <Compile Include="SignIn\SignInRecord.cs" />
-    <Compile Include="Student\Students.cs" />
-    <Compile Include="Users\User.cs" />
-    <Compile Include="Users\UserManager.cs" />
-    <Compile Include="Users\UserStore.cs" />
+    <Compile Include="Domains\SignIn\SignInRecord.cs" />
+    <Compile Include="Domains\Student\Students.cs" />
+    <Compile Include="Domains\Users\User.cs" />
+    <Compile Include="Domains\Users\UserManager.cs" />
+    <Compile Include="Domains\Users\UserStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="CourseArrange\Readme.md" />
+    <None Include="Domains\CourseArrange\Readme.md" />
     <None Include="packages.config" />
     <None Include="Readme.md" />
-    <None Include="SignIn\Readme.md" />
-    <None Include="Student\Readme.md" />
+    <None Include="Domains\SignIn\Readme.md" />
+    <None Include="Domains\Student\Readme.md" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Localization\Source\CourseManager-zh-CN.xml" />
