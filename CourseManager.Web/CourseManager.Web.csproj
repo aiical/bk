@@ -1280,6 +1280,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CourseArrangeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CourseManagerControllerBase.cs" />
     <Compile Include="Controllers\Results\ChallengeResult.cs" />
@@ -1312,6 +1313,8 @@
       <DependentUpon>Login.css</DependentUpon>
     </Content>
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\CourseArrange\TeacherCourseArrange.cshtml" />
+    <Content Include="Views\CourseArrange\StudentCourseArrange.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

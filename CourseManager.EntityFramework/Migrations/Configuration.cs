@@ -30,6 +30,7 @@ namespace CourseManager.Migrations
                 new TenantRoleAndUserBuilder(context, 1).Create();
 
                 new DefaultStudentCreator(context).Create();
+                new DefaultCategorysCreator(context).Create();
             }
             else
             {

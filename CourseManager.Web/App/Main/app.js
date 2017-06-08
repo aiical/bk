@@ -36,16 +36,16 @@
                     templateUrl: '/App/Main/views/home/home.cshtml',
                     menu: 'Home' //Matches to name of 'Home' menu in CourseManagerNavigationProvider
                 })
-                .state('teacherArrange', {
-                    url: '/teacherArrange',
-                    templateUrl: '/App/Main/views/courseArrange/teacherArrange/index.cshtml',
-                    menu: 'TeacherArrange'
-                })
-                .state('studentArrange', {
-                    url: '/studentArrange',
-                    templateUrl: '/App/Main/views/courseArrange/studentArrange/index.cshtml',
-                    menu: 'StudentArrange'
-                })
+                //.state('teacherArrange', {
+                //    url: '/teacherArrange',
+                //    templateUrl: '/App/Main/views/courseArrange/teacherArrange/index.cshtml',
+                //    menu: 'TeacherArrange'
+                //})
+                //.state('studentArrange', {
+                //    url: '/studentArrange',
+                //    templateUrl: '/App/Main/views/courseArrange/studentArrange/index.cshtml',
+                //    menu: 'StudentArrange'
+                //})
                 .state('signIn', {
                     url: '/signIn',
                     templateUrl: '/App/Main/views/signIn/index.cshtml',

@@ -7,6 +7,8 @@ using CourseManager.MultiTenancy;
 using CourseManager.Users;
 using CourseManager.File;
 using CourseManager.Student;
+using CourseManager.Category;
+using CourseManager.SignIn;
 
 namespace CourseManager.EntityFramework
 {
@@ -15,6 +17,10 @@ namespace CourseManager.EntityFramework
         //TODO: Define an IDbSet for your Entities...
         public IDbSet<Students> Students { get; set; }
         public IDbSet<Files> Files { get; set; }
+        public IDbSet<Categorys> Categorys { get; set; }
+
+        public IDbSet<TeacherCourseArrange> TeacherCourseArrange { get; set; }
+        public IDbSet<SignInRecord> SignInRecord { get; set; }
         /// <summary>
         /// 覆盖方法OnModelCreating  然后将SurName设置为忽略  然后将Name EmailAddress设置为可空。
         /// </summary>

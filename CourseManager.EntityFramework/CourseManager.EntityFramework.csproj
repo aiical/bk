@@ -150,9 +150,26 @@
     <Compile Include="Migrations\201706060914065_Update_Entity_Students.Designer.cs">
       <DependentUpon>201706060914065_Update_Entity_Students.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706080215035_Add_Entity_Categorys.cs" />
+    <Compile Include="Migrations\201706080215035_Add_Entity_Categorys.Designer.cs">
+      <DependentUpon>201706080215035_Add_Entity_Categorys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706080304347_Add_Entity_TeacherCourseArrange_SignInRecord.cs" />
+    <Compile Include="Migrations\201706080304347_Add_Entity_TeacherCourseArrange_SignInRecord.Designer.cs">
+      <DependentUpon>201706080304347_Add_Entity_TeacherCourseArrange_SignInRecord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706080308096_Update_Entity.cs" />
+    <Compile Include="Migrations\201706080308096_Update_Entity.Designer.cs">
+      <DependentUpon>201706080308096_Update_Entity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706080312475_Update_Entity_SignInRecord.cs" />
+    <Compile Include="Migrations\201706080312475_Update_Entity_SignInRecord.Designer.cs">
+      <DependentUpon>201706080312475_Update_Entity_SignInRecord.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="CourseManagerDataModule.cs" />
+    <Compile Include="Migrations\SeedData\DefaultCategorysCreator.cs" />
     <Compile Include="Migrations\SeedData\DefaultEditionsCreator.cs" />
     <Compile Include="Migrations\SeedData\DefaultLanguagesCreator.cs" />
     <Compile Include="Migrations\SeedData\DefaultSettingsCreator.cs" />
@@ -172,6 +189,10 @@
       <Project>{17298ea0-af73-4f30-b6f1-2066100d7d74}</Project>
       <Name>CourseManager.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tools\iFuturePortal.Common\CourseManager.Common.csproj">
+      <Project>{1e6765f7-1911-42c4-83cc-7137cabbcae1}</Project>
+      <Name>CourseManager.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201701271145151_AbpZero_Initial.resx">
@@ -185,6 +206,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706060914065_Update_Entity_Students.resx">
       <DependentUpon>201706060914065_Update_Entity_Students.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706080215035_Add_Entity_Categorys.resx">
+      <DependentUpon>201706080215035_Add_Entity_Categorys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706080304347_Add_Entity_TeacherCourseArrange_SignInRecord.resx">
+      <DependentUpon>201706080304347_Add_Entity_TeacherCourseArrange_SignInRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706080308096_Update_Entity.resx">
+      <DependentUpon>201706080308096_Update_Entity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706080312475_Update_Entity_SignInRecord.resx">
+      <DependentUpon>201706080312475_Update_Entity_SignInRecord.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

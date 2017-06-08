@@ -113,6 +113,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cache\CacheKeys.cs" />
+    <Compile Include="Category\Categorys.cs" />
+    <Compile Include="CourseArrange\TeacherCourseArrange.cs" />
     <Compile Include="CourseManagerConsts.cs" />
     <Compile Include="CourseManagerCoreModule.cs" />
     <Compile Include="Authorization\CourseManagerAuthorizationProvider.cs" />
@@ -136,6 +138,7 @@
     <Compile Include="Authorization\Roles\Role.cs" />
     <Compile Include="Authorization\Roles\RoleManager.cs" />
     <Compile Include="Authorization\Roles\RoleStore.cs" />
+    <Compile Include="SignIn\SignInRecord.cs" />
     <Compile Include="Student\Students.cs" />
     <Compile Include="Users\User.cs" />
     <Compile Include="Users\UserManager.cs" />

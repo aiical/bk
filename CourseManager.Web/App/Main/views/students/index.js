@@ -1,4 +1,16 @@
 ﻿(function () {
+   //说明：angular.module()创建、获取、注册angular中的模块
+   /*
+    该函数既可以创建新的模块，也可以获取已有模块，是创建还是获取，通过参数的个数来区分。
+    angular.module(name, [requires], [configFn]);
+
+    name：字符串类型，代表模块的名称；
+
+    requires：字符串的数组，代表该模块依赖的其他模块列表，如果不依赖其他模块，用空数组即可；
+
+    configFn：用来对该模块进行一些配置。
+    通俗的来说：模块是一些功能的集合，如控制器、服务、过滤器、指令等子元素组成的整体
+    */
  //新建模块名为app的模块，依赖于tm.pagination模块
     angular.module('app').controller('app.views.student.index', [//, ['tm.pagination']
         '$scope', '$uibModal', 'abp.services.app.student',

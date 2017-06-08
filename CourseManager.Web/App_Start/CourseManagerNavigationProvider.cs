@@ -42,13 +42,13 @@ namespace CourseManager.Web
                             new MenuItemDefinition(
                             "TeacherArrange",
                             L("TeacherArrange"),
-                            url: "#teacherArrange",
+                            url: "CourseArrange/TeacherCourseArrange",
                             icon: "fa fa-calendar"
                         )).AddItem(
                          new MenuItemDefinition(
                             "StudentArrange",
                             L("StudentArrange"),
-                            url: "#studentArrange",
+                            url: "CourseArrange/StudentCourseArrange",
                             icon: "fa fa-calendar"
                         )
                 ))
