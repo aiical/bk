@@ -1283,6 +1283,7 @@
     <Compile Include="Controllers\CourseArrangeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CourseManagerControllerBase.cs" />
+    <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\Results\ChallengeResult.cs" />
     <Compile Include="Controllers\UploaderController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1293,8 +1294,12 @@
     <Compile Include="Models\Account\RegisterResultViewModel.cs" />
     <Compile Include="Models\Account\RegisterViewModel.cs" />
     <Compile Include="Models\Account\TenantSelectionViewModel.cs" />
+    <Compile Include="Models\Layout\LanguageSelectionViewModel.cs" />
+    <Compile Include="Models\Layout\TopMenuViewModel.cs" />
+    <Compile Include="Models\Layout\UserMenuOrLoginLinkViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\CourseManagerWebViewPageBase.cs" />
+    <Compile Include="Views\UrlChecker.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -1315,6 +1320,9 @@
     <Content Include="Scripts\version.json" />
     <Content Include="Views\CourseArrange\TeacherCourseArrange.cshtml" />
     <Content Include="Views\CourseArrange\StudentCourseArrange.cshtml" />
+    <Content Include="Views\Layout\_LanguageSelection.cshtml" />
+    <Content Include="Views\Layout\_TopMenu.cshtml" />
+    <Content Include="Views\Layout\_UserMenuOrLoginLink.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -9,7 +9,8 @@
         'ui.bootstrap',
         'ui.jq',
 
-        'abp'
+        'abp',
+        'tm.pagination'
     ]);
 
     //Configuration for Angular UI routing.
