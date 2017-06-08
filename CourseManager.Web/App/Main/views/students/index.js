@@ -75,24 +75,24 @@
                     pSize: $scope.paginationConf.itemsPerPage
                 };
                 $studentService.getPagedStudents(postData).then(function (result) {
-                    console.log(result);
-                    console.log(result.data.totalCount);
-                    console.log(result.data.items);
+                    //console.log(result);
+                    //console.log(result.data.totalCount);
+                    //console.log(result.data.items);
                     // 变更分页的总数
                     $scope.paginationConf.totalItems = result.data.totalCount;
                     // 变更产品条目
                     $scope.students = result.data.items;
                     vm.students = result.data.items;
-
-                    console.log($scope.paginationConf);
+                    vm.paginationConf.totalItems = result.data.totalCount;
+                   // console.log($scope.paginationConf);
                 });
 
             }
 
             //配置分页基本参数
             $scope.paginationConf = {
-                currentPage: 0,
-                itemsPerPage:2
+                currentPage: 1,
+                itemsPerPage: 2
             };
 
             /***************************************************************

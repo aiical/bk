@@ -9,6 +9,7 @@ using CourseManager.File;
 using CourseManager.Student;
 using CourseManager.Category;
 using CourseManager.SignIn;
+using CourseManager.CourseArrange;
 
 namespace CourseManager.EntityFramework
 {

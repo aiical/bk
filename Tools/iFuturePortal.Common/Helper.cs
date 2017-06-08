@@ -567,6 +567,7 @@ namespace CourseManager.Common
             catch (Exception ex)
             {
                 inputBye = Encoding.GetEncoding("GB2312").GetBytes(encypStr);
+                throw ex;
             }
             outputBye = m5.ComputeHash(inputBye);
 

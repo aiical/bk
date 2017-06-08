@@ -348,8 +348,39 @@
     <Content Include="App\Main\views\tenants\createModal.js" />
     <Content Include="App\Main\views\tenants\index.js" />
     <Content Include="App\Main\_libconfig.js" />
+    <Content Include="Assets\css\common.css" />
+    <Content Include="Assets\css\htmleaf-demo.css" />
+    <Content Include="Assets\css\calendar.css" />
+    <Content Include="Assets\css\normalize.css" />
+    <Content Include="Assets\css\swiper-3.3.1.min.css" />
+    <Content Include="Assets\fonts\icomoon.svg" />
     <Content Include="Assets\images\404.png" />
+    <Content Include="Assets\images\BACK.png" />
+    <Content Include="Assets\images\btn_calendar.png" />
+    <Content Include="Assets\images\btn_calendar_selected.png" />
+    <Content Include="Assets\images\btn_huangli.png" />
+    <Content Include="Assets\images\btn_huangli_selected.png" />
+    <Content Include="Assets\images\calendar_arrow_left.png" />
+    <Content Include="Assets\images\calendar_arrow_lright.png" />
+    <Content Include="Assets\images\calendar_arrow_right.png" />
+    <Content Include="Assets\images\calendar_bottom.png" />
+    <Content Include="Assets\images\calendar_img_relax.png" />
+    <Content Include="Assets\images\calendar_img_work.png" />
+    <Content Include="Assets\images\cotrl-bottom.png" />
+    <Content Include="Assets\images\iconfont-fenxiang.png" />
+    <Content Include="Assets\images\ji-icos.png" />
+    <Content Include="Assets\images\ji-max.png" />
+    <Content Include="Assets\images\ji.png" />
+    <Content Include="Assets\images\loading.png" />
+    <Content Include="Assets\images\return.png" />
+    <Content Include="Assets\images\share.png" />
+    <Content Include="Assets\images\xiong.png" />
+    <Content Include="Assets\images\yi-icos.png" />
+    <Content Include="Assets\images\yi-max.png" />
+    <Content Include="Assets\js\calendar.js" />
     <Content Include="Assets\js\tm.pagination.js" />
+    <Content Include="Assets\libsReference\jquery-1.11.0.min.js" />
+    <Content Include="Assets\libsReference\swiper-3.3.1.min.js" />
     <Content Include="Common\Scripts\helpers.js" />
     <Content Include="Configs\ffmpeg\ffmpeg.exe" />
     <Content Include="Configs\ffmpeg\libamrnb-3.dll" />
@@ -498,6 +529,10 @@
     <Content Include="App\Main\views\students\index.cshtml" />
     <Content Include="App\Main\views\teachers\createModal.cshtml" />
     <Content Include="App\Main\views\teachers\index.cshtml" />
+    <Content Include="Assets\fonts\icomoon.eot" />
+    <Content Include="Assets\fonts\icomoon.ttf" />
+    <Content Include="Assets\fonts\icomoon.woff" />
+    <Content Include="Assets\libsReference\h5日历.zip" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <None Include="Scripts\jquery-2.2.0-vsdoc.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
@@ -1323,6 +1358,7 @@
     <Content Include="Views\Layout\_LanguageSelection.cshtml" />
     <Content Include="Views\Layout\_TopMenu.cshtml" />
     <Content Include="Views\Layout\_UserMenuOrLoginLink.cshtml" />
+    <Content Include="Views\CourseArrange\TeacherCourseArrange - bak.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1339,8 +1375,6 @@
     <Folder Include="App\Main\views\officeHourStatistics\" />
     <Folder Include="App\Main\views\payCalculation\" />
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\css\" />
-    <Folder Include="Assets\libsReference\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CourseManager.Application\CourseManager.Application.csproj">
