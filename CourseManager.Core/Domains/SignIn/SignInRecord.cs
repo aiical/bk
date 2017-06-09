@@ -33,7 +33,14 @@ namespace CourseManager.SignIn
         [Required]
         [MaxLength(MaxIdLength)]
         public string Type { get; set; }
-
+        /// <summary>
+        /// 班级课/1v1
+        /// </summary>
+        public string ClassType { get; set; }
+        /// <summary>
+        /// 课程类型 ：入门上/下
+        /// </summary>
+        public string CourseType { get; set; }
         /// <summary>
         /// 当有请假的时候 请选择相应的类型（如果上课类型为非正常的时候 必须选择是学生请假 还是老师自己请假 和后期统计工资有关）
         /// </summary>

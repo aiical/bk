@@ -114,6 +114,8 @@
   <ItemGroup>
     <Compile Include="Cache\CacheKeys.cs" />
     <Compile Include="Domains\Category\Categorys.cs" />
+    <Compile Include="Domains\CourseArrange\AddTeacherCourseArrangeEventData.cs" />
+    <Compile Include="Domains\CourseArrange\TeacherCourseArrangeEventData.cs" />
     <Compile Include="Domains\CourseArrange\TeacherCourseArrange.cs" />
     <Compile Include="CourseManagerConsts.cs" />
     <Compile Include="CourseManagerCoreModule.cs" />

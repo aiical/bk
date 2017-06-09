@@ -41,6 +41,7 @@ namespace CourseManager.SignIn.Dto
         /// 如果迟到或者旷课 请填写原因说明
         /// </summary>
         public string Reason { get; set; }
+        public string Address { get; set; }
 
         public string Remark { get; set; }
     }

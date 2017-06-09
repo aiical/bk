@@ -23,6 +23,10 @@
                 <input type="text" name="EndTime" class="form-control" ng-model="vm.signInRecord.endTime" required >
             </div>
             <div class="form-group">
+                <label>@L("Students")</label>
+                <input type="text" name="StudentId" class="form-control" ng-model="vm.signInRecord.studentId" required>
+            </div>
+            <div class="form-group">
                 <div class="col-md-6">
                     <label>@L("Type"):</label>
                     <select ng-model="selectedType" ng-options="option.CategoryName for option in  vm.signInRecord.type"></select>
@@ -30,9 +34,10 @@
                 </div>
                 <div class="col-md-6">
                     <label>@L("UnNormalType"):</label>
-                    <select>
-                        <option ng-repeat="x in vm.signInRecord.unNormalType">{{x}}</option>
-                    </select>
+                        <select ng-model="selectedUnNormalType" ng-options="option.CategoryName for option in  vm.signInRecord.unNormalType"></select>
+                   @* <select>
+    数组：<option ng-model="selectedUnNormalType" ng-repeat="x in vm.signInRecord.unNormalType">{{x}}</option>
+                    </select>*@
                 </div>
             </div>
                 <div class="form-group">

@@ -64,7 +64,7 @@
 
                     <span>教师：</span>
                     <input id="keyword" />
-                    <select id="scTeacher" class="selsty" name="scTeacher" onchange="showteacher()" style="display: none;">
+                    <select id="scTeacher" class="selsty" name="scTeacher" onchange="Bk.TeacherCourseArrange.actions.showTeacherCourse()" style="display: none;">
                         <option value="0">请选择</option>
                         <option value="0">无教师</option>
                         @*@if (ViewData["listemployee"] != null)
@@ -81,12 +81,12 @@
                     </select>
 
                     <img src="~/Assets/images/rl_l.gif" align="absmiddle" alt="Last Month"
-                         onclick="LastMonth_OnClick()" />
+                         onclick="Bk.TeacherCourseArrange.actions.preMonth()" />
                     @Html.TextBox("Year", thisMonth.Year.ToString(), new { @class = "TxtItem", @readonly = "true" })
                     年 @Html.TextBox("Month", thisMonth.Month, new { @class = "TxtItem", @readonly = "true" })
                     月
                     <img src="~/Assets/images/rl_r.gif" align="absmiddle" alt="Next Month"
-                         onclick="NextMonth_OnClick()" />
+                         onclick="Bk.TeacherCourseArrange.actions.nextMonth()" />
                 </td>
                 <td align="right" valign="bottom">
                     <input type="button" class="ScheduleBtn LastMonth" onclick="Bk.TeacherCourseArrange.actions.preMonth()" />

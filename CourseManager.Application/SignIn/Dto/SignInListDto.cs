@@ -49,7 +49,13 @@ namespace CourseManager.SignIn.Dto
 
         public string Reason { get; set; }
 
-
         public string Remark { get; set; }
+
+        public string StudentName { get; set; }
+
+        public string ClassType { get; set; }
+        public string ClassTypeName { get; set; }
+        public string CourseType { get; set; }
+        public string CourseTypeName { get; set; }
     }
 }

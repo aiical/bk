@@ -11,6 +11,9 @@ using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.AutoMapper;
 using CourseManager.Common;
+using CourseManager.Category;
+using CourseManager.Category.Dtos;
+using CourseManager.Common.Enums;
 
 namespace CourseManager.SignIn
 {
@@ -18,10 +21,13 @@ namespace CourseManager.SignIn
     {
 
         private readonly IRepository<SignInRecord, string> _signInRepository;
-
-        public SignInRecordAppService(IRepository<SignInRecord, string> signInRepository)
+        private readonly ICategorysAppService _categorysAppService;
+        public SignInRecordAppService(
+            IRepository<SignInRecord, string> signInRepository,
+            ICategorysAppService categorysAppService)
         {
             this._signInRepository = signInRepository;
+            this._categorysAppService = categorysAppService;
         }
 
         private IQueryable<SignInRecord> GetArrangesByCondition(SignInInput input)
@@ -42,6 +48,9 @@ namespace CourseManager.SignIn
             else
             {
                 record.Id = IdentityCreator.NewGuid;
+                record.CreatorUserId = AbpSession.UserId.Value;
+                record.TeacherId = AbpSession.UserId.Value.ToString();
+                record.StudentId = "fd3fd836655e4502a40db5acfca5d115";//孙京儿测试用
                 await _signInRepository.InsertAsync(record);
             }
         }
@@ -69,6 +78,24 @@ namespace CourseManager.SignIn
             return new ListResultDto<SignInListDto>(
                 stus.MapTo<List<SignInListDto>>()
                 );
+        }
+        private void SetOtherExtendData(IEnumerable<SignInListDto> list)
+        {
+            if (list != null && list.Any())
+            {
+                //
+                var categoryData = _categorysAppService.GetCategorysPageListBy(new CategorysInput { });
+
+                foreach (var item in list)
+                {
+                    if (!string.IsNullOrEmpty(item.ClassType))
+                        item.ClassTypeName = categoryData.FirstOrDefault(c => c.Id == item.ClassType).CategoryName;
+                    if (!string.IsNullOrEmpty(item.Type))
+                        item.ClassTypeName = categoryData.FirstOrDefault(c => c.Id == item.Type).CategoryName;
+                    if (!string.IsNullOrEmpty(item.CourseType))
+                        item.ClassTypeName = categoryData.FirstOrDefault(c => c.Id == item.CourseType).CategoryName;
+                }
+            }
         }
 
         public async Task<ListResultDto<SignInListDto>> GetSignInRecordsAsync()

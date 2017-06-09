@@ -167,7 +167,7 @@ Bk.TeacherCourseArrange = {
         showTeacherCourses: function () {
             var Id = $("#scTeacher").val();
             var yearmonth = $("#Year").val() + "-" + $("#Month").val();
-            window.location.href = "/CourseArrange/TeacherScheduleByMonth?UId=" + Id + "&yearmonth=" + yearmonth;
+            window.location.href = "/CourseArrange/TeacherCourseArrange?TeacherId=" + Id + "&yearMonth=" + yearmonth;
         },
         arrangeclick: function (obj, time, _col) {
             $("#arragelist").css("display", "block");

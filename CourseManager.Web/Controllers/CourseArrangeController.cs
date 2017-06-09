@@ -16,11 +16,14 @@ namespace CourseManager.Web.Controllers
             this._teacherCourseArrangeAppService = teacherCourseArrangeAppService;
         }
         #region 教师排课
-        public ActionResult TeacherCourseArrange()
+        //public ActionResult TeacherCourseArrange(TeacherCourseArrangeInput input)
+        //{
+        //    return View();
+        //}
+        public ActionResult TeacherCourseArrange(string teacherId,string yearMonth)
         {
             return View();
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public JsonResult AddTeacherCourseArrange(CreateTeacherCourseArrangeInput input)

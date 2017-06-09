@@ -6,19 +6,25 @@
                 <thead>
                     <tr>
                         <th>@L("StudentName")</th>
+                        <th>@L("Address")</th>
                         <th>@L("BeginTime")</th>
                         <th>@L("EndTime")</th>
                         <th>@L("ClassType")</th>
+                        <th>@L("CourseType")</th>
                         <th>@L("Type")</th>
+                        <th>@L("Reason")</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="sign in vm.signInRecord">
-                        <td></td>@*{{sign.studentName}}*@
-                        <td>{{sign.beginTime}}</td>@*上课时间*@
-                        <td>{{sign.endTime}}</td>@*下课时间*@
-                        <td>{{sign.unNormalType}}</td>
-                        <td>{{sign.type}}</td>@*正常上课/旷课*@
+                        <td>{{sign.studentName}}</td>
+                        <td>{{sign.address}}</td>
+                        <td>{{sign.beginTime| date:'MM.dd hh:mm'}}</td>@*上课时间*@
+                        <td>{{sign.endTime| date:'MM.dd hh:mm'}}</td>@*下课时间*@
+                        <td>{{sign.classTypeName}}</td>
+                        <td>{{sign.courseTypeName}}</td>
+                        <td title="{{sign.type}}">{{sign.type| truncate:true:5:'...'}}</td>@*正常上课/旷课*@
+                        <td title="{{sign.reason}}">{{sign.reason| truncate:true:10:'...'}}</td>
                     </tr>
                 </tbody>
             </table>

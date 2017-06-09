@@ -135,6 +135,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Category\CategorysAppService.cs" />
+    <Compile Include="Category\Dtos\CategorysCreateInput.cs" />
+    <Compile Include="Category\Dtos\CategorysDto.cs" />
+    <Compile Include="Category\Dtos\CategorysInput.cs" />
+    <Compile Include="Category\ICategorysAppService.cs" />
     <Compile Include="CourseArrange\Dto\TeacherCourseArrangeInput.cs" />
     <Compile Include="CourseArrange\Dto\CreateTeacherCourseArrangeInput.cs" />
     <Compile Include="CourseArrange\Dto\TeacherCourseArrangeListDto.cs" />
