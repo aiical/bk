@@ -14,8 +14,8 @@ namespace CourseManager.CourseArrange.Dto
         /// <summary>
         /// 必须选择上课类型（不同类型 如1v1和班级课 课时费不同）
         /// </summary>
-        public string Type { get; set; }
-
+        public string ClassType { get; set; }
+        public string CourseType { get; set; }
         public DateTime ArrangeTime { get; set; }
 
         /// <summary>

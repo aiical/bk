@@ -11,7 +11,12 @@ namespace CourseManager.CourseArrange
 {
     public interface ITeacherCourseArrangeAppService : IApplicationService
     {
-        Task TeacherArrangeCourse(CreateTeacherCourseArrangeInput input);
+        /// <summary>
+        /// 排课
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        TeacherCourseArrange TeacherArrangeCourse(CreateTeacherCourseArrangeInput input);
         TeacherCourseArrange GetArranage(TeacherCourseArrangeInput input);
 
         Task<ListResultDto<TeacherCourseArrangeListDto>> GetArranagesAsync();

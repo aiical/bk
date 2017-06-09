@@ -25,7 +25,15 @@ namespace CourseManager.CourseArrange
         /// </summary>
         [Required]
         [MaxLength(MaxIdLength)]
-        public string Type { get; set; }
+        public string ClassType { get; set; }
+
+
+        /// <summary>
+        /// 必须选择课程类型（如基础入门上 入门下 口语初级等）
+        /// </summary>
+        [Required]
+        [MaxLength(MaxIdLength)]
+        public string CourseType { get; set; }
 
         public DateTime ArrangeTime { get; set; }
 

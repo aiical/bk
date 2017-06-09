@@ -58,7 +58,7 @@
     <text name="No" value="No" />
     <text name="Optional" value="Optional" />
 
-  
+    <text name="Add" value="Add"/>
     <!--业务相关-->
     <text name="Operation" value="Operation" />
     <text name="Edit" value="Edit" />
@@ -96,6 +96,7 @@
     <text name="BeginTime" value="BeginTime" />
     <text name="EndTime" value="EndTime" />
     <text name="ClassType" value="ClassType" />
+    <text name="CourseType" value="CourseType" />
     <text name="Type" value="Type" />
     <text name="UnNormalType" value="UnNormalType" />
     <text name="Reason" value="Reason" />

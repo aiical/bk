@@ -17,8 +17,11 @@ namespace CourseManager.Migrations.SeedData
             _context = context;
             _categorys = new List<Categorys>()
             {
-                new Categorys{ Id=Common.IdentityCreator.NewGuid, CategoryName="1V1",DictionaryValue="one2One", CategoryType="CourseType", CreationTime=DateTime.Now, CreatorUserId=0, IsActive=true, IsDeleted=false, Level=1, SortNo=1, SysDefined=1, TenantId=1,ParentId="0"  },
-                    new Categorys{ Id=Common.IdentityCreator.NewGuid, CategoryName="班级课",DictionaryValue="ClassCourse", CategoryType="CourseType", CreationTime=DateTime.Now, CreatorUserId=0, IsActive=true, IsDeleted=false, Level=1, SortNo=2, SysDefined=1, TenantId=1,ParentId="0"  },
+                new Categorys{ Id=Common.IdentityCreator.NewGuid, CategoryName="1V1",DictionaryValue="one2One", CategoryType="ClassType", CreationTime=DateTime.Now, CreatorUserId=0, IsActive=true, IsDeleted=false, Level=1, SortNo=1, SysDefined=1, TenantId=1,ParentId="0"  },
+                    new Categorys{ Id=Common.IdentityCreator.NewGuid, CategoryName="班级课",DictionaryValue="ClassCourse", CategoryType="ClassType", CreationTime=DateTime.Now, CreatorUserId=0, IsActive=true, IsDeleted=false, Level=1, SortNo=2, SysDefined=1, TenantId=1,ParentId="0"  },
+
+                       new Categorys{ Id=Common.IdentityCreator.NewGuid, CategoryName="入门上",DictionaryValue="Entry", CategoryType="CourseType", CreationTime=DateTime.Now, CreatorUserId=0, IsActive=true, IsDeleted=false, Level=1, SortNo=1, SysDefined=1, TenantId=1,ParentId="0"  },
+                    new Categorys{ Id=Common.IdentityCreator.NewGuid, CategoryName="入门下",DictionaryValue="Entrance", CategoryType="CourseType", CreationTime=DateTime.Now, CreatorUserId=0, IsActive=true, IsDeleted=false, Level=1, SortNo=2, SysDefined=1, TenantId=1,ParentId="0"  },
                    new Categorys{ Id=Common.IdentityCreator.NewGuid, CategoryName="迟到",DictionaryValue="Late", CategoryType="SignInRecordType", CreationTime=DateTime.Now, CreatorUserId=0, IsActive=true, IsDeleted=false, Level=1, SortNo=1, SysDefined=1, TenantId=1,ParentId="0"  },
                     new Categorys{ Id=Common.IdentityCreator.NewGuid, CategoryName="准时上课",DictionaryValue="Normal", CategoryType="SignInRecordType", CreationTime=DateTime.Now, CreatorUserId=0, IsActive=true, IsDeleted=false, Level=1, SortNo=2, SysDefined=1, TenantId=1,ParentId="0"  },
                          new Categorys{ Id=Common.IdentityCreator.NewGuid, CategoryName="未上课",DictionaryValue="NoCourse", CategoryType="SignInRecordType", CreationTime=DateTime.Now, CreatorUserId=0, IsActive=true, IsDeleted=false, Level=1, SortNo=3, SysDefined=1, TenantId=1,ParentId="0"  },

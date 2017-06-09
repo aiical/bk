@@ -27,6 +27,9 @@
     <text name="SavedSuccessfully" value="保存成功"/>
     <text name="DeleteSuccessfully" value="删除成功"/>
     <text name="ToggleSuccessfully" value="切换成功"/>
+    <text name="Save" value="保存" />
+    <text name="Cancel" value="取消" />
+    <text name="Add" value="新增"/>
     <!--华丽分割线-->
     <text name="Operation" value="操作" />
     <text name="Edit" value="编辑" />
@@ -79,7 +82,8 @@
     <text name="StudentName" value="学生名" />
     <text name="BeginTime" value="上课时间" />
     <text name="EndTime" value="下课时间" />
-    <text name="ClassType" value="课程类型（班级课/1v1）" />
+    <text name="ClassType" value="上课类型（班级课/1v1）" />
+    <text name="CourseType" value="课程类型（入门上/下等）" />
     <text name="Type" value="上课情况" /><!--迟到 正常上课 未上课-->
     <text name="UnNormalType" value="未上课原因" /><!--学生请假，老师请假 其他原因-->
     <text name="Reason" value="原因" />   <!--如果迟到或者旷课 请填写原因说明-->

@@ -423,8 +423,13 @@
     <Content Include="Assets\images\yi-max.png" />
     <Content Include="Assets\js\calendar.js" />
     <Content Include="Assets\js\tm.pagination.js" />
+    <Content Include="Assets\js\tool.js" />
     <Content Include="Assets\libsReference\jquery-1.11.0.min.js" />
     <Content Include="Assets\libsReference\jquery.autocomplete.min.js" />
+    <Content Include="Assets\libsReference\layer-mobile\css\layer.css" />
+    <Content Include="Assets\libsReference\layer-mobile\layer.js" />
+    <Content Include="Assets\libsReference\lazyload\jquery.lazyload.js" />
+    <Content Include="Assets\libsReference\lazyload\jquery.lazyload.min.js" />
     <Content Include="Assets\libsReference\swiper-3.3.1.min.js" />
     <Content Include="Common\Scripts\helpers.js" />
     <Content Include="Configs\ffmpeg\ffmpeg.exe" />
@@ -1347,6 +1352,7 @@
       <DependentUpon>Login.css</DependentUpon>
     </Content>
     <Content Include="Views\Account\Register.js" />
+    <Content Include="Views\CourseArrange\TeacherCourseArrange.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1406,6 +1412,8 @@
     <Content Include="Views\CourseArrange\TeacherCourseArrange - bak.cshtml" />
     <Content Include="Views\Shared\_TopBar.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\CourseArrange\_AddTeacherCourseArrange.cshtml" />
+    <Content Include="Views\CourseArrange\_EditTeacherCourseArrange.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

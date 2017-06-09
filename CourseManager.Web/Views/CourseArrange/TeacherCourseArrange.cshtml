@@ -1,17 +1,9 @@
 ﻿@using CourseManager.Common;
 @using CourseManager.CourseArrange;
+@using Abp.Web.Mvc.Extensions
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = L("TeacherArrange");
-    if (string.IsNullOrEmpty(ViewBag.keyword))
-    {
-        ViewBag.Title = "教师月课表";
-    }
-    else
-    {
-        ViewBag.Title = "教师月课表—" + ViewBag.keyword;
-    }
-
     var teacherschedulelist = new object();// (List<TBL_StudentArrangeCourse>)ViewData["teacherschedulelist"];
     var teacherwork = (List<TeacherCourseArrange>)ViewData["teacherwork"];
     //  teacherschedulelist = teacherschedulelist.Where(p => p.Status > 1).ToList();
@@ -19,312 +11,91 @@
 }
 @section Styles{
     <link href="~/Assets/css/jquery.autocomplete.css" rel="stylesheet" />
-<link href="~/Assets/css/courseArrange/Style.css" rel="stylesheet" />
+    <link href="~/Assets/css/courseArrange/Style.css" rel="stylesheet" />
     <style>
-        .maintitle span {
-            display: block;
-            float: left;
-            margin: 3px 5px 1px 2px;
-            text-align: center;
-            line-height: 10px;
+        .maintitle {
+            margin-top: 80px;
         }
+
+            .maintitle span {
+                display: block;
+                float: left;
+                margin: 3px 5px 1px 2px;
+                text-align: center;
+                line-height: 10px;
+            }
     </style>
 }
 @section Scripts{
     <script src="~/Assets/libsReference/jquery.autocomplete.min.js"></script>
-    <script type="text/javascript">
-    $(function () {
-        pageResponse.init();
-        var areaId = $("#hidarea").val();
-        var areaname = $("#hidareaname").val();
-        var employeeareaId = $("#hidemployeeareaId").val();
-        if (areaId != 0) {
-            $("#scCity").text(areaname);
-        }
-        if (employeeareaId != 0) {
-            document.getElementById("scTeacher").value = employeeareaId;
-            //alert($("#scTeacher option[value="+employeeareaId+"]").text());
-            $("#keyword").val($("#scTeacher option[value=" + employeeareaId + "]").text());
-        }
-        else {
-            document.getElementById("scTeacher").selectedIndex = 0;
-        }
-
-        $("body").on("click", function () {
-            $("#area").css("display", "none");
-        });
-
-        if ($("select[name=ddlArea] option").size() <= 1) {
-            $('.spArea').hide();
-        }
-        $('#ddlArea').change(function () {
-            window.location.href = "/StudentCourse/TeacherScheduleByMonth?Id=" + this.value + "&areaname=" + $(this).find('option:selected').text();
-        });
-
-        //智能搜索
-        var students = [];
-        $("#scTeacher option").each(function () {
-            if ($(this).val() > 0) {
-                var item = { to: $(this).val(), name: $(this).html() };
-                students.push(item);
-            }
-        });
-
-        $('#keyword').autocomplete(students, {
-            max: 20,    //列表里的条目数
-            minChars: 0,    //自动完成激活之前填入的最小字符
-            width: 200,     //提示的宽度，溢出隐藏
-            scrollHeight: 400,   //提示的高度，溢出显示滚动条
-            matchContains: true,    //包含匹配，就是data参数里的数据，是否只要包含文本框里的数据就显示
-            autoFill: false,    //自动填充
-            //mustMatch: true,//表示必须匹配条目,文本框里输入的内容,必须是data参数里的数据,如果不匹配,文本框就被清空
-            formatItem: function (row, i, max) {
-                return row.name + '[' + row.to + ']';
-                //return i + '/' + max + ':"' + row.name + '"[' + row.to + ']';
-            },
-            formatMatch: function (row, i, max) {
-                return row.name + row.to;
-            },
-            formatResult: function (row) {
-                return row.name;
-            }
-        }).result(function (event, row, formatted) {
-            $("#scTeacher").val(row.to);
-            $("#studentspan").html(row.name);
-            showteacher();
-
-        });
-
-
-    })
-
-    //上月
-    function LastMonth_OnClick() {
-        var _year = parseInt($.trim($("#Year").val()));
-        var _month = parseInt($.trim($("#Month").val()));
-        //如果此时月份是1月的话，则上月为上一年的12月，年减1
-        if (_month == 1) {
-            $("#Month").val(12);
-            $("#Year").val(_year - 1);
-        } else {
-            $("#Month").val(_month - 1);
-        }
-
-        showteacher();
-    }
-    //下月
-    function NextMonth_OnClick() {
-        var _year = parseInt($.trim($("#Year").val()));
-        var _month = parseInt($.trim($("#Month").val()));
-        if (_month == 12) {
-            $("#Month").val(1);
-            $("#Year").val(_year + 1);
-        }
-        else {
-            $("#Month").val(_month + 1);
-        }
-        showteacher();
-    }
-    //本月
-    function CurrMonth_OnClick() {
-        $("#Year").val(@(DateTime.Now.Year));
-        $("#Month").val(@(DateTime.Now.Month));
-        showteacher();
-    }
-
-    function exportExcel() {
-        var Id = $("#scTeacher").val();
-        var areaId = $("#hidarea").val();
-        var areaname = $("#hidareaname").val();
-        var yearmonth = $("#Year").val() + "-" + $("#Month").val();
-        window.open("/StudentCourse/TeacherScheduleByMonthExport?UId=" + Id + "&Id=" + areaId + "&areaname=" + areaname + "&yearmonth=" + yearmonth);
-    }
-
-    function showteacher() {
-        var Id = $("#scTeacher").val();
-        var areaId = $("#hidarea").val();
-        var areaname = $("#hidareaname").val();
-        var yearmonth = $("#Year").val() + "-" + $("#Month").val();
-        window.location.href = "/StudentCourse/TeacherScheduleByMonth?UId=" + Id + "&Id=" + areaId + "&areaname=" + areaname + "&yearmonth=" + yearmonth;
-    }
-
-    //根据区域id获取该区域下的所有老师名称
-    function showarea() {
-        $("#area").css("display", "block");
-    }
-    function hidarea() {
-        $("#area").css("display", "none");
-    }
-    function arrangeclick(obj, time, _col) {
-        $("#arragelist").css("display", "block");
-        $("#nowday").val(time);
-        var teacherId = $("#scTeacher").val();
-        $.ajax({
-            url: "/Education/GetStuNames",
-            data: { TID: teacherId },
-            type: "POST",
-            dataType: "json",
-            cache: false,
-            success: function (data) {
-                var details = data;
-                var studentname = details.split('|');
-                var option = "<option value=''>请选择</option>";
-                for (var i = 0; i < studentname.length - 1; i++) {
-                    var stuId = studentname[i].split(',')[0];
-                    var stuName = studentname[i].split(',')[1];
-
-                    option += "<option value=" + stuId + ">" + stuName + "</option>";
-                    $("#scStudent").html(option);
-                }
-            }
-        });
-        if (_col < 4) {
-            $("#arragelist").css({ left: $(obj).offset().left + $(obj).outerWidth(), top: $(obj).offset().top }).show();
-        } else {
-            $("#arragelist").css({ left: $(obj).offset().left - $("#arragelist").outerWidth(), top: $(obj).offset().top }).show();
-        }
-    }
-
-
-    function out() {
-        window.location.reload();
-    }
-
-    var pageResponse = {
-        TeacherId: "",
-        sDate: "",
-        Url: "",
-        AreaId:0,
-        arrangeadd: function (_obj, date) {
-            _this = this;
-            _this.AreaId = $("#ddlArea").val();
-            _this.TeacherId = $("#scTeacher").val();
-
-            if (_this.AreaId == "") {
-                ymPrompt.alert("请选择区域！");
-                return;
-            }
-            if (_this.TeacherId == "" || _this.TeacherId == "0") {
-                ymPrompt.alert("请选择教师！");
-                return;
-            }
-            _this.Url = "/StudentCourse/StudentArrangeCourseAddByTea?AreaId="+_this.AreaId+"&TId=" + _this.TeacherId + "&sdate=" + date;
-
-            ymPrompt.win({ message: _this.Url, handler: _this.callBack, width: 800, height: 400, title: '特殊时段排课', iframe: true })
-        },
-        callBack: function (json) {
-            if (json.status == 1 || json._Status) {
-                showteacher("");
-            }
-            //showteacher("");
-        },
-        mouseover: function (obj) {
-            var classname = $(obj).children(':first').attr("class");
-            $(".MonthArea ul li").each(function () {
-                if (!$(this).hasClass(classname)) {
-                    $(this).hide();
-                }
-            });
-        },
-        mouseout: function () {
-            $(".MonthArea ul li").show();
-        },
-        init: function () {
-            _this = this;
-            var classname = "";
-            $(".colorarea span span").each(function () {
-                classname = $(this).attr("class");
-                len = $(".MonthArea ul").find("." + classname).length;
-                if (len > 0) {
-                    //$(this).html($(this).html()+"<span class='spancount'>"+len+"</span>");
-                    var op = $(this).parent().children('.named');
-                    op.html(op.html() + "(" + len + ")")
-                }
-            });
-
-            $(".classedit").on("click", function () {
-                _this.Url = "/StudentCourse/StuArrangeCourseEditPop?id=" + $(this).attr("tag");
-                ymPrompt.win({ message: _this.Url, handler: _this.callBack, width: 800, height: 400, title: '更新排课', iframe: true })
-            });
-
-            $(".MonthArea .Status_Rest").on("click", function () {
-                var Id = $(this).attr("tag");
-                Url = "/Teacher/TeacherArrangeWorkEditPop?Id=" + Id;
-                ymPrompt.win({ message: Url, handler: _this.callBack, width: 800, height: 400, title: '教师排班', iframe: true })
-            });
-        },
-    };
-
-    </script>
+    @Html.IncludeScript("~/Views/CourseArrange/TeacherCourseArrange.js")
     <script type="text/javascript">
         $(function () {
-            $(".CourseItem").hover(function () {
-                $(this).css("border-bottom", "solid 1px yellow");
-            }, function () {
-                $(this).css("border-bottom", "0px");
-            });
-        });
+            Bk.TeacherCourseArrange.bootstrap();
+        })
     </script>
 }
 
-
 <input type="hidden" id="hidareaId" name="hidareaId" />
 <input type="hidden" id="nowday" name="nowday" />
-<div class="maintitle" style="margin-top:80px;">
+@*上课情况切换 nav*@
+<div class="maintitle">
     <div style="display: inline; float: right; padding-bottom: 2px;" class="colorarea">
-        <span style="cursor: pointer;" onmouseover="pageResponse.mouseover(this)" onmouseout="pageResponse.mouseout()"><span class="Status_Normal" style="width: auto; padding-right: 10px;"></span><span class="named">待放课</span></span>
-        <span style="cursor: pointer;" onmouseover="pageResponse.mouseover(this)" onmouseout="pageResponse.mouseout()"><span class="Status_Effect" style="width: auto; padding-right: 10px;"></span><span class="named">已放课</span></span>
-        <span style="cursor: pointer;" onmouseover="pageResponse.mouseover(this)" onmouseout="pageResponse.mouseout()"><span class="Status_Cancel" style="width: auto; padding-right: 10px;"></span><span class="named">已取消</span></span>
-        <span style="cursor: pointer;" onmouseover="pageResponse.mouseover(this)" onmouseout="pageResponse.mouseout()"><span class="Status_Finished" style="width: auto; padding-right: 10px;"></span><span class="named">已结课</span></span>
-        <span style="cursor: pointer;" onmouseover="pageResponse.mouseover(this)" onmouseout="pageResponse.mouseout()"><span class="Status_Rest" style="width: auto; padding-right: 10px;"></span><span class="named">休息中</span></span>
+        <span style="cursor: pointer;" onmouseover="Bk.TeacherCourseArrange.actions.mouseover(this)" Bk.TeacherCourseArrange.actions="Bk.TeacherCourseArrange.actions.mouseout()"><span class="Status_Normal" style="width: auto; padding-right: 10px;"></span><span class="named">待放课</span></span>
+        <span style="cursor: pointer;" onmouseover="Bk.TeacherCourseArrange.actions.mouseover(this)" onmouseout="Bk.TeacherCourseArrange.actions.mouseout()"><span class="Status_Effect" style="width: auto; padding-right: 10px;"></span><span class="named">已放课</span></span>
+        <span style="cursor: pointer;" onmouseover="Bk.TeacherCourseArrange.actions.mouseover(this)" onmouseout="Bk.TeacherCourseArrange.actions.mouseout()"><span class="Status_Cancel" style="width: auto; padding-right: 10px;"></span><span class="named">已取消</span></span>
+        <span style="cursor: pointer;" onmouseover="Bk.TeacherCourseArrange.actions.mouseover(this)" onmouseout="Bk.TeacherCourseArrange.actions.mouseout()"><span class="Status_Finished" style="width: auto; padding-right: 10px;"></span><span class="named">已结课</span></span>
+        <span style="cursor: pointer;" onmouseover="Bk.TeacherCourseArrange.actions.mouseover(this)" onmouseout="Bk.TeacherCourseArrange.actions.mouseout()"><span class="Status_Rest" style="width: auto; padding-right: 10px;"></span><span class="named">休息中</span></span>
     </div>
 </div>
+
+@*日历排课*@
 <div>
     <div class="ml" style="margin-bottom: 3px;">
     </div>
     @using (Html.BeginForm("TeacherSchedule", "Education", FormMethod.Post, new { @id = "MyScheduleConfirm" }))
     {
-    <input type="hidden" value="@ViewData["emoloyeeareaId"]" id="hidemployeeareaId" name="hidemployeeareaId" />
-    <input type="hidden" value="@ViewData["areaname"]" id="hidareaname" name="hidareaname" />
-    <input type="hidden" value="@ViewData["areaId"]" id="hidarea" name="hidarea" />
-    <table cellpadding="5" cellspacing="0" class="MonthTopBar">
-        <tr>
-            <td valign="bottom" class="SelectMonthArea">
+        <input type="hidden" value="@ViewData["emoloyeeareaId"]" id="hidemployeeareaId" name="hidemployeeareaId" />
+        <input type="hidden" value="@ViewData["areaname"]" id="hidareaname" name="hidareaname" />
+        <input type="hidden" value="@ViewData["areaId"]" id="hidarea" name="hidarea" />
+        <table cellpadding="5" cellspacing="0" class="MonthTopBar">
+            <tr>
+                <td valign="bottom" class="SelectMonthArea">
 
-                <span>教师：</span>
-                <input id="keyword" />
-                <select id="scTeacher" class="selsty" name="scTeacher" onchange="showteacher()" style="display: none;">
-                    <option value="0">请选择</option>
-                    <option value="0">无教师</option>
-                    @*@if (ViewData["listemployee"] != null)
-                        {
-                            foreach (var item in ViewData["listemployee"] as List<WeChat_EmployeeInfo>)
+                    <span>教师：</span>
+                    <input id="keyword" />
+                    <select id="scTeacher" class="selsty" name="scTeacher" onchange="showteacher()" style="display: none;">
+                        <option value="0">请选择</option>
+                        <option value="0">无教师</option>
+                        @*@if (ViewData["listemployee"] != null)
                             {
-                                <option value="@item.UserId">@item.EnName @item.CnName </option>
+                                foreach (var item in ViewData["listemployee"] as List<WeChat_EmployeeInfo>)
+                                {
+                                    <option value="@item.UserId">@item.EnName @item.CnName </option>
+                                }
                             }
-                        }
-                        else
-                        {
-                            <option value="0">无教师</option>
-                        }*@
-                </select>
+                            else
+                            {
+                                <option value="0">无教师</option>
+                            }*@
+                    </select>
 
-                <img src="~/Assets/images/rl_l.gif" align="absmiddle" alt="Last Month"
-                     onclick="LastMonth_OnClick()" />
-                @Html.TextBox("Year", thisMonth.Year.ToString(), new { @class = "TxtItem", @readonly = "true" })
-                年 @Html.TextBox("Month", thisMonth.Month, new { @class = "TxtItem", @readonly = "true" })
-                月
-                <img src="~/Assets/images/rl_r.gif" align="absmiddle" alt="Next Month"
-                     onclick="NextMonth_OnClick()" />
-            </td>
-            <td align="right" valign="bottom">
-                <input type="button" class="ScheduleBtn LastMonth" onclick="LastMonth_OnClick()" />
-                <input type="button" class="ScheduleBtn CurrMonth" onclick="CurrMonth_OnClick()" />
-                <input type="button" class="ScheduleBtn NextMonth" onclick="NextMonth_OnClick()" />
-                <input type="button" class="ScheduleBtn ExportExcel" onclick="exportExcel();" />
-            </td>
-        </tr>
-    </table>
+                    <img src="~/Assets/images/rl_l.gif" align="absmiddle" alt="Last Month"
+                         onclick="LastMonth_OnClick()" />
+                    @Html.TextBox("Year", thisMonth.Year.ToString(), new { @class = "TxtItem", @readonly = "true" })
+                    年 @Html.TextBox("Month", thisMonth.Month, new { @class = "TxtItem", @readonly = "true" })
+                    月
+                    <img src="~/Assets/images/rl_r.gif" align="absmiddle" alt="Next Month"
+                         onclick="NextMonth_OnClick()" />
+                </td>
+                <td align="right" valign="bottom">
+                    <input type="button" class="ScheduleBtn LastMonth" onclick="Bk.TeacherCourseArrange.actions.preMonth()" />
+                    <input type="button" class="ScheduleBtn CurrMonth" onclick="Bk.TeacherCourseArrange.actions.curMonth()()" />
+                    <input type="button" class="ScheduleBtn NextMonth" onclick="Bk.TeacherCourseArrange.actions.nextMonth()" />
+                    <input type="button" class="ScheduleBtn ExportExcel" onclick="Bk.TeacherCourseArrange.actions.exportExcel();" />
+                </td>
+            </tr>
+        </table>
     }
     <table width="100%" align="center" class="MonthArea" cellpadding="0" cellspacing="0" style="table-layout: fixed;">
         <tr>
@@ -351,8 +122,8 @@
             </th>
         </tr>
         @{
-            var _findex = CalendarHelper.GetYearMonthFirstDayWeekIndex(thisMonth.Year, thisMonth.Month);// Model.FIndex;
-            var _ymdays = CalendarHelper.GetYearMonthDays(thisMonth.Year, thisMonth.Month);// Model.YMDays;
+            var _findex = CalendarHelper.GetYearMonthFirstDayWeekIndex(thisMonth.Year, thisMonth.Month);
+            var _ymdays = CalendarHelper.GetYearMonthDays(thisMonth.Year, thisMonth.Month);
             var _rows = 6;
             var _dindex = 1;
             var dayName = "一";
@@ -363,14 +134,14 @@
             {
                 break;
             }
-        <tr>
-            @for (var col = 1; col <= 7; col++)
+            <tr>
+                @for (var col = 1; col <= 7; col++)
                 {
                     if (_ymdays < _dindex)
                     {
-                <td class="DayItem" valign="middle">
-                    &nbsp;
-                </td>
+                        <td class="DayItem" valign="middle">
+                            &nbsp;
+                        </td>
                         continue;
                     }
                     if (row == 1)
@@ -378,9 +149,9 @@
 
                         if (_findex > col)
                         {
-                <td class="DayItem" valign="middle">
-                    &nbsp;
-                </td>
+                            <td class="DayItem" valign="middle">
+                                &nbsp;
+                            </td>
                             continue;
                         }
                     }
@@ -393,82 +164,92 @@
 
                     var _bool = true;
 
-                <td valign="top" style="text-align: center; position: relative; padding-bottom: 10px;">
-                    @if (DateTime.Now.Day == _dindex)
+                    <td valign="top" style="text-align: center; position: relative; padding-bottom: 10px;">
+                        @if (DateTime.Now.Day == _dindex)
                         {
 
-                        <div class='@(isrest ? "RestTip" : "ItemTip")' style="background-color:green;">
-                            @thisMonth.Month 月 @_dindex 日
-                        </div>
+                            <div class='@(isrest ? "RestTip" : "ItemTip")' style="background-color:green;">
+                                @thisMonth.Month 月 @_dindex 日
+                            </div>
 
                             _dindex++;
                         }
                         else
                         {
-                        <div class='RestTitle'>
-                            @thisMonth.Month 月 @_dindex 日
-                        </div>
+                            <div class='RestTitle'>
+                                @thisMonth.Month 月 @_dindex 日
+                            </div>
 
                             _dindex++;
                         }
 
-                    <div style="min-height: 50px; padding: 0;">
-                        @*@if (ScheduleList.Count > 0)
-                            {
-                                List<int> UserAreaIds = ViewBag.CurrentUserArea as List<int>;
-                                List<int> UserRoleIds = ViewBag.RoleId as List<int>;
-                                <ul style="font-size: 16px; padding: 0;">
-                                    @foreach (var item in ScheduleList)
-                                    {
-                                        var duration = (int)((item.EndTime - item.StartTime).HasValue ? (item.EndTime - item.StartTime).Value.TotalHours : 0);
-                                        var sTime = item.StartTime.HasValue ? item.StartTime.Value : DateTime.MinValue;
-                                        var classitem = CalendarHelper.GetclassName(item.Status);
+                        <div style="min-height: 50px; padding: 0;">
+                            @*@if (ScheduleList.Count > 0)
+                                {
+                                    List<int> UserAreaIds = ViewBag.CurrentUserArea as List<int>;
+                                    List<int> UserRoleIds = ViewBag.RoleId as List<int>;
+                                    <ul style="font-size: 16px; padding: 0;">
+                                        @foreach (var item in ScheduleList)
+                                        {
+                                            var duration = (int)((item.EndTime - item.StartTime).HasValue ? (item.EndTime - item.StartTime).Value.TotalHours : 0);
+                                            var sTime = item.StartTime.HasValue ? item.StartTime.Value : DateTime.MinValue;
+                                            var classitem = CalendarHelper.GetclassName(item.Status);
 
-                                        <li style="position:relative; min-height:20px;" class="@classitem classedit" )" tag="@item.ID">
-                                            <span>
-                                                @Html.Raw(string.Format("{0} {1} {2} {3}",
-                                             (item.Course != null ? item.Course.CourseName : ""),
-                                              sTime.ToString("HH:mm"),
-                                              (item.StudentModel != null ? item.StudentModel.CnName : ""),
-                                              (duration == 1 ? "1H" : "")))
-                                            </span>
-                                            @if (!string.IsNullOrWhiteSpace(item.Remark) && item.isForce == 1)
-                                            {
-                                                <span title="@item.Remark" class="remarkforceflag">&nbsp;</span>
-                                            }
-                                            else if (!string.IsNullOrWhiteSpace(item.Remark))
-                                            {
-                                                <span title="@item.Remark" class="remarkflag">&nbsp;</span>
-                                            }
-                                            else if (item.isForce == 1)
-                                            {
-                                                <span class="forceflag">&nbsp;</span>
-                                            }
-                                        </li>
-                                    }
-                                </ul>
-                            }*@
-                        @*@if (WorkList.Count > 0)
-                            {
-                                <ul style="font-size: 16px; padding: 0;">
-                                    @foreach (var item in WorkList)
-                                    {
-                                        var classitem = "Status_Rest";
-                                        <li style="" class="@classitem" tag="@item.ID">@(item.StartTime.Value.ToString("HH:mm") + "~" + item.EndTime.Value.ToString("HH:mm"))</li>
-                                    }
-                                </ul>
-                            }*@
+                                            <li style="position:relative; min-height:20px;" class="@classitem classedit" )" tag="@item.ID">
+                                                <span>
+                                                    @Html.Raw(string.Format("{0} {1} {2} {3}",
+                                                 (item.Course != null ? item.Course.CourseName : ""),
+                                                  sTime.ToString("HH:mm"),
+                                                  (item.StudentModel != null ? item.StudentModel.CnName : ""),
+                                                  (duration == 1 ? "1H" : "")))
+                                                </span>
+                                                @if (!string.IsNullOrWhiteSpace(item.Remark) && item.isForce == 1)
+                                                {
+                                                    <span title="@item.Remark" class="remarkforceflag">&nbsp;</span>
+                                                }
+                                                else if (!string.IsNullOrWhiteSpace(item.Remark))
+                                                {
+                                                    <span title="@item.Remark" class="remarkflag">&nbsp;</span>
+                                                }
+                                                else if (item.isForce == 1)
+                                                {
+                                                    <span class="forceflag">&nbsp;</span>
+                                                }
+                                            </li>
+                                        }
+                                    </ul>
+                                }*@
+                            @*@if (WorkList.Count > 0)
+                                {
+                                    <ul style="font-size: 16px; padding: 0;">
+                                        @foreach (var item in WorkList)
+                                        {
+                                            var classitem = "Status_Rest";
+                                            <li style="" class="@classitem" tag="@item.ID">@(item.StartTime.Value.ToString("HH:mm") + "~" + item.EndTime.Value.ToString("HH:mm"))</li>
+                                        }
+                                    </ul>
+                                }*@
 
-                    </div>
-                    <div style="padding: 0; bottom: 0px; text-align: center; width: 100%; position: absolute;">
-                        <input type="button" class="butwhite2" value="排课" onclick="pageResponse.arrangeadd(this,'@restDay    ')" />
-                    </div>
-                </td>
+                        </div>
+                        <div style="padding: 0; bottom: 0px; text-align: center; width: 100%; position: absolute;">
+                            <button type="button" class="btn btn-sm btn-primary btn-add">
+                                <span class="glyphicon  glyphicon-plus" aria-hidden="true"></span>@L("ArrangeCourse")
+                            </button>
+                            @*<input type="button" class="butwhite2" value="排课" onclick="Bk.TeacherCourseArrange.actions.arrangeadd(this,'@restDay')" />*@
+                        </div>
+                    </td>
 
                 }
-        </tr>
+            </tr>
         }
     </table>
 
 </div>
 
+
+<!--通过初始加载页面的时候提前将添加排课的模态框加载进来-->
+@Html.Partial("_AddTeacherCourseArrange")
+
+<!--编辑模态框通过ajax动态填充到此div中-->
+<div id="edit">
+</div>

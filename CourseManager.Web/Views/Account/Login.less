@@ -1,4 +1,4 @@
-﻿#LoginArea {
+﻿/*#LoginArea {
     margin: 80px auto 10px auto;
     height: 435px;
     background: no-repeat url(/Assets/images/login-bg.jpg);
@@ -8,4 +8,41 @@
     margin-left: -525px;
     width: 1050px;
     margin-top: -217.5px;
+}*/
+
+#bodyWrapper {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+#bodyWrapper .login-container {
+    position: relative;
+    height: 340px;
+    top: 20%;
+    /*margin-top: -170px;*/
+}
+
+#LoginArea {
+    height: 340px;
+    background: no-repeat url(/Assets/images/login-bg.jpg);
+}
+
+#LoginArea col-lg-4 {
+    float: right;
+}
+
+.well {
+    min-height: 20px;
+    padding: 19px;
+    margin-top: 27px;
+    width: 340px;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    border-radius: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
 }

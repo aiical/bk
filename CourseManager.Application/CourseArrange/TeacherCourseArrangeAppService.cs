@@ -27,7 +27,7 @@ namespace CourseManager.CourseArrange
             //WhereIf 是ABP针对IQueryable<T>的扩展方法 第一个参数为条件，第二个参数为一个Predicate 当条件为true执行后面的条件过滤
             var query = _teacherCourseArrangeRepository.GetAll()
                         .WhereIf(!input.Id.IsNullOrEmpty(), o => o.Id == input.Id)
-                        .WhereIf(!input.Filter.IsNullOrEmpty(), t => t.Type == input.Filter)
+                        .WhereIf(!input.Filter.IsNullOrEmpty(), t => t.ClassType == input.Filter)
                         .Where(o => o.IsDeleted == false);
             query = string.IsNullOrEmpty(input.Sorting)
                         ? query.OrderByDescending(t => t.CreationTime)
@@ -72,14 +72,15 @@ namespace CourseManager.CourseArrange
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public async Task TeacherArrangeCourse(CreateTeacherCourseArrangeInput input)
+        public TeacherCourseArrange TeacherArrangeCourse(CreateTeacherCourseArrangeInput input)
         {
+            Logger.Info("AddTeacherCourseArrange: " + input);
             var arrange = input.MapTo<TeacherCourseArrange>();
-            if (!string.IsNullOrEmpty(input.Id)) await _teacherCourseArrangeRepository.UpdateAsync(arrange);
+            if (!string.IsNullOrEmpty(input.Id)) return _teacherCourseArrangeRepository.Update(arrange);
             else
             {
                 arrange.Id = IdentityCreator.NewGuid;
-                await _teacherCourseArrangeRepository.InsertAsync(arrange);
+                return _teacherCourseArrangeRepository.Insert(arrange);
             }
         }
 

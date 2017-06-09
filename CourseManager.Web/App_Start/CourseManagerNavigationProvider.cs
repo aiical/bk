@@ -37,19 +37,22 @@ namespace CourseManager.Web
                     .AddItem(new MenuItemDefinition(
                             "ArrangeCourse",
                             L("ArrangeCourse"),
-                            icon: "fa fa-calendar"
+                            icon: "fa fa-calendar",
+                            requiredPermissionName: PermissionNames.Pages_Users
                         ).AddItem(
                             new MenuItemDefinition(
                             "TeacherArrange",
                             L("TeacherArrange"),
                             url: "CourseArrange/TeacherCourseArrange",
-                            icon: "fa fa-calendar"
+                            icon: "fa fa-calendar",
+                              requiredPermissionName: PermissionNames.Pages_Users
                         )).AddItem(
                          new MenuItemDefinition(
                             "StudentArrange",
                             L("StudentArrange"),
                             url: "CourseArrange/StudentCourseArrange",
-                            icon: "fa fa-calendar"
+                            icon: "fa fa-calendar",
+                           requiredPermissionName: PermissionNames.Pages_Users
                         )
                 ))
                 .AddItem(new MenuItemDefinition(
@@ -61,13 +64,15 @@ namespace CourseManager.Web
                             "SignIn",
                             L("SignIn"),
                             url: "#signIn",
-                            icon: "fa fa-check-circle"
+                            icon: "fa fa-check-circle",
+                              requiredPermissionName: PermissionNames.Pages_Users
                         )).AddItem(
                          new MenuItemDefinition(
                             "AbsentCheckIn",
                             L("AbsentCheckIn"),
                             url: "#absentCheckIn",
-                            icon: "fa fa-check-circle"
+                            icon: "fa fa-check-circle",
+                              requiredPermissionName: PermissionNames.Pages_Users
                         )
                 )).AddItem(
                     new MenuItemDefinition(
@@ -79,14 +84,16 @@ namespace CourseManager.Web
                                 "TeacherClassHourStatistics",
                                 L("TeacherClassHourStatistics"),
                                 url: "#teacherClassHourStatistics",
-                                icon: "fa fa-bar-chart-o"
+                                icon: "fa fa-bar-chart-o",
+                                     requiredPermissionName: PermissionNames.Pages_Users
                             )
                         ).AddItem(
                         new MenuItemDefinition(
                             "StudentClassHourStatistics",
                             L("StudentClassHourStatistics"),
                             url: "#studentClassHourStatistics",
-                            icon: "fa fa-bar-chart-o"
+                            icon: "fa fa-bar-chart-o",
+                              requiredPermissionName: PermissionNames.Pages_Users
                         )
                     )
                   )
@@ -95,14 +102,16 @@ namespace CourseManager.Web
                         "OfficeHourStatistics",
                         L("OfficeHourStatistics"),
                         url: "#officeHourStatistics",
-                        icon: "fa fa-bar-chart-o"
+                        icon: "fa fa-bar-chart-o",
+                          requiredPermissionName: PermissionNames.Pages_Users
                         )
                 ).AddItem(
                     new MenuItemDefinition(
                         "PayCalculation",
                         L("PayCalculation"),
                         url: "#payCalculation",
-                        icon: "fa fa-cny"
+                        icon: "fa fa-cny",
+                          requiredPermissionName: PermissionNames.Pages_Users
                         )
                 )
                 .AddItem(
@@ -110,14 +119,16 @@ namespace CourseManager.Web
                         "Students",
                         L("Students"),
                         url: "#students",
-                        icon: "fa fa-users"
+                        icon: "fa fa-users",
+                          requiredPermissionName: PermissionNames.Pages_Users
                         )
                 ).AddItem(
                     new MenuItemDefinition(
                         "Teachers",
                         L("Teachers"),
                         url: "#teachers",
-                        icon: "fa fa-users"
+                        icon: "fa fa-users",
+                          requiredPermissionName: PermissionNames.Pages_Users
                         )
                 )
                 .AddItem(

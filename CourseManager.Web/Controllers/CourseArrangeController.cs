@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CourseManager.CourseArrange;
+using CourseManager.CourseArrange.Dto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,12 +8,29 @@ using System.Web.Mvc;
 
 namespace CourseManager.Web.Controllers
 {
-    public class CourseArrangeController : Controller
+    public class CourseArrangeController : CourseManagerControllerBase
     {
-        // GET: CourseArrange
+        private readonly ITeacherCourseArrangeAppService _teacherCourseArrangeAppService;
+        public CourseArrangeController(ITeacherCourseArrangeAppService teacherCourseArrangeAppService)
+        {
+            this._teacherCourseArrangeAppService = teacherCourseArrangeAppService;
+        }
+        #region 教师排课
         public ActionResult TeacherCourseArrange()
         {
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult AddTeacherCourseArrange(CreateTeacherCourseArrangeInput input)
+        {
+            var teacherCourseArrange = _teacherCourseArrangeAppService.TeacherArrangeCourse(input);
+
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+
     }
 }
