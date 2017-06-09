@@ -3,6 +3,10 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = L("TeacherArrange");
+}
+
+@{
+    //ViewBag.Title = "教师月课表";
     if (string.IsNullOrEmpty(ViewBag.keyword))
     {
         ViewBag.Title = "教师月课表";
@@ -12,27 +16,16 @@
         ViewBag.Title = "教师月课表—" + ViewBag.keyword;
     }
 
-    var teacherschedulelist = new object();// (List<TBL_StudentArrangeCourse>)ViewData["teacherschedulelist"];
+
+    var teacherschedulelist = (List<TBL_StudentArrangeCourse>)ViewData["teacherschedulelist"];
     var teacherwork = (List<TeacherCourseArrange>)ViewData["teacherwork"];
-    //  teacherschedulelist = teacherschedulelist.Where(p => p.Status > 1).ToList();
-    var thisMonth = DateTime.Now;// (DateTime)ViewData["thisMonth"] ;
+    teacherschedulelist = teacherschedulelist.Where(p => p.Status > 1).ToList();
+    var thisMonth = (DateTime)ViewData["thisMonth"];
 }
-@section Styles{
-    <link href="~/Assets/css/jquery.autocomplete.css" rel="stylesheet" />
-<link href="~/Assets/css/courseArrange/Style.css" rel="stylesheet" />
-    <style>
-        .maintitle span {
-            display: block;
-            float: left;
-            margin: 3px 5px 1px 2px;
-            text-align: center;
-            line-height: 10px;
-        }
-    </style>
-}
-@section Scripts{
-    <script src="~/Assets/libsReference/jquery.autocomplete.min.js"></script>
-    <script type="text/javascript">
+
+<link href="/Content/Style/jquery.autocomplete.css" rel="stylesheet" />
+<script src="/Scripts/jquery.autocomplete.min.js"></script>
+<script type="text/javascript">
     $(function () {
         pageResponse.init();
         var areaId = $("#hidarea").val();
@@ -255,22 +248,20 @@
         },
     };
 
-    </script>
-    <script type="text/javascript">
-        $(function () {
-            $(".CourseItem").hover(function () {
-                $(this).css("border-bottom", "solid 1px yellow");
-            }, function () {
-                $(this).css("border-bottom", "0px");
-            });
-        });
-    </script>
-}
-
-
+</script>
+<style>
+    .maintitle span {
+        display: block;
+        float: left;
+        margin: 3px 5px 1px 2px;
+        text-align: center;
+        line-height: 10px;
+    }
+</style>
 <input type="hidden" id="hidareaId" name="hidareaId" />
 <input type="hidden" id="nowday" name="nowday" />
-<div class="maintitle" style="margin-top:80px;">
+<div class="maintitle">
+    <h2>教师课表</h2>
     <div style="display: inline; float: right; padding-bottom: 2px;" class="colorarea">
         <span style="cursor: pointer;" onmouseover="pageResponse.mouseover(this)" onmouseout="pageResponse.mouseout()"><span class="Status_Normal" style="width: auto; padding-right: 10px;"></span><span class="named">待放课</span></span>
         <span style="cursor: pointer;" onmouseover="pageResponse.mouseover(this)" onmouseout="pageResponse.mouseout()"><span class="Status_Effect" style="width: auto; padding-right: 10px;"></span><span class="named">已放课</span></span>
@@ -284,19 +275,20 @@
     </div>
     @using (Html.BeginForm("TeacherSchedule", "Education", FormMethod.Post, new { @id = "MyScheduleConfirm" }))
     {
-    <input type="hidden" value="@ViewData["emoloyeeareaId"]" id="hidemployeeareaId" name="hidemployeeareaId" />
-    <input type="hidden" value="@ViewData["areaname"]" id="hidareaname" name="hidareaname" />
-    <input type="hidden" value="@ViewData["areaId"]" id="hidarea" name="hidarea" />
-    <table cellpadding="5" cellspacing="0" class="MonthTopBar">
-        <tr>
-            <td valign="bottom" class="SelectMonthArea">
-
-                <span>教师：</span>
-                <input id="keyword" />
-                <select id="scTeacher" class="selsty" name="scTeacher" onchange="showteacher()" style="display: none;">
-                    <option value="0">请选择</option>
-                    <option value="0">无教师</option>
-                    @*@if (ViewData["listemployee"] != null)
+        <input type="hidden" value="@ViewData["emoloyeeareaId"]" id="hidemployeeareaId" name="hidemployeeareaId" />
+        <input type="hidden" value="@ViewData["areaname"]" id="hidareaname" name="hidareaname" />
+        <input type="hidden" value="@ViewData["areaId"]" id="hidarea" name="hidarea" />
+        <table cellpadding="5" cellspacing="0" class="MonthTopBar">
+            <tr>
+                <td valign="bottom" class="SelectMonthArea">
+                    <span class="spArea">
+                        <span>区域：</span>@Html.DropDownList("ddlArea", null, new { @class = "selsty" })
+                    </span>
+                    <span>教师：</span>
+                    <input id="keyword" />
+                    <select id="scTeacher" class="selsty" name="scTeacher" onchange="showteacher()" style="display: none;">
+                        <option value="0">请选择</option>
+                        @if (ViewData["listemployee"] != null)
                         {
                             foreach (var item in ViewData["listemployee"] as List<WeChat_EmployeeInfo>)
                             {
@@ -306,25 +298,25 @@
                         else
                         {
                             <option value="0">无教师</option>
-                        }*@
-                </select>
+                        }
+                    </select>
 
-                <img src="~/Assets/images/rl_l.gif" align="absmiddle" alt="Last Month"
-                     onclick="LastMonth_OnClick()" />
-                @Html.TextBox("Year", thisMonth.Year.ToString(), new { @class = "TxtItem", @readonly = "true" })
-                年 @Html.TextBox("Month", thisMonth.Month, new { @class = "TxtItem", @readonly = "true" })
-                月
-                <img src="~/Assets/images/rl_r.gif" align="absmiddle" alt="Next Month"
-                     onclick="NextMonth_OnClick()" />
-            </td>
-            <td align="right" valign="bottom">
-                <input type="button" class="ScheduleBtn LastMonth" onclick="LastMonth_OnClick()" />
-                <input type="button" class="ScheduleBtn CurrMonth" onclick="CurrMonth_OnClick()" />
-                <input type="button" class="ScheduleBtn NextMonth" onclick="NextMonth_OnClick()" />
-                <input type="button" class="ScheduleBtn ExportExcel" onclick="exportExcel();" />
-            </td>
-        </tr>
-    </table>
+                    <img src="../../Content/Images/Icon/rl_l.gif" align="absmiddle" alt="Last Month"
+                         onclick="LastMonth_OnClick()" />
+                    @Html.TextBox("Year", thisMonth.Year.ToString(), new { @class = "TxtItem", @readonly = "true" })
+                    年 @Html.TextBox("Month", thisMonth.Month, new { @class = "TxtItem", @readonly = "true" })
+                    月
+                    <img src="../../Content/Images/Icon/rl_r.gif" align="absmiddle" alt="Next Month"
+                         onclick="NextMonth_OnClick()" />
+                </td>
+                <td align="right" valign="bottom">
+                    <input type="button" class="ScheduleBtn LastMonth" onclick="LastMonth_OnClick()" />
+                    <input type="button" class="ScheduleBtn CurrMonth" onclick="CurrMonth_OnClick()" />
+                    <input type="button" class="ScheduleBtn NextMonth" onclick="NextMonth_OnClick()" />
+                    <input type="button" class="ScheduleBtn ExportExcel" onclick="exportExcel();" />
+                </td>
+            </tr>
+        </table>
     }
     <table width="100%" align="center" class="MonthArea" cellpadding="0" cellspacing="0" style="table-layout: fixed;">
         <tr>
@@ -363,14 +355,14 @@
             {
                 break;
             }
-        <tr>
-            @for (var col = 1; col <= 7; col++)
+            <tr>
+                @for (var col = 1; col <= 7; col++)
                 {
                     if (_ymdays < _dindex)
                     {
-                <td class="DayItem" valign="middle">
-                    &nbsp;
-                </td>
+                        <td class="DayItem" valign="middle">
+                            &nbsp;
+                        </td>
                         continue;
                     }
                     if (row == 1)
@@ -378,42 +370,42 @@
 
                         if (_findex > col)
                         {
-                <td class="DayItem" valign="middle">
-                    &nbsp;
-                </td>
+                            <td class="DayItem" valign="middle">
+                                &nbsp;
+                            </td>
                             continue;
                         }
                     }
 
-                    var ScheduleList = new object();// teacherschedulelist.Where(p => p.StartTime.Value.Day == _dindex).ToList();
-                    var WorkList = new object(); //teacherwork.Where(p => p.ArrangeTime.Day == _dindex).ToList();
+                    var ScheduleList = teacherschedulelist.Where(p => p.StartTime.Value.Day == _dindex).ToList();
+                    var WorkList = teacherwork.Where(p => p.ArrangeDate.Value.Day == _dindex).ToList();
                     var restDay = thisMonth.Year + "-" + thisMonth.Month + "-" + _dindex;
                     int teacherId = 0;
                     var isrest = true;
 
                     var _bool = true;
 
-                <td valign="top" style="text-align: center; position: relative; padding-bottom: 10px;">
-                    @if (DateTime.Now.Day == _dindex)
+                    <td valign="top" style="text-align: center; position: relative; padding-bottom: 10px;">
+                        @if (DateTime.Now.Day == _dindex)
                         {
 
-                        <div class='@(isrest ? "RestTip" : "ItemTip")' style="background-color:green;">
-                            @thisMonth.Month 月 @_dindex 日
-                        </div>
+                            <div class='@(isrest ? "RestTip" : "ItemTip")' style="background-color:green;">
+                                @thisMonth.Month 月 @_dindex 日
+                            </div>
 
                             _dindex++;
                         }
                         else
                         {
-                        <div class='RestTitle'>
-                            @thisMonth.Month 月 @_dindex 日
-                        </div>
+                            <div class='RestTitle'>
+                                @thisMonth.Month 月 @_dindex 日
+                            </div>
 
                             _dindex++;
                         }
 
-                    <div style="min-height: 50px; padding: 0;">
-                        @*@if (ScheduleList.Count > 0)
+                        <div style="min-height: 50px; padding: 0;">
+                            @if (ScheduleList.Count > 0)
                             {
                                 List<int> UserAreaIds = ViewBag.CurrentUserArea as List<int>;
                                 List<int> UserRoleIds = ViewBag.RoleId as List<int>;
@@ -447,8 +439,8 @@
                                         </li>
                                     }
                                 </ul>
-                            }*@
-                        @*@if (WorkList.Count > 0)
+                            }
+                            @if (WorkList.Count > 0)
                             {
                                 <ul style="font-size: 16px; padding: 0;">
                                     @foreach (var item in WorkList)
@@ -457,18 +449,26 @@
                                         <li style="" class="@classitem" tag="@item.ID">@(item.StartTime.Value.ToString("HH:mm") + "~" + item.EndTime.Value.ToString("HH:mm"))</li>
                                     }
                                 </ul>
-                            }*@
+                            }
 
-                    </div>
-                    <div style="padding: 0; bottom: 0px; text-align: center; width: 100%; position: absolute;">
-                        <input type="button" class="butwhite2" value="排课" onclick="pageResponse.arrangeadd(this,'@restDay    ')" />
-                    </div>
-                </td>
+                        </div>
+                        <div style="padding: 0; bottom: 0px; text-align: center; width: 100%; position: absolute;">
+                            <input type="button" class="butwhite2" value="排课" onclick="pageResponse.arrangeadd(this,'@restDay    ')" />
+                        </div>
+                    </td>
 
                 }
-        </tr>
+            </tr>
         }
     </table>
 
 </div>
-
+<script type="text/javascript">
+    $(function () {
+        $(".CourseItem").hover(function () {
+            $(this).css("border-bottom", "solid 1px yellow");
+        }, function () {
+            $(this).css("border-bottom", "0px");
+        });
+    });
+</script>

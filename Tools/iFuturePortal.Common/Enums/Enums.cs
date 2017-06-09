@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace CourseManager.Common.Enums
 {
@@ -7,19 +8,11 @@ namespace CourseManager.Common.Enums
         /// <summary>
         /// Banner
         /// </summary>
-       Banner,
-       /// <summary>
-       /// 名师头像
-       /// </summary>
-       TeacherPic,
-       /// <summary>
-       /// 成功案例学生的头像
-       /// </summary>
-        SuccessCasePic,
+        Banner,
         /// <summary>
-        /// 成功案例录取通知书
+        /// 名师头像
         /// </summary>
-        SuccessCaseAdmission
+        TeacherPic
     }
 
     /// <summary>
@@ -29,12 +22,59 @@ namespace CourseManager.Common.Enums
     public enum EnumCategoryType
     {
         /// <summary>
-        /// 国家学校等级
+        /// 签到类型（准时上课 迟到 未上课）
         /// </summary>
-        CountrySchoolLevel,
+        SignInRecordType,
         /// <summary>
-        /// Banner类型（如：首页 ，美高）
+        /// 未上课原因类型
         /// </summary>
-        BannerType
+        NoCourseReasonType,
+        /// <summary>
+        /// 课程类型
+        /// </summary>
+        CourseType
+    }
+
+
+
+    /// <summary>
+    ///出勤枚举
+    /// </summary>
+    public enum Attendence
+    {
+        //1：准时上课  2：迟到  3：早退  4：未上课
+        [Description("准时上课")]
+        Normal = 1,
+        [Description("迟到")]
+        Late = 2,
+        [Description("早退")]
+        Early = 3,
+        [Description("旷课")]
+        NoCourse = 4,
+    }
+    /// <summary>
+    /// 课时长度
+    /// </summary>
+    public enum DurationType
+    {
+        //1：1小时  2：2小时
+        [Description("1小时")]
+        OneHour = 1,
+        [Description("2小时")]
+        TowHour = 2
+    }
+
+    public enum ArrageCourseStatus
+    {
+        [Description("预排")]//只有预排课才可以在排课时自动删除
+        Default = 1,
+        [Description("待放课")]
+        Normal = 2,
+        [Description("已放课")]//只有正式课表才可以放课
+        Effective = 3,
+        [Description("已取消")]//只有放课后的课才可以取消
+        Cancel = 4,
+        [Description("已结课")]//只有放课后的课才可以结课
+        Finished = 5
     }
 }

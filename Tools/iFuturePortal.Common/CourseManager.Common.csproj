@@ -7,8 +7,8 @@
     <ProjectGuid>{1E6765F7-1911-42C4-83CC-7137CABBCAE1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>iFuturePortal.Common</RootNamespace>
-    <AssemblyName>iFuturePortal.Common</AssemblyName>
+    <RootNamespace>CourseManager.Common</RootNamespace>
+    <AssemblyName>CourseManager.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -57,6 +57,7 @@
     <Compile Include="CacheManager\CacheManger.cs" />
     <Compile Include="CacheManager\CacheStrategy.cs" />
     <Compile Include="CacheManager\ICacheManager.cs" />
+    <Compile Include="CalendarHelper.cs" />
     <Compile Include="Config\AppConfig.cs" />
     <Compile Include="Config\ImagesDPI\Entity\ImagesDpiDetail.cs" />
     <Compile Include="Config\ImagesDPI\Entity\ImagesDpiGroup.cs" />

@@ -74,6 +74,14 @@
     @RenderSection("Scripts", false)
 </head>
 <body>
-    @RenderBody()
+    <div id="bodyWrapper">
+
+        @Html.Partial("_TopBar")
+
+        @RenderBody()
+
+        @Html.Partial("_Footer")
+
+    </div>
 </body>
 </html>
