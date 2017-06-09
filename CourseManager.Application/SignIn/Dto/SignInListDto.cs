@@ -52,7 +52,8 @@ namespace CourseManager.SignIn.Dto
         public string Remark { get; set; }
 
         public string StudentName { get; set; }
-
+        public string TypeName { get; set; }
+        public string UnNormalTypeName { get; set; }
         public string ClassType { get; set; }
         public string ClassTypeName { get; set; }
         public string CourseType { get; set; }

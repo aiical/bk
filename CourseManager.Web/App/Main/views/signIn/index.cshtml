@@ -12,7 +12,8 @@
                         <th>@L("ClassType")</th>
                         <th>@L("CourseType")</th>
                         <th>@L("Type")</th>
-                        <th>@L("Reason")</th>
+                        <th>@L("UnNormalType")</th>
+                        <th>@L("Remark")</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,7 +24,8 @@
                         <td>{{sign.endTime| date:'MM.dd hh:mm'}}</td>@*下课时间*@
                         <td>{{sign.classTypeName}}</td>
                         <td>{{sign.courseTypeName}}</td>
-                        <td title="{{sign.type}}">{{sign.type| truncate:true:5:'...'}}</td>@*正常上课/旷课*@
+                        <td title="{{sign.typeName}}">{{sign.typeName| truncate:true:5:'...'}}</td>@*正常上课/旷课*@
+                        <td title="{{sign.unNormalTypeName}}">{{sign.unNormalTypeName}}</td>
                         <td title="{{sign.reason}}">{{sign.reason| truncate:true:10:'...'}}</td>
                     </tr>
                 </tbody>

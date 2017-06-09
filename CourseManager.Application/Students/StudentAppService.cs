@@ -40,7 +40,7 @@ namespace CourseManager.Users
         }
         public ListResultDto<StudentListDto> GetStudents()
         {
-            var stus = _studentRepository.GetAllListAsync();
+            var stus = _studentRepository.GetAllList();
 
             return new ListResultDto<StudentListDto>(
                 stus.MapTo<List<StudentListDto>>()

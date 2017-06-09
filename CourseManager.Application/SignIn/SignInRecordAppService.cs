@@ -14,6 +14,8 @@ using CourseManager.Common;
 using CourseManager.Category;
 using CourseManager.Category.Dtos;
 using CourseManager.Common.Enums;
+using CourseManager.Students;
+using CourseManager.Students.Dto;
 
 namespace CourseManager.SignIn
 {
@@ -22,12 +24,15 @@ namespace CourseManager.SignIn
 
         private readonly IRepository<SignInRecord, string> _signInRepository;
         private readonly ICategorysAppService _categorysAppService;
+        private readonly IStudentAppService _studentAppService;
         public SignInRecordAppService(
             IRepository<SignInRecord, string> signInRepository,
-            ICategorysAppService categorysAppService)
+            ICategorysAppService categorysAppService,
+             IStudentAppService studentAppService)
         {
             this._signInRepository = signInRepository;
             this._categorysAppService = categorysAppService;
+            this._studentAppService = studentAppService;
         }
 
         private IQueryable<SignInRecord> GetArrangesByCondition(SignInInput input)
@@ -85,15 +90,27 @@ namespace CourseManager.SignIn
             {
                 //
                 var categoryData = _categorysAppService.GetCategorysPageListBy(new CategorysInput { });
-
+                var students = _studentAppService.GetStudents();
+                StudentListDto studentModel = new StudentListDto();
                 foreach (var item in list)
                 {
-                    if (!string.IsNullOrEmpty(item.ClassType))
+                    if (!string.IsNullOrEmpty(item.ClassType) && categoryData.Any(c => c.Id == item.ClassType))
                         item.ClassTypeName = categoryData.FirstOrDefault(c => c.Id == item.ClassType).CategoryName;
-                    if (!string.IsNullOrEmpty(item.Type))
-                        item.ClassTypeName = categoryData.FirstOrDefault(c => c.Id == item.Type).CategoryName;
-                    if (!string.IsNullOrEmpty(item.CourseType))
-                        item.ClassTypeName = categoryData.FirstOrDefault(c => c.Id == item.CourseType).CategoryName;
+                    if (!string.IsNullOrEmpty(item.Type) && categoryData.Any(c => c.Id == item.Type))
+                        item.TypeName = categoryData.FirstOrDefault(c => c.Id == item.Type).CategoryName;
+                    if (!string.IsNullOrEmpty(item.CourseType) && categoryData.Any(c => c.Id == item.CourseType))
+                        item.CourseTypeName = categoryData.FirstOrDefault(c => c.Id == item.CourseType).CategoryName;
+                    if (!string.IsNullOrEmpty(item.UnNormalType) && categoryData.Any(c => c.Id == item.UnNormalType))
+                        item.UnNormalTypeName = categoryData.FirstOrDefault(c => c.Id == item.UnNormalType).CategoryName;
+                    var studentIds = item.StudentId.Split(',');
+                    string stuName = string.Empty;
+                    foreach (var stu in studentIds)
+                    {
+                        studentModel = students.Items.FirstOrDefault(s => s.Id == stu);
+                        if(studentModel!=null&&!string.IsNullOrEmpty(studentModel.Id))
+                          stuName += students.Items.FirstOrDefault(s => s.Id == stu).CnName;
+                    }
+                    item.StudentName = stuName;
                 }
             }
         }

@@ -17,7 +17,8 @@ namespace CourseManager.SignIn.Dto
         /// 上课签到类型（迟到，正常，未上课（如果是迟到或者未上课 请说明原因））
         /// </summary>
         public string Type { get; set; }
-
+        public string ClassType { get; set; }
+        public string CourseType { get; set; }
         /// <summary>
         /// 当有请假的时候 请选择相应的类型（如果上课类型为非正常的时候 必须选择是学生请假 还是老师自己请假 和后期统计工资有关）
         /// </summary>

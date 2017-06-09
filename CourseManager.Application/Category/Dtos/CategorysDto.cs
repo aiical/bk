@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Abp.AutoMapper;
+using System;
 
 namespace CourseManager.Category.Dtos
 {
+    [AutoMapFrom(typeof(Categorys))]
     public class CategorysDto
     {
         public string Id { get; set; }
