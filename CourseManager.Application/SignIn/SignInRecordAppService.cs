@@ -75,9 +75,9 @@ namespace CourseManager.SignIn
         {
             var stus = _signInRepository.GetAllList();
             if (stus == null) return new ListResultDto<SignInListDto>();
-            return new ListResultDto<SignInListDto>(
-                stus.MapTo<List<SignInListDto>>()
-                );
+            var list = stus.MapTo<List<SignInListDto>>();
+            SetOtherExtendData(list);
+            return new ListResultDto<SignInListDto>(list);
         }
         private void SetOtherExtendData(IEnumerable<SignInListDto> list)
         {
