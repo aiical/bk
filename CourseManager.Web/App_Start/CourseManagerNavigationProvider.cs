@@ -54,27 +54,35 @@ namespace CourseManager.Web
                             icon: "fa fa-calendar",
                            requiredPermissionName: PermissionNames.Pages_Users
                         )
-                ))
-                .AddItem(new MenuItemDefinition(
-                            "Sign",
-                            L("Sign"),
-                            icon: "fa  fa-check-circle"
-                        ).AddItem(
+                )).AddItem(
                             new MenuItemDefinition(
                             "SignIn",
                             L("SignIn"),
                             url: "#signIn",
                             icon: "fa fa-check-circle",
                               requiredPermissionName: PermissionNames.Pages_Users
-                        )).AddItem(
-                         new MenuItemDefinition(
-                            "AbsentCheckIn",
-                            L("AbsentCheckIn"),
-                            url: "#absentCheckIn",
-                            icon: "fa fa-check-circle",
-                              requiredPermissionName: PermissionNames.Pages_Users
-                        )
-                )).AddItem(
+                        ))
+                //.AddItem(new MenuItemDefinition(
+                //            "Sign",
+                //            L("Sign"),
+                //            icon: "fa  fa-check-circle"
+                //        ).AddItem(
+                //            new MenuItemDefinition(
+                //            "SignIn",
+                //            L("SignIn"),
+                //            url: "#signIn",
+                //            icon: "fa fa-check-circle",
+                //              requiredPermissionName: PermissionNames.Pages_Users
+                //        )).AddItem(
+                //         new MenuItemDefinition(
+                //            "AbsentCheckIn",
+                //            L("AbsentCheckIn"),
+                //            url: "#absentCheckIn",
+                //            icon: "fa fa-check-circle",
+                //              requiredPermissionName: PermissionNames.Pages_Users
+                //        )
+                //))
+                .AddItem(
                     new MenuItemDefinition(
                         "ClassHourStatistics",
                         L("ClassHourStatistics"),
