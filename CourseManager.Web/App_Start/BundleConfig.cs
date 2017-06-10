@@ -59,6 +59,7 @@ namespace CourseManager.Web
                         "~/Abp/Framework/scripts/libs/abp.sweet-alert.js",
                         "~/Abp/Framework/scripts/libs/angularjs/abp.ng.js",
                         "~/Assets/js/tm.pagination.js"
+                          //, "~/Assets/libsReference/laydate.js"
                     //"~/Scripts/jquery.signalR-2.2.1.min.js"
                     )
                 );

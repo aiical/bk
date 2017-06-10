@@ -22,7 +22,8 @@
             <div class="form-group">
                 <div class="col-md-6">
                     <label>@L("BeginTime")</label>
-                    <input type="text" name="BeginTime" class="form-control" ng-model="vm.signInRecord.beginTime" required>
+                    <input ng-datepicker  type="text" id="BeginTime" class="form-control"  max-date="{{vm.signInRecord.max}}" min-date="{{vm.signInRecord.min}}" ng-model="vm.signInRecord.beginTime" required /> 
+                    @*<input type="text" name="BeginTime" class="form-control" ng-model="vm.signInRecord.beginTime" required>*@
                 </div>
 
                 <div class="col-md-6">

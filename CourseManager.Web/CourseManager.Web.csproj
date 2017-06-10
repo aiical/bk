@@ -323,6 +323,7 @@
     <Content Include="Abp\Framework\styles\abp.mixings.css" />
     <Content Include="Abp\Framework\styles\abp.mixings.min.css" />
     <Content Include="Abp\Framework\styles\utils\ie10fix.css" />
+    <Content Include="AngularJsTest\DirectiveDemo.html" />
     <Content Include="App\Main\app.js" />
     <Content Include="App\Main\main.css">
       <DependentUpon>main.less</DependentUpon>
@@ -331,6 +332,7 @@
       <DependentUpon>main.css</DependentUpon>
     </Content>
     <Content Include="App\Main\services\appSession.js" />
+    <Content Include="App\Main\views\directives\ngDatePicker.js" />
     <Content Include="App\Main\views\teachers\createModal.js" />
     <Content Include="App\Main\views\teachers\index.js" />
     <Content Include="App\Main\views\directives\autoFocus.js" />
@@ -426,6 +428,7 @@
     <Content Include="Assets\js\tool.js" />
     <Content Include="Assets\libsReference\jquery-1.11.0.min.js" />
     <Content Include="Assets\libsReference\jquery.autocomplete.min.js" />
+    <Content Include="Assets\libsReference\laydate.js" />
     <Content Include="Assets\libsReference\layer-mobile\css\layer.css" />
     <Content Include="Assets\libsReference\layer-mobile\layer.js" />
     <Content Include="Assets\libsReference\lazyload\jquery.lazyload.js" />

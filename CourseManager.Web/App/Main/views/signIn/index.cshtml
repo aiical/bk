@@ -1,4 +1,8 @@
-﻿<div ng-controller="app.views.signInRecord.index as vm">
+﻿@using Abp.Web.Mvc.Extensions
+@{
+    @Html.IncludeScript("~/Views/CourseArrange/TeacherCourseArrange.js")
+}
+<div ng-controller="app.views.signInRecord.index as vm">
     <div class="row">
         <div class="col-md-12">
             <button ng-click="vm.openSignInModal()" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> @L("SignIn")</button>
@@ -33,3 +37,4 @@
         </div>
     </div>
 </div>
+
