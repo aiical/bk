@@ -1302,6 +1302,7 @@
     <Content Include="Assets\libsReference\ueditor\third-party\video-js\font\vjs.eot" />
     <Content Include="Assets\libsReference\ueditor\third-party\video-js\font\vjs.ttf" />
     <Content Include="Assets\libsReference\ueditor\third-party\video-js\font\vjs.woff" />
+    <Content Include="App\Main\views\signIn\signIn.zip" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <None Include="Scripts\jquery-2.2.0-vsdoc.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />

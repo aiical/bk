@@ -1,12 +1,12 @@
 ﻿@using Abp.Authorization.Users
 <div>
-    <form name="signInRecordCreateForm" role="form"  class="form-validation">
+    <form name="signInRecordCreateForm" role="form" class="form-validation">
         <div class="modal-header">
             <h4 class="modal-title">
                 <span>@L("SignIn")</span> @*上课签到*@
             </h4>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="min-height:399px;">
 
             <div class="form-group">
                 <label>@L("Address")</label>
@@ -22,52 +22,53 @@
             <div class="form-group">
                 <div class="col-md-6">
                     <label>@L("BeginTime")</label>
-                    @*<input ng-datepicker  type="text" id="BeginTime" class="form-control"  max-date="{{vm.signInRecord.max}}" min-date="{{vm.signInRecord.min}}" ng-model="vm.signInRecord.beginTime" required />*@ 
-                    <datetimepicker dateID="timepicker" name="BeginTime"  ng-model="vm.signInRecord.beginTime"
-                                    format="Y/m/d h:i" id="BeginTime" class="form-control" required></datetimepicker>  @*format="Y/m/d h:i"*@
-                    @*<input type="text" name="BeginTime" class="form-control" ng-model="vm.signInRecord.beginTime" required>*@
-                </div>
+                    @*<input ng-datepicker  type="text" id="BeginTime" class="form-control"  max-date="{{vm.signInRecord.max}}" min-date="{{vm.signInRecord.min}}" ng-model="vm.signInRecord.beginTime" required />*@
+                    <datetimepicker dateID="timepicker" name="BeginTime" ng-model="vm.signInRecord.beginTime"
+                                    format="H:i" id="BeginTime" class="form-control" required></datetimepicker>  @*format="Y/m/d h:i"*@
+                                    @*<input type="text" name="BeginTime" class="form-control" ng-model="vm.signInRecord.beginTime" required>*@
+                                </div>
 
-                <div class="col-md-6">
-                    <label>@L("EndTime")</label>
-                    <datetimepicker dateID="timepickerEnd" ng-model="vm.signInRecord.endTime"
-                                    format="Y/m/d h:i"  id="EndTime" name="EndTime"  class="form-control" required></datetimepicker>
-                    @*<input type="text" name="EndTime" class="form-control" ng-model="vm.signInRecord.endTime" required>*@
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-6">
-                    <label>@L("CourseType")</label>
-                    <select class="form-control" ng-model="selectedCourseType" ng-options="option.CategoryName for option in  vm.signInRecord.courseType"></select>
-                </div>
-                <div class="col-md-6">
-                    <label>@L("ClassType")</label>
-                    <select class="form-control" ng-model="selectedClassType" ng-options="option.CategoryName for option in  vm.signInRecord.classType"></select>
-                </div>
-            </div>
-                <div class="form-group">
-                    <div class="col-md-6">
-                        <label>@L("Type")</label>
-                        <select class="form-control" ng-model="selectedType" ng-options="option.CategoryName for option in  vm.signInRecord.type"></select>
-                        @*<span>你选择的值是: {{selectedType}}</span>*@
-                    </div>
-                    <div class="col-md-6">
-                        <label>@L("UnNormalType")</label>
-                        <select class="form-control" ng-model="selectedUnNormalType" ng-options="option.CategoryName for option in  vm.signInRecord.unNormalType"></select>
-                        @* <select>
-                数组：<option ng-model="selectedUnNormalType" ng-repeat="x in vm.signInRecord.unNormalType">{{x}}</option>
-                                </select>*@
-                    </div>
-                </div>
+                                <div class="col-md-6">
+                                    <label>@L("EndTime")</label>
+                                    <datetimepicker dateID="timepickerEnd" ng-model="vm.signInRecord.endTime"
+                                                    format="H:i" id="EndTime" name="EndTime" class="form-control" required></datetimepicker>
+                                    @*<input type="text" name="EndTime" class="form-control" ng-model="vm.signInRecord.endTime" required>*@
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label>@L("CourseType")</label>
+                                    <select class="form-control" ng-model="selectedCourseType" ng-options="option.CategoryName for option in  vm.signInRecord.courseType" required></select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>@L("ClassType")</label>
+                                    <select class="form-control" ng-model="selectedClassType" ng-options="option.CategoryName for option in  vm.signInRecord.classType" required></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label>@L("Type")</label>
+                                    <select class="form-control" ng-model="selectedType" ng-options="option.CategoryName for option in  vm.signInRecord.type" required></select>
+                                    @*<span>你选择的值是: {{selectedType}}</span>*@
+                                </div>
+                                <div class="col-md-6">
+                                    <label>@L("UnNormalType")</label>
+                                    <select class="form-control" ng-model="selectedUnNormalType" ng-change="vm.signInRecord.selectChange();" ng-options="option.CategoryName for option in  vm.signInRecord.unNormalType"></select>
+                                    @* <select>
+                                        数组：<option ng-model="selectedUnNormalType" ng-repeat="x in vm.signInRecord.unNormalType">{{x}}</option>
+                                                        </select>*@
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label>@L("Reason"):</label>
-                    <input class="form-control" type="text" name="Reason" ng-model="vm.signInRecord.reason">
+                            <div class="form-group" id="Reason-Container" style="display:none;">
+                                <label>@L("Reason")</label>
+                                <input class="form-control" ng-if="selectedUnNormalType" type="text" id="Reason" name="Reason" ng-model="vm.signInRecord.reason">
+                            </div>
+                        </div>
+
+                    </form>
+                    <div class="modal-footer clearfix">
+                        <button type="button" class="btn btn-default" ng-click="vm.cancel()">@L("Cancel")</button>
+                        <button type="submit" class="btn btn-primary blue" ng-click="vm.save()" ng-disabled="signInRecordCreateForm.$invalid"><i class="fa fa-save"></i> <span>@L("Save")</span></button>
+                    </div>
                 </div>
-            </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" ng-click="vm.cancel()">@L("Cancel")</button>
-            <button type="submit" class="btn btn-primary blue" ng-click="vm.save()" ng-disabled="signInRecordCreateForm.$invalid"><i class="fa fa-save"></i> <span>@L("Save")</span></button>
-        </div>
-    </form>
-</div>

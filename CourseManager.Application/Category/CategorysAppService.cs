@@ -23,8 +23,9 @@ namespace CourseManager.Category
 
         public IEnumerable<CategorysDto> GetAllCategorys()
         {
-            var data = _cacheHelper.GetAllList(CacheKeys.GetAllCategory, () => {
-                return _categorysRepository.GetAllList().Where(o=>o.IsDeleted==false).MapTo<List<CategorysDto>>();
+            var data = _cacheHelper.GetAllList(CacheKeys.GetAllCategory, () =>
+            {
+                return _categorysRepository.GetAllList().Where(o => o.IsDeleted == false).OrderByDescending(c => c.CategoryType).ThenBy(c => c.SortNo).MapTo<List<CategorysDto>>();
             });
             return data;
         }
@@ -49,7 +50,7 @@ namespace CourseManager.Category
 
         public List<CategorysDto> GetCategorysPageListBy(CategorysInput categorysInput)
         {
-            var result = GetCategorysByCondition(categorysInput).OrderBy(o=>o.SortNo).ToList();
+            var result = GetCategorysByCondition(categorysInput).OrderBy(o => o.SortNo).ToList();
             return result;
         }
 
