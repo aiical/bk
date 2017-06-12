@@ -1,0 +1,28 @@
+﻿*,*:before,*:after {box-sizing: border-box;}
+* {padding:0;marging:0}；
+html,body {min-height: 100%;}
+html { font-size: 10px;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td,em{margin:0;padding:0;font-family:Microsoft Yahei;}
+body{text-align:center;font-size:100%;background: #efefef; color: #4c4c4c;font-size: 1.6rem; line-height: 2.2rem; }
+table{text-align:center;margin:0px auto;border-collapse:collapse;border-spacing:0;}
+table tr{}
+table tr td{border : 1px #dededf solid;}
+fieldset,img{border: 0;}
+li{list-style:none;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+input,button,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;font:100% Tahoma,Helvetica,Arial,sans-serif;}
+input{padding-left:0px;}
+blockquote, q {quotes: "" "";}
+a{color:#333;text-decoration:none;}
+a:hover, a:focus{text-decoration:none;}
+.clear{clear:both;height:0px;overflow:hidden;}
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+.moderImg .my-gallery{ overflow: hidden;}
+.moderImg .my-gallery .moderImg{padding:1.666%;overflow:hidden;}
+.moderImg .my-gallery .moderImgShow{width:30%;border: 1px solid #dedede;float:left;margin:1.666%;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing: border-box;-o-box-sizing: border-box;-ms-box-sizing: border-box;}
+.moderImgShow div a{display:block;}
+.img-responsive{height:100%;width:100%;display:block;}
+figure{-webkit-margin-before: 0;-webkit-margin-after: 0;-webkit-margin-start: 0;-webkit-margin-end: 0;}

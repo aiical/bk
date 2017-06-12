@@ -1,7 +1,12 @@
 ﻿@using Abp.Web.Mvc.Extensions
 @{
     @Html.IncludeScript("~/Views/CourseArrange/TeacherCourseArrange.js")
+
+    @*@Html.IncludeScript("~/App/Main/views/directives/ngDatePicker.js")*@
 }
+<style type="text/css">
+    .xdsoft_noselect{width:76px !important;}/*如果既要显示日期又要显示分钟 则width:360px*/
+</style>
 <div ng-controller="app.views.signInRecord.index as vm">
     <div class="row">
         <div class="col-md-12">

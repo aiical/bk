@@ -10,25 +10,29 @@
 
             <div class="form-group">
                 <label>@L("Address")</label>
-                <input class="form-control" type="text" name="Address" ng-model="vm.signInRecord.address" required>
+                <input class="form-control" placeholder="请填写具体的上课地点如：蛇口东角头" type="text" name="Address" ng-model="vm.signInRecord.address" required>
             </div>
 
             <div class="form-group">
                 <label>@L("Students")</label>
-                <input type="text" name="StudentId" class="form-control" ng-model="vm.signInRecord.studentId" required>
+                <input type="text" name="StudentId" placeholder="请准确选择该堂课学生" class="form-control" ng-model="vm.signInRecord.studentId" required>
             </div>
 
 
             <div class="form-group">
                 <div class="col-md-6">
                     <label>@L("BeginTime")</label>
-                    <input ng-datepicker  type="text" id="BeginTime" class="form-control"  max-date="{{vm.signInRecord.max}}" min-date="{{vm.signInRecord.min}}" ng-model="vm.signInRecord.beginTime" required /> 
+                    @*<input ng-datepicker  type="text" id="BeginTime" class="form-control"  max-date="{{vm.signInRecord.max}}" min-date="{{vm.signInRecord.min}}" ng-model="vm.signInRecord.beginTime" required />*@ 
+                    <datetimepicker dateID="timepicker" name="BeginTime"  ng-model="vm.signInRecord.beginTime"
+                                    format="Y/m/d h:i" id="BeginTime" class="form-control" required></datetimepicker>  @*format="Y/m/d h:i"*@
                     @*<input type="text" name="BeginTime" class="form-control" ng-model="vm.signInRecord.beginTime" required>*@
                 </div>
 
                 <div class="col-md-6">
                     <label>@L("EndTime")</label>
-                    <input type="text" name="EndTime" class="form-control" ng-model="vm.signInRecord.endTime" required>
+                    <datetimepicker dateID="timepickerEnd" ng-model="vm.signInRecord.endTime"
+                                    format="Y/m/d h:i"  id="EndTime" name="EndTime"  class="form-control" required></datetimepicker>
+                    @*<input type="text" name="EndTime" class="form-control" ng-model="vm.signInRecord.endTime" required>*@
                 </div>
             </div>
             <div class="form-group">
