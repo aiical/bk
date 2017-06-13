@@ -64,7 +64,7 @@ namespace CourseManager.Users
         {
             var query = GetStudentsByCondition(input);
             var count = query.Count();
-            input.SkipCount = (input.PIndex ?? 1 - 1) * input.PSize ?? 10;
+            input.SkipCount = ((input.PIndex ?? 1) - 1) * (input.PSize ?? 10);
             input.MaxResultCount = input.PSize ?? 10;
             var list = query.PageBy(input).ToList();
 

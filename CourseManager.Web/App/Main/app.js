@@ -9,8 +9,7 @@
         'ui.bootstrap',
         'ui.jq',
 
-        'abp',
-        'tm.pagination'
+        'abp','tm.pagination'
     ]).filter('truncate', function () {//自定义字符和限定字数 超出格式化显示
         return function (value, wordwise, max, tail) {
             if (!value) return '';

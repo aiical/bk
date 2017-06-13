@@ -92,7 +92,7 @@
             //配置分页基本参数
             $scope.paginationConf = {
                 currentPage: 1,
-                itemsPerPage: 2
+                itemsPerPage:3
             };
 
             /***************************************************************
@@ -104,5 +104,5 @@
 
             //getStudents();
         }
-    ]);
+    ])
 })();
