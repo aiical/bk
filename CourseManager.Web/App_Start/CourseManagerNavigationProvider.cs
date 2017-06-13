@@ -91,7 +91,8 @@ namespace CourseManager.Web
                             new MenuItemDefinition(
                                 "TeacherClassHourStatistics",
                                 L("TeacherClassHourStatistics"),
-                                url: "#teacherClassHourStatistics",
+                                 url: "ClassHourStatistics/TeacherClassHours",
+                                //url: "#teacherClassHourStatistics",
                                 icon: "fa fa-bar-chart-o",
                                      requiredPermissionName: PermissionNames.Pages_Users
                             )

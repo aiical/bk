@@ -19,7 +19,8 @@ namespace CourseManager.Web
                     .Include("~/Scripts/sweetalert/sweet-alert.css", new CssRewriteUrlTransform())
                     .Include("~/Content/flags/famfamfam-flags.css", new CssRewriteUrlTransform())
                     .Include("~/Content/font-awesome.min.css", new CssRewriteUrlTransform())
-                    .Include("~/Assets/libsReference/jquery.datetimepicker/jquery.datetimepicker.css",new CssRewriteUrlTransform())
+                    .Include("~/Assets/libsReference/jquery.datetimepicker/jquery.datetimepicker.css", new CssRewriteUrlTransform())
+                    .Include("~/Assets/css/common.css", new CssRewriteUrlTransform())
                 );
 
             //~/Bundles/App/vendor/js
@@ -61,7 +62,8 @@ namespace CourseManager.Web
                         "~/Abp/Framework/scripts/libs/angularjs/abp.ng.js",
                         "~/Assets/js/tm.pagination.js",
                         "~/Assets/libsReference/jquery.datetimepicker/jquery.datetimepicker.js"
-                          //, "~/Assets/libsReference/laydate.js"
+                    //"~/Assets/libsReference/Highcharts-5.0.6/code/highcharts.js"
+                    //, "~/Assets/libsReference/laydate.js"
                     //"~/Scripts/jquery.signalR-2.2.1.min.js"
                     )
                 );

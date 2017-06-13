@@ -80,6 +80,11 @@
                     templateUrl: '/App/Main/views/teachers/index.cshtml',
                     menu: 'Teachers'
                 });
+                //.state('teacherClassHourStatistics', {
+                //    url: '/teacherClassHourStatistics',
+                //    templateUrl: '/App/Main/views/teacherClassHourStatistics/index.cshtml',
+                //    menu: 'TeacherClassHourStatistics'
+                //});
             if (abp.auth.hasPermission('Pages.Users')) {
                 $stateProvider
                     .state('users', {

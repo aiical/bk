@@ -15,7 +15,7 @@ namespace CourseManager.Migrations.SeedData
         {
             InitialLanguages = new List<ApplicationLanguage>
             {
-		    new ApplicationLanguage(null, "zh-CN", "简体中文", "famfamfam-flag-cn"),
+		    new ApplicationLanguage(null, "zh-CN", "中文", "famfamfam-flag-cn"),
 		    new ApplicationLanguage(null, "en", "English", "famfamfam-flag-gb")
 		    //new ApplicationLanguage(null, "tr", "Türkçe", "famfamfam-flag-tr"),
 		    //new ApplicationLanguage(null, "pt-BR", "Português-BR", "famfamfam-flag-br"),

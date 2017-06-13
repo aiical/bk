@@ -140,6 +140,10 @@
     <Compile Include="Category\Dtos\CategorysDto.cs" />
     <Compile Include="Category\Dtos\CategorysInput.cs" />
     <Compile Include="Category\ICategorysAppService.cs" />
+    <Compile Include="ClassHourStatistics\Dto\ClassHourStatisticsInput.cs" />
+    <Compile Include="ClassHourStatistics\Dto\ClassHourStatisticsOutput.cs" />
+    <Compile Include="ClassHourStatistics\IClassHourStatisticsAppService.cs" />
+    <Compile Include="ClassHourStatistics\ClassHourStatisticsAppService.cs" />
     <Compile Include="CourseArrange\Dto\TeacherCourseArrangeInput.cs" />
     <Compile Include="CourseArrange\Dto\CreateTeacherCourseArrangeInput.cs" />
     <Compile Include="CourseArrange\Dto\TeacherCourseArrangeListDto.cs" />

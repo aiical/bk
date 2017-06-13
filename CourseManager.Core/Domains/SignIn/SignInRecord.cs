@@ -54,7 +54,10 @@ namespace CourseManager.SignIn
         /// 上课结束时间
         /// </summary>
         public DateTime EndTime { get; set; }
-
+        /// <summary>
+        /// 上了多少个小时 如1个半小时 就是90分钟 这里以分钟为单位
+        /// </summary>
+        public decimal Duration { get; set; }
         /// <summary>
         /// 上课地点 如蛇口东角头 侨城东 
         /// </summary>

@@ -32,6 +32,7 @@ namespace CourseManager.SignIn.Dto
         /// </summary>
         public DateTime EndTime { get; set; }
 
+        public decimal Duration { get; set; }
         /// <summary>
         /// 上课地点 如蛇口东角头 侨城东 
         /// </summary>

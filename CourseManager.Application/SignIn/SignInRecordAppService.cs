@@ -55,6 +55,10 @@ namespace CourseManager.SignIn
                 record.Id = IdentityCreator.NewGuid;
                 record.CreatorUserId = AbpSession.UserId.Value;
                 record.TeacherId = AbpSession.UserId.Value.ToString();
+                TimeSpan ts1 = new TimeSpan(input.EndTime.Ticks);
+                TimeSpan ts2 = new TimeSpan(input.BeginTime.Ticks);
+                TimeSpan diff = ts1.Subtract(ts2).Duration();
+                record.Duration = Convert.ToDecimal(Math.Ceiling(diff.TotalMinutes));
                 record.StudentId = "fd3fd836655e4502a40db5acfca5d115";//孙京儿测试用
                 await _signInRepository.InsertAsync(record);
             }
@@ -66,6 +70,7 @@ namespace CourseManager.SignIn
             var count = query.Count();
             input.SkipCount = ((input.PIndex ?? 1) - 1) * (input.PSize ?? 10);
             input.MaxResultCount = input.PSize ?? 10;
+            input.SkipCount = input.SkipCount < 0 ? 0 : input.SkipCount;
             var list = query.PageBy(input).ToList();
             var mapData = list.MapTo<List<SignInListDto>>();
             SetOtherExtendData(mapData);

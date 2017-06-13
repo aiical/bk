@@ -70,7 +70,9 @@
     <!-- Dynamic scripts of ABP system (They are created on runtime and can not be bundled) -->
     <script src="~/api/AbpServiceProxies/GetAll?v=@(Clock.Now.Ticks)"></script>
     <script src="~/AbpScripts/GetScripts?v=@(Clock.Now.Ticks)" type="text/javascript"></script>
-
+    @*highCharts cdn*@
+    <script src="https://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+    <script src="~/Assets/js/tool.js"></script>
     @RenderSection("Scripts", false)
 </head>
 <body>

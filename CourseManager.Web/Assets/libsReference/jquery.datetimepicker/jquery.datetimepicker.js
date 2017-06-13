@@ -828,7 +828,7 @@
 								line_time( h,m );
 							}
 						}
-                        console.log(timebox);
+                      //  console.log(timebox);
 						timebox.html(time);
 
 						var opt = '',

@@ -42,7 +42,7 @@
     <text name="StudentClassHourStatistics" value="学生课时统计"/>
 
 
-    <text name="Users" value="系统用户" />
+    <text name="Users" value="用户" />
     <text name="IsActive" value="是否激活" />
     <text name="FullName" value="全名" />
     <text name="CreateNewUser" value="添加用户" />

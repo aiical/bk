@@ -1,4 +1,4 @@
-/* CSS Document */
+﻿/* CSS Document */
 @charset "utf-8";
 *{
     padding: 0;
@@ -17,13 +17,6 @@
 }
 
 /*移动端*/
-html{font-size: 625%; font-size: 100px; }
-body{font-size: 0.16rem;} 
-body{  font-family:Arial,"Microsoft Yahei","微软雅黑";-webkit-font-smoothing: antialiased;}
-
-html,body{
-    height: 100%;
-}
 blockquote, body, dd, dir, dl, fieldset, figure, h1, h2, h3, h4, h5, h6, hr, input[type=checkbox], input[type=radio], input[type=range], listing, menu, ol, p, plaintext, pre, ul, xmp {
     margin: 0;
 }
@@ -37,7 +30,30 @@ html * {
     -webkit-text-size-adjust: none;
     -webkit-tap-highlight-color: transparent;
 }
+#footer {
+    margin: 0 auto;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
 
+
+    #footer .copyRight {
+        background: #3e424d;
+    }
+
+        #footer .copyRight p {
+            height: 48px;
+            line-height: 48px;
+            text-align: center;
+            font-size: 14px;
+            color: #8d8d8d;
+        }
+
+    #footer p b {
+        display: inline-block;
+        margin-left: 32px;
+    }
 input, select, textarea {
     -webkit-tap-highlight-color: transparent;
     -webkit-appearance: none;
