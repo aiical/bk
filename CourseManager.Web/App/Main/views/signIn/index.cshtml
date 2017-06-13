@@ -31,8 +31,8 @@
                     <tr ng-repeat="sign in vm.signInRecord">
                         <td>{{sign.studentName}}</td>
                         <td>{{sign.address}}</td>
-                        <td>{{sign.beginTime| date:'MM.dd hh:mm'}}</td>@*上课时间*@
-                        <td>{{sign.endTime| date:'MM.dd hh:mm'}}</td>@*下课时间*@
+                        <td>{{sign.beginTime| date:'MM.dd HH:mm'}}</td>@*上课时间*@
+                        <td>{{sign.endTime| date:'MM.dd HH:mm'}}</td>@*下课时间*@
                         <td>{{sign.classTypeName}}</td>
                         <td>{{sign.courseTypeName}}</td>
                         <td title="{{sign.typeName}}">{{sign.typeName| truncate:true:5:'...'}}</td>@*正常上课/旷课*@
