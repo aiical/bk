@@ -7,6 +7,10 @@ namespace CourseManager.Students.Dto
         public string Id { get; set; }
         public bool? IsActive { get; set; }
         public string CnName { get; set; }
+        /// <summary>
+        /// 微信
+        /// </summary>
+        public string WeChat { get; set; }
         //public StudentInput()
         //{
 

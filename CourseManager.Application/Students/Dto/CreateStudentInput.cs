@@ -10,6 +10,10 @@ namespace CourseManager.Students.Dto
         [Required]
         [StringLength(32)]
         public string CnName { get; set; }
+        /// <summary>
+        /// ÄÐ1 Å®2
+        /// </summary>
+        public int Sex { get; set; }
 
         [Required]
         [StringLength(32)]
@@ -22,6 +26,11 @@ namespace CourseManager.Students.Dto
         [StringLength(32)]
         public string Position { get; set; }
         public string Mobile { get; set; }
+
+        /// <summary>
+        /// Î¢ÐÅ
+        /// </summary>
+        public string WeChat { get; set; }
 
         public int Age { get; set; }
 

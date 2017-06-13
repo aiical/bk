@@ -47,12 +47,20 @@
                         <label>@L("Age")</label>
                         <input type="number" name="Age" class="form-control" ng-model="vm.student.age">
                     </div>
+                    <div class="col-md-6">
+                        <label>@L("WeChat")</label>
+                        <input type="text" name="WeChat" class="form-control" ng-model="vm.student.weChat">
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <div class="col-md-3 checkbox" style="padding-left:35px;margin-top:35px;">
                         <input type="checkbox" name="IsActive" ng-model="vm.student.isActive" value="true"> @L("IsActive")
                     </div>
                     <div class="col-md-3" style="margin-top:35px;">
-                        <input type="radio" name="Sex" ng-model="vm.student.sex" > 男
-                        <input type="radio" name="Sex" ng-model="vm.student.sex" > 女
+                        <input type="radio" ng-checked="true" name="Sex" ng-value="1"  ng-model="vm.student.sex"> 男
+                        <input type="radio" name="Sex" ng-value="2"  ng-model="vm.student.sex"> 女
+                     
                     </div>
                 </div>
             </div>

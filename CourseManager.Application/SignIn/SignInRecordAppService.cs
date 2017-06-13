@@ -64,11 +64,12 @@ namespace CourseManager.SignIn
         {
             var query = GetArrangesByCondition(input);
             var count = query.Count();
-            input.SkipCount = (input.PIndex ?? 1 - 1) * input.PSize ?? 10;
+            input.SkipCount = ((input.PIndex ?? 1) - 1) * (input.PSize ?? 10);
             input.MaxResultCount = input.PSize ?? 10;
             var list = query.PageBy(input).ToList();
-
-            return new PagedResultDto<SignInListDto>(count, list.MapTo<List<SignInListDto>>());
+            var mapData = list.MapTo<List<SignInListDto>>();
+            SetOtherExtendData(mapData);
+            return new PagedResultDto<SignInListDto>(count, mapData); //list.MapTo<List<SignInListDto>>()
         }
 
         public SignInRecord GetSignIn(SignInInput input)
@@ -107,8 +108,8 @@ namespace CourseManager.SignIn
                     foreach (var stu in studentIds)
                     {
                         studentModel = students.Items.FirstOrDefault(s => s.Id == stu);
-                        if(studentModel!=null&&!string.IsNullOrEmpty(studentModel.Id))
-                          stuName += students.Items.FirstOrDefault(s => s.Id == stu).CnName;
+                        if (studentModel != null && !string.IsNullOrEmpty(studentModel.Id))
+                            stuName += students.Items.FirstOrDefault(s => s.Id == stu).CnName;
                     }
                     item.StudentName = stuName;
                 }

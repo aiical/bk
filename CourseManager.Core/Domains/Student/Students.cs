@@ -20,6 +20,7 @@ namespace CourseManager.Student
         public const int MaxPositionLength = 36;
         public const int MaxMobileLength = 36;
         public const int MaxLocalCountryNameLength = 128;
+        public const int MaxWeChatLength = 128;
         #endregion
         public Students()
         {
@@ -62,6 +63,11 @@ namespace CourseManager.Student
         public int TenantId { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
+        [MaxLength(MaxWeChatLength)]
+        /// <summary>
+        /// 微信
+        /// </summary>
+        public string WeChat { get; set; }
         /// <summary>
         /// 扩展字段
         /// </summary>

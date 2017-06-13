@@ -24,6 +24,10 @@ namespace CourseManager.Students.Dto
 
         public int Age { get; set; }
         public string Mobile { get; set; }
+        /// <summary>
+        /// 微信
+        /// </summary>
+        public string WeChat { get; set; }
         public string CountryName { get; set; }
 
         public bool IsActive { get; set; }

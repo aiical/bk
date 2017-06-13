@@ -4,6 +4,7 @@
     @*@Html.IncludeScript("~/Assets/libsReference/bootstrap.tool.js")*@
     @*@Html.IncludeScript("~/App/Main/views/directives/ngDatePicker.js")*@
 }
+<link href="~/Assets/css/pagination.css" rel="stylesheet" />
 <style type="text/css">
     .xdsoft_noselect{width:76px !important;}
     /*如果既要显示日期又要显示分钟 则width:360px 否则76px*/
@@ -42,5 +43,6 @@
             </table>
         </div>
     </div>
+    <tm-pagination conf="paginationConf"></tm-pagination>
 </div>
 

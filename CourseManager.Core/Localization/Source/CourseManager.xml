@@ -82,6 +82,7 @@
     <text name="Female" value="Female" />
     <text name="Position" value="Position" />
     <text name="Mobile" value="Mobile"/>
+    <text name="WeChat" value="WeChat"/>
     <text name="AddStu" value="AddStudent" />
     <text name="StudentDeleteWarningMessage" value="StudentDeleteWarningMessage" />
     
