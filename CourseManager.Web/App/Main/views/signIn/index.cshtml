@@ -18,6 +18,7 @@
                     <tr>
                         <th>@L("StudentName")</th>
                         <th>@L("Address")</th>
+                        <th>@L("DetailAddress")</th>
                         <th>@L("BeginTime")</th>
                         <th>@L("EndTime")</th>
                         <th>@L("ClassType")</th>
@@ -30,6 +31,7 @@
                 <tbody>
                     <tr ng-repeat="sign in vm.signInRecord">
                         <td>{{sign.studentName}}</td>
+                        <th>{{sign.courseAddressTypeName}}</th>
                         <td>{{sign.address}}</td>
                         <td>{{sign.beginTime| date:'MM.dd HH:mm'}}</td>@*上课时间*@
                         <td>{{sign.endTime| date:'MM.dd HH:mm'}}</td>@*下课时间*@

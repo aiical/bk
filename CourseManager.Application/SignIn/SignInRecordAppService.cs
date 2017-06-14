@@ -114,6 +114,8 @@ namespace CourseManager.SignIn
                         item.CourseTypeName = categoryData.FirstOrDefault(c => c.Id == item.CourseType).CategoryName;
                     if (!string.IsNullOrEmpty(item.UnNormalType) && categoryData.Any(c => c.Id == item.UnNormalType))
                         item.UnNormalTypeName = categoryData.FirstOrDefault(c => c.Id == item.UnNormalType).CategoryName;
+                    if (!string.IsNullOrEmpty(item.CourseAddressType) && categoryData.Any(c => c.Id == item.CourseAddressType))
+                        item.CourseAddressTypeName = categoryData.FirstOrDefault(c => c.Id == item.CourseAddressType).CategoryName;
                     var studentIds = item.StudentId.Split(',');
                     string stuName = string.Empty;
                     foreach (var stu in studentIds)

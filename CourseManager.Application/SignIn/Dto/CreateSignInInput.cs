@@ -17,6 +17,10 @@ namespace CourseManager.SignIn.Dto
         /// 上课签到类型（迟到，正常，未上课（如果是迟到或者未上课 请说明原因））
         /// </summary>
         public string Type { get; set; }
+        /// <summary>
+        /// 上课地点类型（如外派/学院）（因为外派会有车费补贴 和工资统计有关）
+        /// </summary>
+        public string CourseAddressType { get; set; }
         public string ClassType { get; set; }
         public string CourseType { get; set; }
         /// <summary>

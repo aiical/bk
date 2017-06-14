@@ -72,7 +72,7 @@
     <text name="Sign" value="签到" />
     <text name="SignIn" value="上课签到" />
     <text name="Address" value="上课地点" />
-    
+    <text name="DetailAddress" value="具体位置" />
     <text name="AbsentCheckIn" value="异常登记（未上课记录）" />
     <text name="ClassHourStatistics" value="课时统计" />
     <text name="OfficeHourStatistics" value="坐班时间统计" />

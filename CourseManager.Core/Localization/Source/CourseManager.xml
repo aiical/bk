@@ -90,6 +90,7 @@
     <text name="Sign" value="Sign" />
     <text name="SignIn" value="SignIn" />
     <text name="Address" value="Address" />
+    <text name="DetailAddress" value="DetailAddress" />
     <text name="AbsentCheckIn" value="AbsentCheckIn" />
     
     <!--签到记录 记录给某个学生某堂课上课和下课时间 是否是正常上课还是学生旷课或者老师请假-->

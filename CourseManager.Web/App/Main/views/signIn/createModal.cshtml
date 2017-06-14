@@ -8,10 +8,6 @@
         </div>
         <div class="modal-body" style="min-height:399px;">
 
-            <div class="form-group">
-                <label>@L("Address")</label>
-                <input class="form-control" placeholder="请填写具体的上课地点如：蛇口东角头" type="text" name="Address" ng-model="vm.signInRecord.address" required>
-            </div>
 
             <div class="form-group">
                 <label>@L("Students")</label>
@@ -19,6 +15,17 @@
             </div>
 
 
+            <div class="form-group">
+                
+                <div class="col-md-6">
+                    <label>@L("Address")</label>
+                    <select class="form-control"  ng-model="selectedAddressType" ng-options="option.CategoryName for option in  vm.signInRecord.addressType" required></select>
+                </div>
+                <div class="col-md-6">
+                    <label>@L("DetailAddress")</label>
+                    <input class="form-control" id="DetailAddress" placeholder="如：蛇口东角头/学院" type="text" name="Address" ng-model="vm.signInRecord.address" required>
+                </div>
+            </div>
             <div class="form-group">
                 <div class="col-md-6">
                     <label>@L("BeginTime")</label>
@@ -54,9 +61,6 @@
                                 <div class="col-md-6">
                                     <label>@L("UnNormalType")</label>
                                     <select class="form-control" ng-model="selectedUnNormalType" ng-change="vm.signInRecord.selectChange();" ng-options="option.CategoryName for option in  vm.signInRecord.unNormalType"></select>
-                                    @* <select>
-                                        数组：<option ng-model="selectedUnNormalType" ng-repeat="x in vm.signInRecord.unNormalType">{{x}}</option>
-                                                        </select>*@
                                 </div>
                             </div>
 

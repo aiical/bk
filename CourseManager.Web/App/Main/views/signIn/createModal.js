@@ -22,8 +22,10 @@
                 ],
                 unNormalType: [
                     defaultSelectItem
+                ],
+                addressType: [
+                    defaultSelectItem
                 ]
-
                 //type: [
                 //    { "CategoryName": "准时上课", "Id": "305ab34ea2674ed4a1c9dbcc7265d2e9" },//["迟到", "正常", "未上课"]
                 //    { "CategoryName": "迟到", "Id": "4a7f3fde896544a68756762eebaa12e2" },
@@ -51,10 +53,13 @@
             function getCategorys() {
                 $categoryService.getAllCategorys()
                     .then(function (res) {
-                        // console.log(res.data);
+                        console.log(res.data);
                         $.each(res.data, function (index, item) {
                             var cd = { "CategoryName": item.categoryName, "Id": item.id };
                             switch (item.categoryType) {
+                                case "CourseAddressType":
+                                    vm.signInRecord.addressType.push(cd);
+                                    break;
                                 case "SignInRecordType":
                                     vm.signInRecord.type.push(cd);
                                     break;
@@ -74,6 +79,7 @@
                         $scope.selectedType = vm.signInRecord.type[0];//如果想要第一个值
                         $scope.selectedClassType = vm.signInRecord.classType[0]
                         $scope.selectedCourseType = vm.signInRecord.courseType[0];
+                        $scope.selectedAddressType = vm.signInRecord.addressType[0];
                         $scope.selectedUnNormalType = vm.signInRecord.unNormalType[0];
                     });
             }
@@ -84,9 +90,11 @@
             //select 的ng-change事件和原始ng-change相同  
             vm.signInRecord.selectChange = function () {
                 var curSelect = $scope.selectedUnNormalType;
-                if (curSelect.Id != "-1") {
-                    $('#Reason-Container').show();
-                } else $('#Reason-Container').hide();
+                if (curSelect != null) {
+                    if (curSelect.Id != "-1") {
+                        $('#Reason-Container').show();
+                    } else $('#Reason-Container').hide();
+                }
             }
             vm.save = function () {
                 abp.ui.setBusy();
@@ -119,6 +127,8 @@
                 vm.signInRecord.classType = $scope.selectedClassType.Id;
                 vm.signInRecord.unNormalType = $scope.selectedUnNormalType.Id;
                 vm.signInRecord.courseType = $scope.selectedCourseType.Id;
+                vm.signInRecord.courseAddressType = $scope.selectedAddressType.Id;
+
                 // console.log(vm.signInRecord);
                 $signInService.createSignInRecord(vm.signInRecord)
                     .then(function () {
