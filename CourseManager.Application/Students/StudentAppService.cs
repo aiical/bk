@@ -27,7 +27,7 @@ namespace CourseManager.Users
 
         public Student.Students GetStudent(StudentInput input)
         {
-            return _studentRepository.Get(input.Id);
+            return GetStudentsByCondition(input).FirstOrDefault(); //_studentRepository.Get(input.Id);
         }
 
         public async Task<ListResultDto<StudentListDto>> GetStudentsAsync()

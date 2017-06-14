@@ -91,7 +91,7 @@
             vm.save = function () {
                 abp.ui.setBusy();
                 if (vm.signInRecord.endTime != null && vm.signInRecord.endTime != "" && vm.signInRecord.beginTime != null && vm.signInRecord.beginTime != "") {
-                   
+
                     if (vm.signInRecord.endTime < vm.signInRecord.beginTime
                         ||
                         new Date(vm.signInRecord.endTime).getTime() < new Date(vm.signInRecord.beginTime).getTime()
@@ -103,9 +103,10 @@
                         return;
                     }
                     var now = new Date();
-                    console.log(now.getHours() + ":" + now.getMinutes());
-                    if (vm.signInRecord.endTime < now.getHours() + ":" + now.getMinutes()
-                        ||new Date(vm.signInRecord.endTime).getTime() > new Date().getTime()) {
+                    console.log(vm.signInRecord.endTime + "--" + now.getHours() + ":" + now.getMinutes());
+                    if ((vm.signInRecord.endTime != null) &&
+                        (vm.signInRecord.endTime > now.getHours() + ":" + now.getMinutes()
+                            || new Date(vm.signInRecord.endTime).getTime() > new Date().getTime())) {
                         vm.signInRecord.endTime = null;
                         abp.notify.error("下课时间不能大于当前时间");
                         abp.ui.clearBusy();
@@ -138,10 +139,12 @@
             require: "ngModel",
             link: function (scope, element, attrs, ctrl) {
                 var unregister = scope.$watch(function () {
-                    $(element).append("<input placeHolder=\"请选择准确的时间\" id='date-" + attrs.dateid + "' style='border:none;width:100%;height:100%' " +
-                        "value='" + ctrl.$modelValue + "'>");
-                    $(element).css("padding", "0");
-
+                    var timePickerId = "date-" + attrs.dateid;
+                    if (!$(element).find(timePickerId)) {
+                        $(element).append("<input placeHolder=\"请选择准确的时间\" id='date-" + attrs.dateid + "' style='border:none;width:100%;height:100%' " +
+                            "value='" + ctrl.$modelValue + "'>");
+                        $(element).css("padding", "0");
+                    }
                     element.on('change', function () {
                         scope.$apply(function () {
                             ctrl.$setViewValue($("#date-" + attrs.dateid).val());

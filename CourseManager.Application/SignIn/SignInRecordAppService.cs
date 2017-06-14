@@ -59,7 +59,13 @@ namespace CourseManager.SignIn
                 TimeSpan ts2 = new TimeSpan(input.BeginTime.Ticks);
                 TimeSpan diff = ts1.Subtract(ts2).Duration();
                 record.Duration = Convert.ToDecimal(Math.Ceiling(diff.TotalMinutes));
-                record.StudentId = "fd3fd836655e4502a40db5acfca5d115";//孙京儿测试用
+                var students = input.StudentId.Trim().Split(',');
+                var studentIds = "";
+                foreach (var stu in students)
+                {
+                    studentIds += _studentAppService.GetStudent(new StudentInput() { CnName = stu }).Id + ",";
+                }
+                record.StudentId = studentIds.TrimEnd(',');//孙京儿测试用 "fd3fd836655e4502a40db5acfca5d115" 自己录入数据的时候 输入准确学生名去匹配 如果是班级课就用逗号隔开
                 await _signInRepository.InsertAsync(record);
             }
         }
@@ -114,9 +120,9 @@ namespace CourseManager.SignIn
                     {
                         studentModel = students.Items.FirstOrDefault(s => s.Id == stu);
                         if (studentModel != null && !string.IsNullOrEmpty(studentModel.Id))
-                            stuName += students.Items.FirstOrDefault(s => s.Id == stu).CnName;
+                            stuName += students.Items.FirstOrDefault(s => s.Id == stu).CnName + ",";
                     }
-                    item.StudentName = stuName;
+                    item.StudentName = stuName.TrimEnd(',');
                 }
             }
         }

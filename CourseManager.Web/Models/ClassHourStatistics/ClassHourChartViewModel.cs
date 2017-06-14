@@ -21,5 +21,7 @@ namespace CourseManager.Web.Models.ClassHourStatistics
         /// </summary>
         [JsonProperty("name")]
         public DateTime Date { get; set; }
+
+        public int Day { get; set; }
     }
 }

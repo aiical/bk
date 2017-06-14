@@ -13,6 +13,7 @@ namespace CourseManager.SignIn
     {
         #region length
         public const short MaxIdLength = 36;
+        public const short MaxMultiLength = 1024;
         public const short MaxRemarkLength = 1024;
         public const short MaxCategoryTypeLength = 64;
 
@@ -22,10 +23,10 @@ namespace CourseManager.SignIn
         [MaxLength(MaxIdLength)]
         public string TeacherId { get; set; }
         /// <summary>
-        /// 当前给哪个学生上课
+        /// 当前给哪个学生上课,班级课可能有多个学生
         /// </summary>
         [Required]
-        [MaxLength(MaxIdLength)]
+        [MaxLength(MaxMultiLength)]
         public string StudentId { get; set; }
         /// <summary>
         /// 上课签到类型（迟到，正常，未上课（如果是迟到或者未上课 请说明原因））

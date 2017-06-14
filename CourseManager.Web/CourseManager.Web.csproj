@@ -333,7 +333,6 @@
     </Content>
     <Content Include="App\Main\services\appSession.js" />
     <Content Include="App\Main\views\directives\myChart.js" />
-    <Content Include="App\Main\views\directives\ngDatePicker.js" />
     <Content Include="App\Main\views\teacherClassHourStatistics\index.js" />
     <Content Include="App\Main\views\teachers\createModal.js" />
     <Content Include="App\Main\views\teachers\index.js" />
@@ -427,6 +426,7 @@
     <Content Include="Assets\images\yi-icos.png" />
     <Content Include="Assets\images\yi-max.png" />
     <Content Include="Assets\js\calendar.js" />
+    <Content Include="Assets\js\dateTimeUtil.js" />
     <Content Include="Assets\js\tm.pagination.js" />
     <Content Include="Assets\js\tool.js" />
     <Content Include="Assets\libsReference\bootstrap-3.3.6\css\bootstrap-theme.css" />

@@ -35,7 +35,6 @@ namespace CourseManager.ClassHourStatistics
         private IQueryable<SignInRecord> GetArrangesByCondition(ClassHourStatisticsInput input)
         {
             var query = _signInRepository.GetAll()
-                        .WhereIf(!input.Id.IsNullOrEmpty(), o => o.Id == input.Id)
                         .WhereIf(!input.Filter.IsNullOrEmpty(), t => t.Type == input.Filter)
                         .Where(o => o.IsDeleted == false);
             query = string.IsNullOrEmpty(input.Sorting)
@@ -45,12 +44,12 @@ namespace CourseManager.ClassHourStatistics
         }
 
 
-       
+
         public ListResultDto<ClassHourStatisticsOutput> GetClassHourStatistics(ClassHourStatisticsInput input)
         {
-            var stus = _signInRepository.GetAllList();
-            if (stus == null) return new ListResultDto<ClassHourStatisticsOutput>();
-            var list = stus.MapTo<List<ClassHourStatisticsOutput>>();
+            var classHours = GetArrangesByCondition(input);// _signInRepository.GetAllList();
+            if (classHours == null) return new ListResultDto<ClassHourStatisticsOutput>();
+            var list = classHours.MapTo<List<ClassHourStatisticsOutput>>();
             SetOtherExtendData(list);
             return new ListResultDto<ClassHourStatisticsOutput>(list);
         }
