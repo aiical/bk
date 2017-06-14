@@ -1,4 +1,6 @@
-﻿using CourseManager.CourseArrange;
+﻿using CourseManager.Category;
+using CourseManager.Common.Extensions;
+using CourseManager.CourseArrange;
 using CourseManager.CourseArrange.Dto;
 using System;
 using System.Collections.Generic;
@@ -11,9 +13,14 @@ namespace CourseManager.Web.Controllers
     public class CourseArrangeController : CourseManagerControllerBase
     {
         private readonly ITeacherCourseArrangeAppService _teacherCourseArrangeAppService;
-        public CourseArrangeController(ITeacherCourseArrangeAppService teacherCourseArrangeAppService)
+        private readonly ICategorysAppService _categoryAppService;
+        public CourseArrangeController(
+            ITeacherCourseArrangeAppService teacherCourseArrangeAppService,
+            ICategorysAppService categoryAppService
+            )
         {
             this._teacherCourseArrangeAppService = teacherCourseArrangeAppService;
+            this._categoryAppService = categoryAppService;
         }
         #region 教师排课
         //public ActionResult TeacherCourseArrange(TeacherCourseArrangeInput input)
@@ -22,7 +29,11 @@ namespace CourseManager.Web.Controllers
         //}
         public ActionResult TeacherCourseArrange(string teacherId,string yearMonth)
         {
-            ViewBag.ActiveMenu = "TeacherCourseArrange";
+            ViewBag.ActiveMenu = "ArrangeCourse";
+            var categorys = _categoryAppService.GetAllCategorys();
+            ViewBag.ClassTypeList = categorys.Where(c=>c.CategoryType=="ClassType").ToList().CreateSelect("CategoryName", "Id", "");
+            ViewBag.CourseType = categorys.Where(c => c.CategoryType == "CourseType").ToList().CreateSelect("Name", "Id", "");
+            ViewBag.CourseAddressType = categorys.Where(c => c.CategoryType == "CourseAddressType").ToList().CreateSelect("Name", "Id", "");
             return View();
         }
         [HttpPost]

@@ -12,6 +12,7 @@
 @section Styles{
     <link href="~/Assets/css/jquery.autocomplete.css" rel="stylesheet" />
     <link href="~/Assets/css/courseArrange/Style.css" rel="stylesheet" />
+    <link href="~/Assets/libsReference/jquery.datetimepicker/jquery.datetimepicker.css" rel="stylesheet" />
     <style>
         .maintitle {
             margin-top: 80px;
@@ -25,15 +26,6 @@
                 line-height: 10px;
             }
     </style>
-}
-@section Scripts{
-    <script src="~/Assets/libsReference/jquery.autocomplete.min.js"></script>
-    @Html.IncludeScript("~/Views/CourseArrange/TeacherCourseArrange.js")
-    <script type="text/javascript">
-        $(function () {
-            Bk.TeacherCourseArrange.bootstrap();
-        })
-    </script>
 }
 
 <input type="hidden" id="hidareaId" name="hidareaId" />
@@ -253,3 +245,14 @@
 <!--编辑模态框通过ajax动态填充到此div中-->
 <div id="edit">
 </div>
+@section Scripts{
+    <script src="~/Assets/libsReference/jquery.autocomplete.min.js"></script>
+    <script src="~/Assets/libsReference/jquery.datetimepicker/jquery.datetimepicker.js"></script>
+    <script src="~/Assets/js/dateTimeUtil.js"></script>
+    @Html.IncludeScript("~/Views/CourseArrange/TeacherCourseArrange.js")
+    <script type="text/javascript">
+        $(function () {
+            Bk.TeacherCourseArrange.bootstrap();
+        })
+    </script>
+}
