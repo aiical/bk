@@ -110,7 +110,7 @@ namespace CourseManager.Web
                     new MenuItemDefinition(
                         "OfficeHourStatistics",
                         L("OfficeHourStatistics"),
-                        url: "#officeHourStatistics",
+                        url: "OfficeHourStatistics/OfficeHourStatistics", //"#officeHourStatistics",
                         icon: "fa fa-bar-chart-o",
                           requiredPermissionName: PermissionNames.Pages_Users
                         )
@@ -118,7 +118,7 @@ namespace CourseManager.Web
                     new MenuItemDefinition(
                         "PayCalculation",
                         L("PayCalculation"),
-                        url: "#payCalculation",
+                        url: "PayCalculation/PayCalculation", //"#payCalculation",
                         icon: "fa fa-cny",
                           requiredPermissionName: PermissionNames.Pages_Users
                         )

@@ -2,36 +2,31 @@
 using CourseManager.ClassHourStatistics;
 using CourseManager.ClassHourStatistics.Dto;
 using CourseManager.Core.EntitiesFromCustom;
-using CourseManager.CourseArrange;
-using CourseManager.CourseArrange.Dto;
-using CourseManager.Web.Models.ClassHourStatistics;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace CourseManager.Web.Controllers
 {
     [AbpMvcAuthorize]
-    public class ClassHourStatisticsController : CourseManagerControllerBase
+    public class OfficeHourStatisticsController : CourseManagerControllerBase
     {
-        private readonly IClassHourStatisticsAppService _teacherClassHoursStatisticsAppService;
-        public ClassHourStatisticsController(IClassHourStatisticsAppService teacherClassHoursStatisticsAppService)
+        private readonly IClassHourStatisticsAppService _teacherOfficeHoursStatisticsAppService;
+        public OfficeHourStatisticsController(IClassHourStatisticsAppService teacherOfficeHoursStatisticsAppService)
         {
-            this._teacherClassHoursStatisticsAppService = teacherClassHoursStatisticsAppService;
+            this._teacherOfficeHoursStatisticsAppService = teacherOfficeHoursStatisticsAppService;
         }
 
-        public ActionResult TeacherClassHours()
+        public ActionResult OfficeHourStatistics()
         {
-            ViewBag.ActiveMenu = "ClassHourStatistics";
+            ViewBag.ActiveMenu = "OfficeHourStatistics";
             return View();
         }
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public JsonResult GetTeacherClassHourStatistics(ClassHourStatisticsInput input)
+        public JsonResult GetTeacherOfficeHourStatistics(ClassHourStatisticsInput input)
         {
-            var result = _teacherClassHoursStatisticsAppService.GetClassHourStatistics(input).Items;
+            var result = _teacherOfficeHoursStatisticsAppService.GetClassHourStatistics(input).Items;
             List<decimal> durations = new List<decimal>();
             var totalDuration = result.Sum(r => r.Duration);
             var beginTimeDay = input.BeginTime.Day;

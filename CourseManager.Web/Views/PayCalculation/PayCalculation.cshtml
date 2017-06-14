@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = L("PayCalculation");
+}
+@section Styles{
+    <link href="~/Assets/libsReference/jquery.datetimepicker/jquery.datetimepicker.css" rel="stylesheet" />
+    <style>
+        .salary {
+            background: url(../../Assets/images/salary_blue.jpg) no-repeat;
+            border-radius: 50px;
+            width: 1069px;
+            height: 664px;
+            margin-left: 20%;
+        }
+
+        .only-bottom {
+            color:red;
+            font-family:"方正";
+            font-size:20px;
+            position: absolute;
+            right: 30%;
+            top: 160px;
+            width: 180px;
+            border: none;
+            background-color: #BACBD3;
+            height: 50px;
+            line-height: 50px;
+            padding-left: 30px;
+            border-bottom: 1px solid red;
+        }
+
+        .basic {
+            height:100px; 
+            overflow:hidden;
+            top: 250px;
+        }
+
+        .extra {
+            top: 560px;
+        }
+
+        .early {
+            top: 400px;
+        }
+        .total{
+            width:700px;
+            top:720px;
+        }
+    </style>
+}
+<div id="container">
+    <form id="queryForm">
+        <div class="form-inline" style="margin:80px 22% 20px 22%;">
+            <div class="form-group">
+                <label class="" for="">老师姓名：</label>
+                <input type="text" name="TeacherName" placeholder="中/英（中文相同请用英文）" class="form-control" id="TeacherName">
+            </div>
+            <div class="form-group">
+                @*页面首次加载的时候获取当月开始到当前时间的所有课时*@
+                <label class="" for="">开始时间：</label>
+                <input type="text" class="form-control datetime" value="2017-06-01" name="BeginTime" id="BeginTime">
+            </div>
+            <div class="form-group">
+                <label class="" for="">结束时间：</label>
+                <input type="text" class="form-control datetime" value="@DateTime.Now.ToString("yyyy-MM-dd")" name="EndTime" id="EndTime">
+            </div>
+            <input type="button" id="btnSearch" class="btn btn-primary" value="搜索">
+        </div>
+    </form>
+    <div id="pay-calculation" class="salary">
+
+        <input type="text" id="outside-fee" value="20X10" class="only-bottom" />
+        <textarea id="basic-fee" class="only-bottom basic">80X50 
+20X70</textarea>
+        @*<input  id="basic-fee" class="only-bottom basic" />*@
+        <input type="text" id="early-fee" class="only-bottom early"  value="12X5"  />
+        <input type="text" id="exta-fee" class="only-bottom extra"   value="200" />
+
+        <input type="text" id="total-fee" class="only-bottom total" />
+    </div>
+
+</div>
+@section Scripts{
+    <script src="~/Assets/libsReference/jquery.datetimepicker/jquery.datetimepicker.js"></script>
+    <script src="~/Assets/js/dateTimeUtil.js"></script>
+    <script src="~/Views/PayCalculation/PayCalculation.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            Bk.PayCalculation.bootstrap();
+        })
+    </script>
+}

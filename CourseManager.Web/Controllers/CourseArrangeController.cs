@@ -22,6 +22,7 @@ namespace CourseManager.Web.Controllers
         //}
         public ActionResult TeacherCourseArrange(string teacherId,string yearMonth)
         {
+            ViewBag.ActiveMenu = "TeacherCourseArrange";
             return View();
         }
         [HttpPost]

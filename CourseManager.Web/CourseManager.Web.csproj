@@ -410,6 +410,9 @@
     <Content Include="Assets\images\return.png" />
     <Content Include="Assets\images\rl_l.gif" />
     <Content Include="Assets\images\rl_r.gif" />
+    <Content Include="Assets\images\salary-02.jpg" />
+    <Content Include="Assets\images\salary_blue.jpg" />
+    <Content Include="Assets\images\salary_sunshine.jpg" />
     <Content Include="Assets\images\share.png" />
     <Content Include="Assets\images\spread.gif" />
     <Content Include="Assets\images\success.png" />
@@ -1320,6 +1323,7 @@
     <Content Include="Assets\libsReference\uploadPreview.min.js" />
     <Content Include="Assets\libsReference\zoom.js" />
     <Content Include="Assets\学生.txt" />
+    <Content Include="Assets\工资统计0.jpg" />
     <Content Include="Common\Scripts\helpers.js" />
     <Content Include="Configs\ffmpeg\ffmpeg.exe" />
     <Content Include="Configs\ffmpeg\libamrnb-3.dll" />
@@ -2326,6 +2330,8 @@
       <DependentUpon>Login.css</DependentUpon>
     </Content>
     <Content Include="Views\Account\Register.js" />
+    <Content Include="Views\PayCalculation\PayCalculation.js" />
+    <Content Include="Views\OfficeHourStatistics\OfficeHourStatistics.js" />
     <Content Include="Views\ClassHourStatistics\ClassHourStatistics.js" />
     <Content Include="Views\CourseArrange\TeacherCourseArrange.js" />
     <Content Include="Web.config">
@@ -2349,6 +2355,8 @@
     <Compile Include="Assets\libsReference\ueditor\net\App_Code\PathFormater.cs" />
     <Compile Include="Assets\libsReference\ueditor\net\App_Code\UploadHandler.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\PayCalculationController.cs" />
+    <Compile Include="Controllers\OfficeHourStatisticsController.cs" />
     <Compile Include="Controllers\ClassHourStatisticsController.cs" />
     <Compile Include="Controllers\CourseArrangeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -2400,6 +2408,8 @@
     <Content Include="Views\CourseArrange\_AddTeacherCourseArrange.cshtml" />
     <Content Include="Views\CourseArrange\_EditTeacherCourseArrange.cshtml" />
     <Content Include="Views\ClassHourStatistics\TeacherClassHours.cshtml" />
+    <Content Include="Views\OfficeHourStatistics\OfficeHourStatistics.cshtml" />
+    <Content Include="Views\PayCalculation\PayCalculation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
