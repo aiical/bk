@@ -14,122 +14,116 @@
     <link href="~/Assets/css/courseArrange/Style.css" rel="stylesheet" />
     <link href="~/Assets/libsReference/jquery.datetimepicker/jquery.datetimepicker.css" rel="stylesheet" />
     <style>
-        .maintitle {
-            margin-top: 80px;
+        .xdsoft_noselect {
+            width: 360px !important;
         }
-
-            .maintitle span {
-                display: block;
-                float: left;
-                margin: 3px 5px 1px 2px;
-                text-align: center;
-                line-height: 10px;
-            }
+        /*如果既要显示日期又要显示分钟 则width:360px 否则76px*/
     </style>
 }
-
-<input type="hidden" id="hidareaId" name="hidareaId" />
 <input type="hidden" id="nowday" name="nowday" />
 @*上课情况切换 nav*@
-<div class="maintitle">
+<div class="maintitle course-arrange-status">
     <div style="display: inline; float: right; padding-bottom: 2px;" class="colorarea">
         <span style="cursor: pointer;" onmouseover="Bk.TeacherCourseArrange.actions.mouseover(this)" Bk.TeacherCourseArrange.actions="Bk.TeacherCourseArrange.actions.mouseout()"><span class="Status_Normal" style="width: auto; padding-right: 10px;"></span><span class="named">待放课</span></span>
         <span style="cursor: pointer;" onmouseover="Bk.TeacherCourseArrange.actions.mouseover(this)" onmouseout="Bk.TeacherCourseArrange.actions.mouseout()"><span class="Status_Effect" style="width: auto; padding-right: 10px;"></span><span class="named">已放课</span></span>
         <span style="cursor: pointer;" onmouseover="Bk.TeacherCourseArrange.actions.mouseover(this)" onmouseout="Bk.TeacherCourseArrange.actions.mouseout()"><span class="Status_Cancel" style="width: auto; padding-right: 10px;"></span><span class="named">已取消</span></span>
         <span style="cursor: pointer;" onmouseover="Bk.TeacherCourseArrange.actions.mouseover(this)" onmouseout="Bk.TeacherCourseArrange.actions.mouseout()"><span class="Status_Finished" style="width: auto; padding-right: 10px;"></span><span class="named">已结课</span></span>
-        <span style="cursor: pointer;" onmouseover="Bk.TeacherCourseArrange.actions.mouseover(this)" onmouseout="Bk.TeacherCourseArrange.actions.mouseout()"><span class="Status_Rest" style="width: auto; padding-right: 10px;"></span><span class="named">休息中</span></span>
+        @*<span style="cursor: pointer;" onmouseover="Bk.TeacherCourseArrange.actions.mouseover(this)" onmouseout="Bk.TeacherCourseArrange.actions.mouseout()"><span class="Status_Rest" style="width: auto; padding-right: 10px;"></span><span class="named">休息中</span></span>*@
     </div>
 </div>
 
 @*日历排课*@
 <div>
-    <div class="ml" style="margin-bottom: 3px;">
-    </div>
-    @using (Html.BeginForm("TeacherSchedule", "Education", FormMethod.Post, new { @id = "MyScheduleConfirm" }))
-    {
-        <input type="hidden" value="@ViewData["emoloyeeareaId"]" id="hidemployeeareaId" name="hidemployeeareaId" />
-        <input type="hidden" value="@ViewData["areaname"]" id="hidareaname" name="hidareaname" />
-        <input type="hidden" value="@ViewData["areaId"]" id="hidarea" name="hidarea" />
-        <table cellpadding="5" cellspacing="0" class="MonthTopBar">
-            <tr>
-                <td valign="bottom" class="SelectMonthArea">
+    <div id="condition-wrapper">
+        @using (Html.BeginForm("TeacherSchedule", "Education", FormMethod.Post, new { @id = "MyScheduleConfirm" }))
+        {
+            <table cellpadding="5" class="select-course-condition-table">
+                <tr>
+                    <td valign="bottom" class="select-course-area">
 
-                    <span>教师：</span>
-                    <input id="keyword" />
-                    <select id="scTeacher" class="selsty" name="scTeacher" onchange="Bk.TeacherCourseArrange.actions.showTeacherCourse()" style="display: none;">
-                        <option value="0">请选择</option>
-                        <option value="0">无教师</option>
-                        @*@if (ViewData["listemployee"] != null)
-                            {
-                                foreach (var item in ViewData["listemployee"] as List<WeChat_EmployeeInfo>)
+                        <span>教师：</span>
+                        <input id="keyword" placeholder="请先选择某个老师进行排课" />
+                        <select id="scTeacher" class="selsty" name="scTeacher" onchange="Bk.TeacherCourseArrange.actions.showTeacherCourse()" style="display: none;">
+                            <option value="0">请选择</option>
+                            <option value="0">无教师</option>
+                            @*@if (ViewData["listemployee"] != null)
                                 {
-                                    <option value="@item.UserId">@item.EnName @item.CnName </option>
+                                    foreach (var item in ViewData["listemployee"] as List<WeChat_EmployeeInfo>)
+                                    {
+                                        <option value="@item.UserId">@item.EnName @item.CnName </option>
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                <option value="0">无教师</option>
-                            }*@
-                    </select>
+                                else
+                                {
+                                    <option value="0">无教师</option>
+                                }*@
+                        </select>
 
-                    <img src="~/Assets/images/rl_l.gif" align="absmiddle" alt="Last Month"
-                         onclick="Bk.TeacherCourseArrange.actions.preMonth()" />
-                    @Html.TextBox("Year", thisMonth.Year.ToString(), new { @class = "TxtItem", @readonly = "true" })
-                    年 @Html.TextBox("Month", thisMonth.Month, new { @class = "TxtItem", @readonly = "true" })
-                    月
-                    <img src="~/Assets/images/rl_r.gif" align="absmiddle" alt="Next Month"
-                         onclick="Bk.TeacherCourseArrange.actions.nextMonth()" />
-                </td>
-                <td align="right" valign="bottom">
-                    <input type="button" class="ScheduleBtn LastMonth" onclick="Bk.TeacherCourseArrange.actions.preMonth()" />
-                    <input type="button" class="ScheduleBtn CurrMonth" onclick="Bk.TeacherCourseArrange.actions.curMonth()()" />
-                    <input type="button" class="ScheduleBtn NextMonth" onclick="Bk.TeacherCourseArrange.actions.nextMonth()" />
-                    <input type="button" class="ScheduleBtn ExportExcel" onclick="Bk.TeacherCourseArrange.actions.exportExcel();" />
-                </td>
-            </tr>
-        </table>
-    }
-    <table width="100%" align="center" class="MonthArea" cellpadding="0" cellspacing="0" style="table-layout: fixed;">
-        <tr>
-            <th class="MonthItemTitle">
-                星期一
-            </th>
-            <th class="MonthItemTitle">
-                星期二
-            </th>
-            <th class="MonthItemTitle">
-                星期三
-            </th>
-            <th class="MonthItemTitle">
-                星期四
-            </th>
-            <th class="MonthItemTitle">
-                星期五
-            </th>
-            <th class="MonthItemTitle">
-                星期六
-            </th>
-            <th class="MonthItemTitle">
-                星期日
-            </th>
-        </tr>
+                        <img src="~/Assets/images/rl_l.gif" align="absmiddle" alt="Last Month"
+                             onclick="Bk.TeacherCourseArrange.actions.preMonth()" />
+                        @Html.TextBox("Year", thisMonth.Year.ToString(), new { @class = "TxtItem", @readonly = "true" })
+                        年 @Html.TextBox("Month", thisMonth.Month, new { @class = "TxtItem", @readonly = "true" })
+                        月
+                        <img src="~/Assets/images/rl_r.gif" align="absmiddle" alt="Next Month"
+                             onclick="Bk.TeacherCourseArrange.actions.nextMonth()" />
+                    </td>
+                    <td align="right" style="padding-left:20px;" valign="bottom">
+                        @*<input type="button" class="ScheduleBtn CurrMonth" onclick="Bk.TeacherCourseArrange.actions.curMonth()()" />*@
+                        <button type="button" class="btn btn-sm btn-primary" onclick="Bk.TeacherCourseArrange.actions.curMonth()">
+                            <span class="fa fa-home" aria-hidden="true"></span>本月
+                        </button>
+
+                        &nbsp;
+                        <button type="button" class="btn btn-sm btn-primary" onclick="Bk.TeacherCourseArrange.actions.exportExcel();">
+                            <span class="fa  fa-plus-square" aria-hidden="true"></span>导出
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+    <table class="course-arrange-table" align="center" cellpadding="0" cellspacing="0">
         @{
             var _findex = CalendarHelper.GetYearMonthFirstDayWeekIndex(thisMonth.Year, thisMonth.Month);
             var _ymdays = CalendarHelper.GetYearMonthDays(thisMonth.Year, thisMonth.Month);
             var _rows = 6;
-            var _dindex = 1;
+            var curDayIndex = 1;
             var dayName = "一";
+            string[] weekArr = new string[] { "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日" };
         }
+        <tr>
+            <th class="calendar-item-title @(Helper.ShowCurrentDateCls(1,"cur-date"))">
+                @weekArr[0]
+            </th>
+            <th class="calendar-item-title  @(Helper.ShowCurrentDateCls(2,"cur-date"))">
+                @weekArr[1]
+            </th>
+            <th class="calendar-item-title @(Helper.ShowCurrentDateCls(3,"cur-date"))">
+                @weekArr[2]
+            </th>
+            <th class="calendar-item-title  @(Helper.ShowCurrentDateCls(4,"cur-date"))">
+                @weekArr[3]
+            </th>
+            <th class="calendar-item-title  @(Helper.ShowCurrentDateCls(5,"cur-date"))">
+                @weekArr[4]
+            </th>
+            <th class="calendar-item-title  @(Helper.ShowCurrentDateCls(6,"cur-date"))">
+                @weekArr[5]
+            </th>
+            <th class="calendar-item-title @(Helper.ShowCurrentDateCls(7,"cur-date"))">
+                @weekArr[6]
+            </th>
+        </tr>
         @for (var row = 1; row <= _rows; row++)
         {
-            if ((_ymdays < _dindex))
+            if ((_ymdays < curDayIndex))
             {
                 break;
             }
             <tr>
                 @for (var col = 1; col <= 7; col++)
                 {
-                    if (_ymdays < _dindex)
+                    if (_ymdays < curDayIndex)
                     {
                         <td class="DayItem" valign="middle">
                             &nbsp;
@@ -148,33 +142,31 @@
                         }
                     }
 
-                    var ScheduleList = new object();// teacherschedulelist.Where(p => p.StartTime.Value.Day == _dindex).ToList();
-                    var WorkList = new object(); //teacherwork.Where(p => p.ArrangeTime.Day == _dindex).ToList();
-                    var restDay = thisMonth.Year + "-" + thisMonth.Month + "-" + _dindex;
+                    var ScheduleList = new object();// teacherschedulelist.Where(p => p.StartTime.Value.Day == curDayIndex).ToList();
+                    var WorkList = new object(); //teacherwork.Where(p => p.ArrangeTime.Day == curDayIndex).ToList();
+                    var restDay = thisMonth.Year + "-" + thisMonth.Month + "-" + curDayIndex;
                     int teacherId = 0;
                     var isrest = true;
 
                     var _bool = true;
 
-                    <td valign="top" style="text-align: center; position: relative; padding-bottom: 10px;">
-                        @if (DateTime.Now.Day == _dindex)
+                    <td valign="top" class="DayItem" style="text-align: center; position: relative; padding-bottom: 10px;">
+                        @if (DateTime.Now.Day == curDayIndex)
                         {
-
-                            <div class='@(isrest ? "RestTip" : "ItemTip")' style="background-color:green;">
-                                @thisMonth.Month 月 @_dindex 日
+                            <div class='@(isrest ? "RestTip" : "ItemTip") cur-date'>
+                                @thisMonth.Month 月 @curDayIndex 日
                             </div>
 
-                            _dindex++;
+                            curDayIndex++;
                         }
                         else
                         {
                             <div class='RestTitle'>
-                                @thisMonth.Month 月 @_dindex 日
+                                @thisMonth.Month 月 @curDayIndex 日
                             </div>
-
-                            _dindex++;
+                            curDayIndex++;
                         }
-
+                        @*在日历上显示排课明细*@
                         <div style="min-height: 50px; padding: 0;">
                             @*@if (ScheduleList.Count > 0)
                                 {
@@ -224,10 +216,13 @@
 
                         </div>
                         <div style="padding: 0; bottom: 0px; text-align: center; width: 100%; position: absolute;">
-                            <button type="button" class="btn btn-sm btn-primary btn-add">
-                                <span class="glyphicon  glyphicon-plus" aria-hidden="true"></span>@L("ArrangeCourse")
-                            </button>
-                            @*<input type="button" class="butwhite2" value="排课" onclick="Bk.TeacherCourseArrange.actions.arrangeadd(this,'@restDay')" />*@
+                            @*仅当大于等于当前日的时候 才可以排课*@
+                            @if (DateTime.Now.Day <= curDayIndex)
+                            {
+                                <button type="button" class="btn btn-sm btn-primary btn-add">
+                                    <span class="glyphicon  glyphicon-plus" aria-hidden="true"></span>@L("ArrangeCourse")
+                                </button>
+                            }
                         </div>
                     </td>
 

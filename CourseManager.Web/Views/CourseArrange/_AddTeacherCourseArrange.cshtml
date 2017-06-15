@@ -11,19 +11,20 @@
                 <h4 class="modal-title" id="myModalLabel">@L("ArrangeCourse")</h4>
             </div>
             <div class="modal-body" id="modalContent">
-                @using (Ajax.BeginForm("AddTeacherCourseArrange", "CourseArrange", new AjaxOptions()
-                {
-                    OnBegin = "Bk.TeacherCourseArrange.actions.beginPost('#addTeacherCourseArrangeModal')",
-                    OnSuccess = "Bk.TeacherCourseArrange.actions.hideForm('#addTeacherCourseArrangeModal')"
-                }))
-                {
+                @*@using (Ajax.BeginForm("AddTeacherCourseArrange", "CourseArrange", new AjaxOptions()
+                    {
+                        OnBegin = "Bk.TeacherCourseArrange.actions.beginPost('#addTeacherCourseArrangeModal')",
+                        OnSuccess = "Bk.TeacherCourseArrange.actions.hideForm('#addTeacherCourseArrangeModal')"
+                    }))
+                    {*@
+                <form id="add-teacherCourse-form">
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
                         <div class="form-group">
                             <div class="col-md-6">
                                 <label>@L("Teachers")</label>
-                                <input type="hidden" value="" name="TeacherId" />
-                                <input class="form-control form-inline" placeholder="请输入准确完整的教师名" type="text" name="CnName" />
+                                @*<input type="hidden" value="" name="TeacherId" />*@
+                                <input class="form-control form-inline" placeholder="请输入准确完整的教师名" type="text" name="TeacherId" />
                             </div>
                             <div class="col-md-6">
                                 <label>@L("ClassType")</label>
@@ -34,8 +35,8 @@
                         <div class="form-group">
                             <div class="col-md-6">
                                 <label>@L("Students")</label>
-                                <input type="hidden" value="" name="StudentId" />
-                                <input class="form-control form-inline" placeholder="请输入准确完整的学生中文名" type="text" name="Student" />
+                                @*<input type="hidden" value="" name="StudentId" />*@
+                                <input class="form-control form-inline" placeholder="请输入准确完整的学生中文名" type="text" name="StudentId" />
                             </div>
                             <div class="col-md-6">
                                 <label>@L("CourseType")</label>
@@ -47,13 +48,13 @@
                             <div class="col-md-6">
                                 <label>@L("BeginTime")</label>
 
-                                <input class="form-control form-inline datetime" type="text" name="Student" />
+                                <input class="form-control form-inline datetime" type="text" name="BeginTime" />
                             </div>
 
                             <div class="col-md-6">
                                 <label>@L("EndTime")</label>
 
-                                <input class="form-control form-inline datetime"  type="text" name="Student" />
+                                <input class="form-control form-inline datetime" type="text" name="EndTime" />
                             </div>
 
                         </div>
@@ -66,12 +67,13 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-10">
-                                @*<button type="button" class="btn btn-default cancel">@L("Cancel")</button>*@
-                                <button type="submit" class="btn btn-primary blue">@L("Save")</button>
+                                @*<button type="button" class="btn btn-default cancel">@L("Cancel")</button>submit*@
+                                <button id="btn-save" class="btn btn-primary blue">@L("Save")</button>
                             </div>
                         </div>
                     </div>
-                }
+                </form>
+                @*}*@
 
             </div>
         </div>

@@ -47,21 +47,38 @@ Bk.TeacherCourseArrange = {
         }
     },
     eventBind: function () {
+        $('.datetime').datetimepicker({
+            lang: 'ch',
+            format: 'Y-m-d',
+            formatDate: 'Y-m-d',
+            scrollInput: true
+        });
         $("body").on("click", function () {
             $("#area").css("display", "none");
         });
-        //初始化页面上面的按钮事件
+        //弹出modal
         $(".btn-add").click(function (e) {
             $("#addTeacherCourseArrangeModal").modal("show");
         });
+        //保存排课信息
+        $('#btn-save').click(function () {
+            var postData = $('add-teacherCourse-form').serializeJson();
+            console.info(postData);
 
+            abp.ui.setBusy(
+                abp.ajax({
+                    url: abp.appPath + 'CourseArrange/AddTeacherCourseArrange',
+                    type: 'POST',
+                    data: JSON.stringify(postData) //abp需要进行转换
+                }).done(function (res) {
+                    console.log(res);
+                    var result = res.returnData, totalClassHours = result.total;
 
-        if ($("select[name=ddlArea] option").size() <= 1) {
-            $('.spArea').hide();
-        }
-        $('#ddlArea').change(function () {
-            window.location.href = "/StudentCourse/TeacherScheduleByMonth?Id=" + this.value + "&areaname=" + $(this).find('option:selected').text();
+                })
+            );
         });
+
+
 
         //智能搜索
         var students = [];
@@ -93,7 +110,7 @@ Bk.TeacherCourseArrange = {
         }).result(function (event, row, formatted) {
             $("#scTeacher").val(row.to);
             $("#studentspan").html(row.name);
-             Bk.TeacherCourseArrange.actions.showTeacherCourses();
+            Bk.TeacherCourseArrange.actions.showTeacherCourses();
 
         });
 
@@ -147,14 +164,14 @@ Bk.TeacherCourseArrange = {
             else {
                 $("#Month").val(_month + 1);
             }
-              Bk.TeacherCourseArrange.actions.showTeacherCourses();
+            Bk.TeacherCourseArrange.actions.showTeacherCourses();
         },
         //本月
         curMonth: function () {
             var now = new Date();
             $("#Year").val(now.getFullYear());
             $("#Month").val(now.getMonth());
-              Bk.TeacherCourseArrange.actions.showTeacherCourses();
+            Bk.TeacherCourseArrange.actions.showTeacherCourses();
         },
         //导出
         exportExcel: function () {

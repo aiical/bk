@@ -1271,7 +1271,17 @@ namespace CourseManager.Common
             }
             return fileMapPath;
         }
-
+        /// <summary>
+        /// 排课中当前日期显示
+        /// </summary>
+        /// <param name="weekDay"></param>
+        /// <param name="curDateCls"></param>
+        /// <returns></returns>
+        public static string ShowCurrentDateCls(int weekDay,string curDateCls)
+        {
+            if (Convert.ToInt32(DateTime.Now.DayOfWeek) == weekDay) return curDateCls;
+            else return string.Empty;
+        }
         #region XElement与XmlElement的转换
         /// <summary>   
         /// XElement转换为XmlElement   

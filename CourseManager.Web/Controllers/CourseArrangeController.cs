@@ -32,8 +32,8 @@ namespace CourseManager.Web.Controllers
             ViewBag.ActiveMenu = "ArrangeCourse";
             var categorys = _categoryAppService.GetAllCategorys();
             ViewBag.ClassTypeList = categorys.Where(c=>c.CategoryType=="ClassType").ToList().CreateSelect("CategoryName", "Id", "");
-            ViewBag.CourseType = categorys.Where(c => c.CategoryType == "CourseType").ToList().CreateSelect("Name", "Id", "");
-            ViewBag.CourseAddressType = categorys.Where(c => c.CategoryType == "CourseAddressType").ToList().CreateSelect("Name", "Id", "");
+            ViewBag.CourseType = categorys.Where(c => c.CategoryType == "CourseType").ToList().CreateSelect("CategoryName", "Id", "");
+            ViewBag.CourseAddressType = categorys.Where(c => c.CategoryType == "CourseAddressType").ToList().CreateSelect("CategoryName", "Id", "");
             return View();
         }
         [HttpPost]
