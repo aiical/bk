@@ -33,7 +33,7 @@ namespace CourseManager.SignIn
         /// 获取签到记录列表
         /// </summary>
         /// <returns></returns>
-        ListResultDto<SignInListDto> GetSignInRecords();
+        ListResultDto<SignInListDto> GetSignInRecords(SignInInput input);
         /// <summary>
         /// 获取分页签到记录列表
         /// </summary>

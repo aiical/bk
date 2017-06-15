@@ -35,10 +35,12 @@ namespace CourseManager.SignIn
             this._studentAppService = studentAppService;
         }
 
-        private IQueryable<SignInRecord> GetArrangesByCondition(SignInInput input)
+        private IQueryable<SignInRecord> GetSignInRecordByCondition(SignInInput input)
         {
             var query = _signInRepository.GetAll()
                         .WhereIf(!input.Id.IsNullOrEmpty(), o => o.Id == input.Id)
+                        .WhereIf(input.BeginTime != null, o => o.BeginTime > input.BeginTime)
+                        .WhereIf(input.BeginTime != null && input.EndTime != null, o => (input.BeginTime < o.BeginTime && o.EndTime < input.EndTime))
                         .WhereIf(!input.Filter.IsNullOrEmpty(), t => t.Type == input.Filter)
                         .Where(o => o.IsDeleted == false);
             query = string.IsNullOrEmpty(input.Sorting)
@@ -72,7 +74,7 @@ namespace CourseManager.SignIn
 
         public PagedResultDto<SignInListDto> GetPagedSignInRecords(SignInInput input)
         {
-            var query = GetArrangesByCondition(input);
+            var query = GetSignInRecordByCondition(input);
             var count = query.Count();
             input.SkipCount = ((input.PIndex ?? 1) - 1) * (input.PSize ?? 10);
             input.MaxResultCount = input.PSize ?? 10;
@@ -88,9 +90,9 @@ namespace CourseManager.SignIn
             return _signInRepository.Get(input.Id);
         }
 
-        public ListResultDto<SignInListDto> GetSignInRecords()
+        public ListResultDto<SignInListDto> GetSignInRecords(SignInInput input)
         {
-            var stus = _signInRepository.GetAllList();
+            var stus = GetSignInRecordByCondition(input);
             if (stus == null) return new ListResultDto<SignInListDto>();
             var list = stus.MapTo<List<SignInListDto>>();
             SetOtherExtendData(list);

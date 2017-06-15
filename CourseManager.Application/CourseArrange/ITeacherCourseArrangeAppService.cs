@@ -20,7 +20,7 @@ namespace CourseManager.CourseArrange
         TeacherCourseArrange GetArranage(TeacherCourseArrangeInput input);
 
         Task<ListResultDto<TeacherCourseArrangeListDto>> GetArranagesAsync();
-        ListResultDto<TeacherCourseArrangeListDto> GetArranages();
+        ListResultDto<TeacherCourseArrangeListDto> GetArranages(TeacherCourseArrangeInput input);
 
         PagedResultDto<TeacherCourseArrangeListDto> GetPagedArranges(TeacherCourseArrangeInput input);
     }

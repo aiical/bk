@@ -92,41 +92,24 @@
             string[] weekArr = new string[] { "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日" };
         }
         <tr>
-            <th class="calendar-item-title @(Helper.ShowCurrentDateCls(1,"cur-date"))">
-                @weekArr[0]
-            </th>
-            <th class="calendar-item-title  @(Helper.ShowCurrentDateCls(2,"cur-date"))">
-                @weekArr[1]
-            </th>
-            <th class="calendar-item-title @(Helper.ShowCurrentDateCls(3,"cur-date"))">
-                @weekArr[2]
-            </th>
-            <th class="calendar-item-title  @(Helper.ShowCurrentDateCls(4,"cur-date"))">
-                @weekArr[3]
-            </th>
-            <th class="calendar-item-title  @(Helper.ShowCurrentDateCls(5,"cur-date"))">
-                @weekArr[4]
-            </th>
-            <th class="calendar-item-title  @(Helper.ShowCurrentDateCls(6,"cur-date"))">
-                @weekArr[5]
-            </th>
-            <th class="calendar-item-title @(Helper.ShowCurrentDateCls(7,"cur-date"))">
-                @weekArr[6]
-            </th>
-        </tr>
-        @for (var row = 1; row <= _rows; row++)
-        {
-            if ((_ymdays < curDayIndex))
+            @for (int i = 0; i < weekArr.Length; i++)
             {
-                break;
+                <th class="calendar-item-title @(Helper.ShowCurrentDateCls(i + 1, "cur-date"))"> @weekArr[i] </th>
             }
-            <tr>
+            </tr>
+            @for (var row = 1; row <= _rows; row++)
+            {
+                if ((_ymdays < curDayIndex))
+                {
+                    break;
+                }
+                <tr>
                 @for (var col = 1; col <= 7; col++)
                 {
                     if (_ymdays < curDayIndex)
                     {
                         <td class="DayItem" valign="middle">
-                            &nbsp;
+                        &nbsp;
                         </td>
                         continue;
                     }
@@ -154,8 +137,8 @@
                         @if (DateTime.Now.Day == curDayIndex)
                         {
                             <div class='@(isrest ? "RestTip" : "ItemTip") cur-date'>
-                                @thisMonth.Month 月 @curDayIndex 日
-                            </div>
+                            @thisMonth.Month 月 @curDayIndex 日
+            </div>
 
                             curDayIndex++;
                         }
@@ -214,8 +197,8 @@
                                     </ul>
                                 }*@
 
-                        </div>
-                        <div style="padding: 0; bottom: 0px; text-align: center; width: 100%; position: absolute;">
+                            </div>
+                            <div style="padding: 0; bottom: 0px; text-align: center; width: 100%; position: absolute;">
                             @*仅当大于等于当前日的时候 才可以排课*@
                             @if (DateTime.Now.Day <= curDayIndex)
                             {
@@ -227,27 +210,27 @@
                     </td>
 
                 }
-            </tr>
-        }
-    </table>
+                </tr>
+            }
+            </table>
 
-</div>
+            </div>
 
 
-<!--通过初始加载页面的时候提前将添加排课的模态框加载进来-->
-@Html.Partial("_AddTeacherCourseArrange")
+            <!--通过初始加载页面的时候提前将添加排课的模态框加载进来-->
+            @Html.Partial("_AddTeacherCourseArrange")
 
-<!--编辑模态框通过ajax动态填充到此div中-->
-<div id="edit">
-</div>
-@section Scripts{
-    <script src="~/Assets/libsReference/jquery.autocomplete.min.js"></script>
-    <script src="~/Assets/libsReference/jquery.datetimepicker/jquery.datetimepicker.js"></script>
-    <script src="~/Assets/js/dateTimeUtil.js"></script>
-    @Html.IncludeScript("~/Views/CourseArrange/TeacherCourseArrange.js")
-    <script type="text/javascript">
-        $(function () {
-            Bk.TeacherCourseArrange.bootstrap();
-        })
-    </script>
-}
+            <!--编辑模态框通过ajax动态填充到此div中-->
+            <div id="edit">
+            </div>
+            @section Scripts{
+                <script src="~/Assets/libsReference/jquery.autocomplete.min.js"></script>
+                <script src="~/Assets/libsReference/jquery.datetimepicker/jquery.datetimepicker.js"></script>
+                <script src="~/Assets/js/dateTimeUtil.js"></script>
+                @Html.IncludeScript("~/Views/CourseArrange/TeacherCourseArrange.js")
+                <script type="text/javascript">
+                    $(function () {
+                        Bk.TeacherCourseArrange.bootstrap();
+                    })
+                </script>
+            }

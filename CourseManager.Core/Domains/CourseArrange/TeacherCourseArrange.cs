@@ -15,11 +15,10 @@ namespace CourseManager.CourseArrange
 
         #endregion
         /// <summary>
-        /// 必须选择老师 因为要知道给哪个老师安排课
+        /// 必须选择老师 因为要知道给哪个老师安排课 将老师数据存在在用户表中 沿用用户表长整型id
         /// </summary>
         [Required]
-        [MaxLength(MaxIdLength)]
-        public string TeacherId { get; set; }
+        public long TeacherId { get; set; }
         /// <summary>
         /// 必须选择上课类型（不同类型 如1v1和班级课 课时费不同）
         /// </summary>
@@ -35,16 +34,28 @@ namespace CourseManager.CourseArrange
         [MaxLength(MaxIdLength)]
         public string CourseType { get; set; }
 
-        public DateTime ArrangeTime { get; set; }
+        /// <summary>
+        /// 上课地点类型 （学院上课/外派）
+        /// </summary>
+        [Required]
+        [MaxLength(MaxIdLength)]
+        public string CourseAddressType { get; set;}
+        [Required]
+        /// <summary>
+        /// 如果是选择了外派就必须填写具体的上课地点 如东角头/学院
+        /// </summary>
+        public string Address { get; set; }
+
+        public DateTime? ArrangeTime { get; set; }
 
         /// <summary>
         /// 上课开始时间
         /// </summary>
-        public DateTime BeginTime { get; set; }
+        public DateTime? BeginTime { get; set; }
         /// <summary>
         /// 上课结束时间
         /// </summary>
-        public DateTime EndTime { get; set; }
+        public DateTime? EndTime { get; set; }
         /// <summary>
         /// 必须选择学生 因为要知道是安排给哪个学生上课 如果是班级课 那么是选择多个学生
         /// </summary>

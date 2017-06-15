@@ -1,10 +1,68 @@
-﻿<div ng-controller="app.views.home as vm">
+﻿@{
+    var classHours = new List<string>{
+        "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00","10:30",
+         "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00","10:30",
+          "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00","10:30",
+           "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00","10:30"
+    };
+    var notify = "今天还没有签到额 上课后当天记得签到哟";
+}
+<style type="text/css">
+    .table-bordered td {
+        cursor: pointer;
+    }
+
+        .table-bordered td:hover {
+            background: #d8fbac;
+        }
+
+    .today-course li {
+        height: 100px;
+        line-height: 100px;
+        background: #fff;
+        border: 1px solid rgb(221, 221, 221);
+        
+        cursor: pointer;
+    }
+
+        .today-course li span:hover {
+            height: 100%;
+            width: 100%;
+            background: #d8fbac;
+        }
+</style>
+<div ng-controller="app.views.home as vm">
+    <input type="hidden" value="@DateTime.Now.ToShortDateString()" id="beginTime" />
+    <input type="hidden" value="@DateTime.Now.AddDays(1).ToShortDateString()" id="endTime" />
     <div class="row">
-        <div class="col-md-12">
-            <h4>截止到目前，今天已经给 张三上课 8：00-9：00，李四上课 11：00-12：00  <br />合计上课两个小时</h4>
+        <div class="col-md-12" style="margin-bottom:20px;">
+            <h4>@notify</h4>@*截止到目前，今天已经给 张三上课 8：00-9：00，李四上课 11：00-12：00  <br />合计上课两个小时*@
         </div>
         <div class="col-md-12">
-            <h3>今日课表：</h3>
+            <ul class="today-course" ng-repeat="course in vm.schedule">
+                <li>
+                    <span> {{course.beginTime|date:"HH:mm"}}-{{course.endTime|date:"HH:mm"}}</span>
+                    <span class="remark">{{course.remark}} </span>
+                </li>
+            </ul>
+            @*<table class="table table-bordered">
+
+                    <tbody>
+                        @foreach (var hour in classHours)
+                        {
+                            <tr>
+
+                                <td id="td_1" class=" calendarItem" count="0" date="2017-05-28" style="border: 1px solid rgb(221, 221, 221);">
+                                    @hour
+                                    <div class="records">
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                        <tr></tr>
+
+                    </tbody>
+                </table>*@
         </div>
-        </div>
+    </div>
 </div>

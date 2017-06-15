@@ -194,9 +194,18 @@
     <Compile Include="Migrations\201706140745092_Update_Enity_SignInRecords.Designer.cs">
       <DependentUpon>201706140745092_Update_Enity_SignInRecords.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706150731324_Update_Entity_TeacherCourseArrange1.cs" />
+    <Compile Include="Migrations\201706150731324_Update_Entity_TeacherCourseArrange1.Designer.cs">
+      <DependentUpon>201706150731324_Update_Entity_TeacherCourseArrange1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706150741107_Update_Entity_TeacherCourseArrange2.cs" />
+    <Compile Include="Migrations\201706150741107_Update_Entity_TeacherCourseArrange2.Designer.cs">
+      <DependentUpon>201706150741107_Update_Entity_TeacherCourseArrange2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="CourseManagerDataModule.cs" />
+    <Compile Include="Migrations\SeedData\DefaultTeacherCourseArrangesCreator.cs" />
     <Compile Include="Migrations\SeedData\DefaultCategorysCreator.cs" />
     <Compile Include="Migrations\SeedData\DefaultEditionsCreator.cs" />
     <Compile Include="Migrations\SeedData\DefaultLanguagesCreator.cs" />
@@ -267,6 +276,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706140745092_Update_Enity_SignInRecords.resx">
       <DependentUpon>201706140745092_Update_Enity_SignInRecords.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706150731324_Update_Entity_TeacherCourseArrange1.resx">
+      <DependentUpon>201706150731324_Update_Entity_TeacherCourseArrange1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706150741107_Update_Entity_TeacherCourseArrange2.resx">
+      <DependentUpon>201706150741107_Update_Entity_TeacherCourseArrange2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

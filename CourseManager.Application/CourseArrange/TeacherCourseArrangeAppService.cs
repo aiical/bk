@@ -44,10 +44,13 @@ namespace CourseManager.CourseArrange
             //WhereIf 是ABP针对IQueryable<T>的扩展方法 第一个参数为条件，第二个参数为一个Predicate 当条件为true执行后面的条件过滤
             var query = _teacherCourseArrangeRepository.GetAll()
                         .WhereIf(!input.Id.IsNullOrEmpty(), o => o.Id == input.Id)
-                        .WhereIf(!input.Filter.IsNullOrEmpty(), t => t.ClassType == input.Filter)
+                         .WhereIf(input.TeacherId > 0, o => o.TeacherId == input.TeacherId)
+                        .WhereIf(!input.ClassType.IsNullOrEmpty(), t => t.ClassType == input.Filter)
+                        .WhereIf(input.BeginTime != null, o => o.BeginTime.Value > input.BeginTime)
+                        .WhereIf(input.BeginTime != null && input.EndTime != null, o => (input.BeginTime < o.BeginTime.Value && o.EndTime.Value < input.EndTime))
                         .Where(o => o.IsDeleted == false);
             query = string.IsNullOrEmpty(input.Sorting)
-                        ? query.OrderByDescending(t => t.CreationTime)
+                        ? query.OrderBy(t => t.BeginTime)
                         : query.OrderBy(t => input.Sorting);
             return query;
         }
@@ -60,12 +63,12 @@ namespace CourseManager.CourseArrange
                 );
         }
 
-        public ListResultDto<TeacherCourseArrangeListDto> GetArranages()
+        public ListResultDto<TeacherCourseArrangeListDto> GetArranages(TeacherCourseArrangeInput input)
         {
-            var stus = _teacherCourseArrangeRepository.GetAllListAsync();
+            var res = GetArrangesByCondition(input);
 
             return new ListResultDto<TeacherCourseArrangeListDto>(
-                stus.MapTo<List<TeacherCourseArrangeListDto>>()
+                res.MapTo<List<TeacherCourseArrangeListDto>>()
                 );
         }
         public TeacherCourseArrange GetArranage(TeacherCourseArrangeInput input)

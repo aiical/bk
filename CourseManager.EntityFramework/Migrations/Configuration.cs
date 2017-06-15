@@ -31,6 +31,7 @@ namespace CourseManager.Migrations
 
                 new DefaultStudentCreator(context).Create();
                 new DefaultCategorysCreator(context).Create();
+                new DefaultTeacherCourseArrangesCreator(context).Create();
             }
             else
             {
