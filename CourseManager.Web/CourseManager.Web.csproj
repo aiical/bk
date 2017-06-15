@@ -1560,6 +1560,7 @@
     <Content Include="Assets\libsReference\Highcharts-5.0.12\code\modules\treemap.js.map" />
     <Content Include="Assets\libsReference\Highcharts-5.0.12\code\modules\xrange-series.js.map" />
     <Content Include="Assets\libsReference\Highcharts-5.0.12\license.pdf" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <None Include="Scripts\jquery-2.2.0-vsdoc.js" />
     <Content Include="Scripts\highcharts.js" />

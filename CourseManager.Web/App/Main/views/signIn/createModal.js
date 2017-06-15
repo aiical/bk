@@ -163,13 +163,13 @@
                     element.on('click', function () {
                         $("#date-" + attrs.dateid).datetimepicker({
                             format: attrs.format || 'Y/m/d h:i',
-                            step: 1,//时间按1分钟累加
+                            step: 10,//时间按10分钟累加
                             maxDate: '1970/01/01', //签到就限定 当天签到 必须养成规范 有特殊情况可以邮件 一个月最多2次
                             minDate: '1970/01/01',
                             yearStart: 2017,
                             datepicker: false,//不显示日期选择
                             scrollTime: true,
-                            minHour: 8,//每天默认最早从8点开始上课 
+                            minHour: 7,//每天默认最早从7点开始上课 
                             onClose: function () {
                                 element.change();
                             }
