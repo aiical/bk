@@ -39,5 +39,11 @@ namespace CourseManager.SignIn
         /// </summary>
         /// <returns></returns>
         PagedResultDto<SignInListDto> GetPagedSignInRecords(SignInInput input);
+        /// <summary>
+        /// 获取主页当前时间上课记录
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+         string GenerateHomeSignRecordDescription(SignInInput input);
     }
 }

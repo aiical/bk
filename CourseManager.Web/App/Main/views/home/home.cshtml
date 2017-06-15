@@ -17,12 +17,13 @@
         }
 
     .today-course li {
-        height: 100px;
-        line-height: 100px;
+        height: 60px;
+        line-height: 60px;
         background: #fff;
-        border: 1px solid rgb(221, 221, 221);
-        
+        border: 1px dashed rgb(221, 221, 221);
+        font-size:18px;
         cursor: pointer;
+        padding-left:2em;
     }
 
         .today-course li span:hover {
@@ -36,7 +37,7 @@
     <input type="hidden" value="@DateTime.Now.AddDays(1).ToShortDateString()" id="endTime" />
     <div class="row">
         <div class="col-md-12" style="margin-bottom:20px;">
-            <h4>@notify</h4>@*截止到目前，今天已经给 张三上课 8：00-9：00，李四上课 11：00-12：00  <br />合计上课两个小时*@
+            <h4>{{vm.todaySignInRecord}}</h4>@*截止到目前，今天已经给 张三上课 8：00-9：00，李四上课 11：00-12：00  <br />合计上课两个小时*@
         </div>
         <div class="col-md-12">
             <ul class="today-course" ng-repeat="course in vm.schedule">

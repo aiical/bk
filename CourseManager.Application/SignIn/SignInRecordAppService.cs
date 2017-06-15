@@ -39,9 +39,8 @@ namespace CourseManager.SignIn
         {
             var query = _signInRepository.GetAll()
                         .WhereIf(!input.Id.IsNullOrEmpty(), o => o.Id == input.Id)
-                        .WhereIf(input.BeginTime != null, o => o.BeginTime > input.BeginTime)
-                        .WhereIf(input.BeginTime != null && input.EndTime != null, o => (input.BeginTime < o.BeginTime && o.EndTime < input.EndTime))
-                        .WhereIf(!input.Filter.IsNullOrEmpty(), t => t.Type == input.Filter)
+                        .WhereIf(input.BeginTime != null && input.BeginTime.ToString() != "0001/1/1 0:00:00", o => o.BeginTime > input.BeginTime)
+                        .WhereIf(input.BeginTime != null && input.BeginTime.ToString() != "0001/1/1 0:00:00" && input.EndTime != null, o => (input.BeginTime < o.BeginTime && o.EndTime < input.EndTime))
                         .Where(o => o.IsDeleted == false);
             query = string.IsNullOrEmpty(input.Sorting)
                         ? query.OrderByDescending(t => t.CreationTime)
@@ -92,11 +91,31 @@ namespace CourseManager.SignIn
 
         public ListResultDto<SignInListDto> GetSignInRecords(SignInInput input)
         {
-            var stus = GetSignInRecordByCondition(input);
-            if (stus == null) return new ListResultDto<SignInListDto>();
-            var list = stus.MapTo<List<SignInListDto>>();
+            var signInRecords = GetSignInRecordByCondition(input);
+            if (signInRecords == null) return new ListResultDto<SignInListDto>();
+            var list = signInRecords.MapTo<List<SignInListDto>>();
             SetOtherExtendData(list);
             return new ListResultDto<SignInListDto>(list);
+        }
+        /// <summary>
+        /// 获取主页当前时间上课记录
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public string GenerateHomeSignRecordDescription(SignInInput input)
+        {
+            var signInRecords = GetSignInRecordByCondition(input);
+            var result = (signInRecords != null && signInRecords.Count() > 0) ? "今天已经给以下学生上课：\r\n" : "<b style='color:red;'>今天还没有签到 下课后当天记得签到哟</b>";
+            if (signInRecords == null) return result;
+            var list = signInRecords.MapTo<List<SignInListDto>>();
+            SetOtherExtendData(list);
+            var template = "【学生：{0}  上课时间：{1}~{2}\r\n】";
+
+            foreach (var item in list)
+            {
+                result += string.Format(template, item.StudentName, item.BeginTime.ToString("MM-dd HH:mm"), item.EndTime.ToString("MM-dd HH:mm"));
+            }
+            return result;
         }
         private void SetOtherExtendData(IEnumerable<SignInListDto> list)
         {

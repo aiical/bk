@@ -27,17 +27,30 @@
                                 <input class="form-control form-inline" placeholder="请输入准确完整的教师名" type="text" name="TeacherId" />
                             </div>
                             <div class="col-md-6">
-                                <label>@L("ClassType")</label>
-                                @Html.DropDownList("ClassTypeList", ViewBag.ClassType as IEnumerable<SelectListItem>, new { @class = "form-control" })
-                                @*<input type="text" name="ClassType" class="form-control form-inline" />*@
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-6">
                                 <label>@L("Students")</label>
                                 @*<input type="hidden" value="" name="StudentId" />*@
                                 <input class="form-control form-inline" placeholder="请输入准确完整的学生中文名" type="text" name="StudentId" />
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label>@L("Address")</label>
+                              @Html.DropDownList("CourseAddressType", ViewBag.ClassType as IEnumerable<SelectListItem>, new { @class = "form-control" })
+                              
+                            </div>
+                            <div class="col-md-6">
+                                <label>@L("DetailAddress")</label>
+                                <input class="form-control form-inline" placeholder="请输入具体的上课地点" type="text" name="TeacherId" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label>@L("ClassType")</label>
+                                @Html.DropDownList("ClassTypeList", ViewBag.ClassType as IEnumerable<SelectListItem>, new { @class = "form-control" })
+                                @*<input type="text" name="ClassType" class="form-control form-inline" />*@
+                            </div>
+                           
                             <div class="col-md-6">
                                 <label>@L("CourseType")</label>
                                 @*<input type="text" name="ClassType"  class="form-control form-inline" />*@

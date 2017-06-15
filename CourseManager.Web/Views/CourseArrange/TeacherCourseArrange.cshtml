@@ -200,7 +200,7 @@
                             </div>
                             <div style="padding: 0; bottom: 0px; text-align: center; width: 100%; position: absolute;">
                             @*仅当大于等于当前日的时候 才可以排课*@
-                            @if (DateTime.Now.Day <= curDayIndex)
+                            @if (DateTime.Now.Day < curDayIndex)
                             {
                                 <button type="button" class="btn btn-sm btn-primary btn-add">
                                     <span class="glyphicon  glyphicon-plus" aria-hidden="true"></span>@L("ArrangeCourse")

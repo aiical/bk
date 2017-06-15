@@ -49,9 +49,10 @@ Bk.TeacherCourseArrange = {
     eventBind: function () {
         $('.datetime').datetimepicker({
             lang: 'ch',
-            format: 'Y-m-d',
-            formatDate: 'Y-m-d',
-            scrollInput: true
+            //format: 'Y-m-d H:i',
+            //formatDate: 'Y-m-d',
+            scrollTime: true,
+            step:10
         });
         $("body").on("click", function () {
             $("#area").css("display", "none");
@@ -64,7 +65,6 @@ Bk.TeacherCourseArrange = {
         $('#btn-save').click(function () {
             var postData = $('add-teacherCourse-form').serializeJson();
             console.info(postData);
-
             abp.ui.setBusy(
                 abp.ajax({
                     url: abp.appPath + 'CourseArrange/AddTeacherCourseArrange',
