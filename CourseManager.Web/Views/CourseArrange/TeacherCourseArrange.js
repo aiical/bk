@@ -63,18 +63,26 @@ Bk.TeacherCourseArrange = {
         });
         //保存排课信息
         $('#btn-save').click(function () {
-            var postData = $('add-teacherCourse-form').serializeJson();
+            var postData = $('#add-teacherCourse-form').serializeJson();
             console.info(postData);
+            //console.log(JSON.stringify(postData));
             abp.ui.setBusy(
                 abp.ajax({
+                    context:this,
                     url: abp.appPath + 'CourseArrange/AddTeacherCourseArrange',
                     type: 'POST',
                     data: JSON.stringify(postData) //abp需要进行转换
                 }).done(function (res) {
                     console.log(res);
-                    var result = res.returnData, totalClassHours = result.total;
-
-                })
+                   // if (typeof res == "string") res = res == "true" ? true : false;
+                    if (res!='') {
+                        abp.notify.success("排课成功");
+                        window.location.reload();
+                    }
+                    }).fail(function (error) {
+                        console.info(error);
+                        console.log(error.responseText);
+                    })
             );
         });
 
@@ -122,22 +130,22 @@ Bk.TeacherCourseArrange = {
     },
     actions: {
         //modal
-        beginPost: function (modalId) {
-            var $modal = $(modalId);
+        //beginPost: function (modalId) {
+        //    var $modal = $(modalId);
 
-            abp.ui.setBusy($modal);
-        },
+        //    abp.ui.setBusy($modal);
+        //},
 
-        hideForm: function (modalId) {
-            var $modal = $(modalId);
+        //hideForm: function (modalId) {
+        //    var $modal = $(modalId);
 
-            var $form = $modal.find("form");
-            abp.ui.clearBusy($modal);
-            $modal.modal("hide");
-            //创建成功后，要清空form表单
-            $form[0].reset();
-            $table.bootstrapTable('refresh');
-        },
+        //    var $form = $modal.find("form");
+        //    abp.ui.clearBusy($modal);
+        //    $modal.modal("hide");
+        //    //创建成功后，要清空form表单
+        //    $form[0].reset();
+        //    $table.bootstrapTable('refresh');
+        //},
 
         //上月
         preMonth: function () {

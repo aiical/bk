@@ -105,7 +105,7 @@ namespace CourseManager.SignIn
         public string GenerateHomeSignRecordDescription(SignInInput input)
         {
             var signInRecords = GetSignInRecordByCondition(input);
-            var result = (signInRecords != null && signInRecords.Count() > 0) ? "今天已经给以下学生上课：\r\n" : "<b style='color:red;'>今天还没有签到 下课后当天记得签到哟</b>";
+            var result = (signInRecords != null && signInRecords.Count() > 0) ? "今天已经给以下学生上课：\r\n" : "今天还没有签到 下课后当天记得签到哟";
             if (signInRecords == null) return result;
             var list = signInRecords.MapTo<List<SignInListDto>>();
             SetOtherExtendData(list);

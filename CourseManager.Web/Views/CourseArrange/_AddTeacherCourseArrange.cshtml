@@ -18,7 +18,7 @@
                     }))
                     {*@
                 <form id="add-teacherCourse-form">
-                    @Html.AntiForgeryToken()
+                    @*@Html.AntiForgeryToken()*@
                     <div class="form-horizontal">
                         <div class="form-group">
                             <div class="col-md-6">
@@ -35,26 +35,26 @@
                         <div class="form-group">
                             <div class="col-md-6">
                                 <label>@L("Address")</label>
-                              @Html.DropDownList("CourseAddressType", ViewBag.ClassType as IEnumerable<SelectListItem>, new { @class = "form-control" })
+                              @Html.DropDownList("CourseAddressType", ViewBag.CourseAddressType as IEnumerable<SelectListItem>, new { @class = "form-control" })
                               
                             </div>
                             <div class="col-md-6">
                                 <label>@L("DetailAddress")</label>
-                                <input class="form-control form-inline" placeholder="请输入具体的上课地点" type="text" name="TeacherId" />
+                                <input class="form-control form-inline" placeholder="请输入具体的上课地点" type="text" name="Address" />
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-6">
                                 <label>@L("ClassType")</label>
-                                @Html.DropDownList("ClassTypeList", ViewBag.ClassType as IEnumerable<SelectListItem>, new { @class = "form-control" })
+                                @Html.DropDownList("ClassType", ViewBag.ClassType as IEnumerable<SelectListItem>, new { @class = "form-control" })
                                 @*<input type="text" name="ClassType" class="form-control form-inline" />*@
                             </div>
                            
                             <div class="col-md-6">
                                 <label>@L("CourseType")</label>
                                 @*<input type="text" name="ClassType"  class="form-control form-inline" />*@
-                                @Html.DropDownList("CourseType", ViewBag.ClassType as IEnumerable<SelectListItem>, new { @class = "form-control" })
+                                @Html.DropDownList("CourseType", ViewBag.CourseType as IEnumerable<SelectListItem>, new { @class = "form-control" })
                             </div>
                         </div>
                         <div class="form-group">
@@ -78,16 +78,16 @@
                             </div>
 
                         </div>
-                        <div class="form-group">
-                            <div class="col-md-10">
-                                @*<button type="button" class="btn btn-default cancel">@L("Cancel")</button>submit*@
-                                <button id="btn-save" class="btn btn-primary blue">@L("Save")</button>
-                            </div>
-                        </div>
+               
                     </div>
                 </form>
                 @*}*@
-
+                <div class="form-group"  style="height:40px">
+                    <div class="col-md-10">
+                        @*<button type="button" class="btn btn-default cancel">@L("Cancel")</button>submit*@
+                        <button id="btn-save" class="btn btn-primary blue">@L("Save")</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

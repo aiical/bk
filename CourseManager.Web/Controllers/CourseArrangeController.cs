@@ -23,26 +23,28 @@ namespace CourseManager.Web.Controllers
             this._categoryAppService = categoryAppService;
         }
         #region 教师排课
-        //public ActionResult TeacherCourseArrange(TeacherCourseArrangeInput input)
-        //{
-        //    return View();
-        //}
-        public ActionResult TeacherCourseArrange(string teacherId,string yearMonth)
+        public ActionResult TeacherCourseArrange(int teacherId,string yearMonth)
         {
             ViewBag.ActiveMenu = "ArrangeCourse";
             var categorys = _categoryAppService.GetAllCategorys();
-            ViewBag.ClassTypeList = categorys.Where(c=>c.CategoryType=="ClassType").ToList().CreateSelect("CategoryName", "Id", "");
+            ViewBag.ClassType = categorys.Where(c=>c.CategoryType=="ClassType").ToList().CreateSelect("CategoryName", "Id", "");
             ViewBag.CourseType = categorys.Where(c => c.CategoryType == "CourseType").ToList().CreateSelect("CategoryName", "Id", "");
             ViewBag.CourseAddressType = categorys.Where(c => c.CategoryType == "CourseAddressType").ToList().CreateSelect("CategoryName", "Id", "");
+            ViewBag.CourseArranges = _teacherCourseArrangeAppService.GetArranages(new TeacherCourseArrangeInput()
+            {
+                TeacherId = teacherId < 1 ? 1 : teacherId,
+                BeginTime = new DateTime(2017, 06, 01, 00, 00, 00),
+                EndTime = new DateTime(2017, 07, 01, 00, 00, 00)
+            });
             return View();
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public JsonResult AddTeacherCourseArrange(CreateTeacherCourseArrangeInput input)
         {
             var teacherCourseArrange = _teacherCourseArrangeAppService.TeacherArrangeCourse(input);
-
-            return Json(true, JsonRequestBehavior.AllowGet);
+            return AbpJson(teacherCourseArrange.Id);
+            //return AbpJson((teacherCourseArrange!=null&&!string.IsNullOrEmpty(teacherCourseArrange.Id))?true:false);
         }
 
         #endregion

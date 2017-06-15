@@ -101,6 +101,8 @@ namespace CourseManager.CourseArrange
             else
             {
                 arrange.Id = IdentityCreator.NewGuid;
+                arrange.ArrangeTime = DateTime.Now;
+                arrange.CreatorUserId = AbpSession.UserId.Value;
                 result = _teacherCourseArrangeRepository.Insert(arrange);
             }
 

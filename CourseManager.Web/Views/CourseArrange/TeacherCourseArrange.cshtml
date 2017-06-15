@@ -1,12 +1,15 @@
 ﻿@using CourseManager.Common;
 @using CourseManager.CourseArrange;
-@using Abp.Web.Mvc.Extensions
+@using Abp.Web.Mvc.Extensions;
+@using Abp.Application.Services.Dto;
+@using CourseManager.CourseArrange.Dto;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = L("TeacherArrange");
-    var teacherschedulelist = new object();// (List<TBL_StudentArrangeCourse>)ViewData["teacherschedulelist"];
     var teacherwork = (List<TeacherCourseArrange>)ViewData["teacherwork"];
     //  teacherschedulelist = teacherschedulelist.Where(p => p.Status > 1).ToList();
+    var teacherSchedule = ViewBag.CourseArranges as ListResultDto<TeacherCourseArrangeListDto>;
+    var teacherScheduleList =teacherSchedule==null?new List<TeacherCourseArrangeListDto>(): teacherSchedule.Items.ToList();
     var thisMonth = DateTime.Now;// (DateTime)ViewData["thisMonth"] ;
 }
 @section Styles{
@@ -124,8 +127,7 @@
                             continue;
                         }
                     }
-
-                    var ScheduleList = new object();// teacherschedulelist.Where(p => p.StartTime.Value.Day == curDayIndex).ToList();
+                    var curDayScheduleList = teacherScheduleList.Where(p => p.BeginTime.Day == curDayIndex).ToList();
                     var WorkList = new object(); //teacherwork.Where(p => p.ArrangeTime.Day == curDayIndex).ToList();
                     var restDay = thisMonth.Year + "-" + thisMonth.Month + "-" + curDayIndex;
                     int teacherId = 0;
@@ -151,41 +153,42 @@
                         }
                         @*在日历上显示排课明细*@
                         <div style="min-height: 50px; padding: 0;">
-                            @*@if (ScheduleList.Count > 0)
-                                {
-                                    List<int> UserAreaIds = ViewBag.CurrentUserArea as List<int>;
-                                    List<int> UserRoleIds = ViewBag.RoleId as List<int>;
-                                    <ul style="font-size: 16px; padding: 0;">
-                                        @foreach (var item in ScheduleList)
-                                        {
-                                            var duration = (int)((item.EndTime - item.StartTime).HasValue ? (item.EndTime - item.StartTime).Value.TotalHours : 0);
-                                            var sTime = item.StartTime.HasValue ? item.StartTime.Value : DateTime.MinValue;
-                                            var classitem = CalendarHelper.GetclassName(item.Status);
-
-                                            <li style="position:relative; min-height:20px;" class="@classitem classedit" )" tag="@item.ID">
-                                                <span>
-                                                    @Html.Raw(string.Format("{0} {1} {2} {3}",
-                                                 (item.Course != null ? item.Course.CourseName : ""),
-                                                  sTime.ToString("HH:mm"),
-                                                  (item.StudentModel != null ? item.StudentModel.CnName : ""),
-                                                  (duration == 1 ? "1H" : "")))
-                                                </span>
-                                                @if (!string.IsNullOrWhiteSpace(item.Remark) && item.isForce == 1)
-                                                {
-                                                    <span title="@item.Remark" class="remarkforceflag">&nbsp;</span>
-                                                }
-                                                else if (!string.IsNullOrWhiteSpace(item.Remark))
-                                                {
-                                                    <span title="@item.Remark" class="remarkflag">&nbsp;</span>
-                                                }
-                                                else if (item.isForce == 1)
-                                                {
-                                                    <span class="forceflag">&nbsp;</span>
-                                                }
-                                            </li>
-                                        }
-                                    </ul>
-                                }*@
+                            @if (curDayScheduleList.Count() > 0)
+    {
+        <ul style="font-size: 16px; padding: 0;">
+            @foreach (var item in curDayScheduleList.ToList())
+            {
+                //var duration = (int)((item.EndTime - item.BeginTime).HasValue ? (item.EndTime - item.BeginTime).Value.TotalHours : 0);
+                //var sTime = item.BeginTime.HasValue ? item.BeginTime.Value : DateTime.MinValue;
+                //var classitem = CalendarHelper.GetclassName(item.Status);
+                @*<li style="position:relative; min-height:20px;" class="@classitem classedit" )" tag="@item.Id">*@
+<li style="position:relative; min-height:20px;" class="classedit" )" tag="@item.Id">
+                <span title="@item.Remark" class="remarkflag">@item.Remark&nbsp;</span>
+                </li>
+                @*<li style="position:relative; min-height:20px;" class="@classitem classedit" )" tag="@item.ID">
+                        <span>
+                            @Html.Raw(string.Format("{0} {1} {2} {3}",
+                         (item.Course != null ? item.Course.CourseName : ""),
+                          sTime.ToString("HH:mm"),
+                          (item.StudentModel != null ? item.StudentModel.CnName : ""),
+                          (duration == 1 ? "1H" : "")))
+                        </span>
+                        @if (!string.IsNullOrWhiteSpace(item.Remark) && item.isForce == 1)
+                        {
+                            <span title="@item.Remark" class="remarkforceflag">&nbsp;</span>
+                        }
+                        else if (!string.IsNullOrWhiteSpace(item.Remark))
+                        {
+                            <span title="@item.Remark" class="remarkflag">&nbsp;</span>
+                        }
+                        else if (item.isForce == 1)
+                        {
+                            <span class="forceflag">&nbsp;</span>
+                        }
+                    </li>*@
+                }
+</ul>
+    }
                             @*@if (WorkList.Count > 0)
                                 {
                                     <ul style="font-size: 16px; padding: 0;">
