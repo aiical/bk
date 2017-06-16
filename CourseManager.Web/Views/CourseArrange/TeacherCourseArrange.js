@@ -10,27 +10,13 @@ Bk.TeacherCourseArrange = {
         this.initStyle();
     },
     initData: function () {
-        _this = this;
-        var classname = "";
-        $(".colorarea span span").each(function () {
-            classname = $(this).attr("class");
-            len = $(".MonthArea ul").find("." + classname).length;
-            if (len > 0) {
-                //$(this).html($(this).html()+"<span class='spancount'>"+len+"</span>");
-                var op = $(this).parent().children('.named');
-                op.html(op.html() + "(" + len + ")")
-            }
-        });
-
-        $(".classedit").on("click", function () {
-            _this.Url = "/StudentCourse/StuArrangeCourseEditPop?id=" + $(this).attr("tag");
-            ymPrompt.win({ message: _this.Url, handler: _this.callBack, width: 800, height: 400, title: '更新排课', iframe: true })
-        });
-
-        $(".MonthArea .Status_Rest").on("click", function () {
-            var Id = $(this).attr("tag");
-            Url = "/Teacher/TeacherArrangeWorkEditPop?Id=" + Id;
-            ymPrompt.win({ message: Url, handler: _this.callBack, width: 800, height: 400, title: '教师排班', iframe: true })
+        var nowYearMonth = Bk.Common.getUrlParam('yearMonth'), nowMonth = "";
+        if (nowYearMonth != '') {
+            nowMonth = nowYearMonth.split('-')[1];
+            $('#Month').val(nowMonth);
+        };
+        $(".course-edit").on("click", function () {
+            abp.notify.info('排课编辑 暂未开放，程序员正在奋力开发中');
         });
     },
     initStyle: function () {
@@ -49,10 +35,8 @@ Bk.TeacherCourseArrange = {
     eventBind: function () {
         $('.datetime').datetimepicker({
             lang: 'ch',
-            //format: 'Y-m-d H:i',
-            //formatDate: 'Y-m-d',
             scrollTime: true,
-            step:10
+            step: 10
         });
         $("body").on("click", function () {
             $("#area").css("display", "none");
@@ -68,25 +52,23 @@ Bk.TeacherCourseArrange = {
             //console.log(JSON.stringify(postData));
             abp.ui.setBusy(
                 abp.ajax({
-                    context:this,
+                    context: this,
                     url: abp.appPath + 'CourseArrange/AddTeacherCourseArrange',
                     type: 'POST',
                     data: JSON.stringify(postData) //abp需要进行转换
                 }).done(function (res) {
                     console.log(res);
-                   // if (typeof res == "string") res = res == "true" ? true : false;
-                    if (res!='') {
+                    // if (typeof res == "string") res = res == "true" ? true : false;
+                    if (res != '') {
                         abp.notify.success("排课成功");
                         window.location.reload();
                     }
-                    }).fail(function (error) {
-                        console.info(error);
-                        console.log(error.responseText);
-                    })
+                }).fail(function (error) {
+                    console.info(error);
+                    console.log(error.responseText);
+                })
             );
         });
-
-
 
         //智能搜索
         var students = [];
@@ -106,20 +88,19 @@ Bk.TeacherCourseArrange = {
             autoFill: false,    //自动填充
             //mustMatch: true,//表示必须匹配条目,文本框里输入的内容,必须是data参数里的数据,如果不匹配,文本框就被清空
             formatItem: function (row, i, max) {
-                return row.name + '[' + row.to + ']';
-                //return i + '/' + max + ':"' + row.name + '"[' + row.to + ']';
+                return "老师：" + row.name;
+                // return row.name + '[' + row.to + ']';
             },
             formatMatch: function (row, i, max) {
-                return row.name + row.to;
+                return "老师：" + row.name;
+                // return row.name + row.to;
             },
             formatResult: function (row) {
                 return row.name;
             }
         }).result(function (event, row, formatted) {
             $("#scTeacher").val(row.to);
-            $("#studentspan").html(row.name);
-            Bk.TeacherCourseArrange.actions.showTeacherCourses();
-
+            //Bk.TeacherCourseArrange.actions.showTeacherCourses();
         });
 
         $(".CourseItem").hover(function () {
@@ -158,7 +139,6 @@ Bk.TeacherCourseArrange = {
             } else {
                 $("#Month").val(_month - 1);
             }
-
             Bk.TeacherCourseArrange.actions.showTeacherCourses();
         },
         //下月
@@ -178,78 +158,45 @@ Bk.TeacherCourseArrange = {
         curMonth: function () {
             var now = new Date();
             $("#Year").val(now.getFullYear());
-            $("#Month").val(now.getMonth());
+            $("#Month").val(now.getMonth() + 1);
             Bk.TeacherCourseArrange.actions.showTeacherCourses();
         },
         //导出
         exportExcel: function () {
-            var Id = $("#scTeacher").val();
-            var areaId = $("#hidarea").val();
-            var areaname = $("#hidareaname").val();
-            var yearmonth = $("#Year").val() + "-" + $("#Month").val();
-            window.open("/CourseArrange/TeacherScheduleByMonthExport?UId=" + Id + "&yearmonth=" + yearmonth);
-        },
-        showTeacherCourses: function () {
-            var Id = $("#scTeacher").val();
-            var yearmonth = $("#Year").val() + "-" + $("#Month").val();
-            window.location.href = "/CourseArrange/TeacherCourseArrange?TeacherId=" + Id + "&yearMonth=" + yearmonth;
-        },
-        arrangeclick: function (obj, time, _col) {
-            $("#arragelist").css("display", "block");
-            $("#nowday").val(time);
             var teacherId = $("#scTeacher").val();
-            $.ajax({
-                url: "/Education/GetStuNames",
-                data: { TID: teacherId },
-                type: "POST",
-                dataType: "json",
-                cache: false,
-                success: function (data) {
-                    var details = data;
-                    var studentname = details.split('|');
-                    var option = "<option value=''>请选择</option>";
-                    for (var i = 0; i < studentname.length - 1; i++) {
-                        var stuId = studentname[i].split(',')[0];
-                        var stuName = studentname[i].split(',')[1];
-
-                        option += "<option value=" + stuId + ">" + stuName + "</option>";
-                        $("#scStudent").html(option);
-                    }
-                }
-            });
-            if (_col < 4) {
-                $("#arragelist").css({ left: $(obj).offset().left + $(obj).outerWidth(), top: $(obj).offset().top }).show();
-            } else {
-                $("#arragelist").css({ left: $(obj).offset().left - $("#arragelist").outerWidth(), top: $(obj).offset().top }).show();
+            if (Bk.TeacherCourseArrange.actions.validTeacherInput(teacherId)) {
+                var yearmonth = $("#Year").val() + "-" + ($("#Month").val() + 1);
+                window.open("/CourseArrange/TeacherScheduleByMonthExport?teacherId=" + teacherId + "&yearmonth=" + yearmonth);
             }
         },
-        //arrangeadd: function (_obj, date) {
-        //    _this = this;
-        //    _this.TeacherId = $("#scTeacher").val();
-        //    //if (_this.TeacherId == "" || _this.TeacherId == "0") {
-        //    //    alert("请选择教师！");
-        //    //    return;
-        //    //}
-        //    _this.Url = "/CourseArrange/StudentArrangeCourseAddByTea?AreaId=" + _this.AreaId + "&TId=" + _this.TeacherId + "&sdate=" + date;
-
-        //    ymPrompt.win({ message: _this.Url, handler: _this.callBack, width: 800, height: 400, title: '排课', iframe: true })
-        //},
-        callBack: function (json) {
-            if (json.status == 1 || json._Status) {
-                showteacher("");
+        showTeacherCourses: function () { //得到某个老师的课程安排
+            var teacherId = $("#scTeacher").val();
+            // alert(teacherId);
+            if (Bk.TeacherCourseArrange.actions.validTeacherInput(teacherId)) {
+                var yearmonth = $("#Year").val() + "-" + (parseInt($("#Month").val()));
+                console.log("/CourseArrange/TeacherCourseArrange?TeacherId=" + teacherId + "&yearMonth=" + yearmonth);
+                window.location.href = "/CourseArrange/TeacherCourseArrange?teacherId=" + teacherId + "&yearMonth=" + yearmonth;
             }
-            //showteacher("");
         },
+        validTeacherInput: function (teacherId) {
+            if (teacherId == "" || teacherId == 0) {
+                abp.notify.warn("请先选择老师");
+                $('#scTeacher').focus();
+                return false;
+            }
+            return true;
+        },
+        //切换课程状态
         mouseover: function (obj) {
             var classname = $(obj).children(':first').attr("class");
-            $(".MonthArea ul li").each(function () {
+            $(".course-arrange-item-wrapper ul li").each(function () {
                 if (!$(this).hasClass(classname)) {
                     $(this).hide();
                 }
             });
         },
         mouseout: function () {
-            $(".MonthArea ul li").show();
+            $(".course-arrange-item-wrapper ul li").show();
         },
         out: function () {
             window.location.reload();

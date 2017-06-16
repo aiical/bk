@@ -10,8 +10,6 @@ namespace CourseManager.Common
     public class CalendarHelper
     {
         /// <summary>
-        /// 作者：vincen
-        /// 时间：2012.11.02
         /// 描述：获取当前月第一天（星期几（1，2..,7））
         /// </summary>
         /// <returns></returns>
@@ -22,8 +20,6 @@ namespace CourseManager.Common
             return GetYearMonthFirstDayWeekIndex(_year, _month);
         }
         /// <summary>
-        ///  作者：vincen
-        /// 时间：2012.11.02
         /// 描述：获取指定年月第一天（星期几（1，2..,7））
         /// </summary>
         /// <param name="_year"></param>
@@ -63,8 +59,6 @@ namespace CourseManager.Common
             return _index;
         }
         /// <summary>
-        /// 作者：Vincen
-        /// 时间：2012.11.02
         /// 描述：获取指定年月的天数
         /// </summary>
         /// <param name="_year"></param>
@@ -153,6 +147,11 @@ namespace CourseManager.Common
             preStartWeek = currentStartWeek.AddDays(-7);
             return preStartWeek;
         }
+        /// <summary>
+        /// 获取课程状态对应的样式  待放课 已放课 已取消 已结课
+        /// </summary>
+        /// <param name="status"></param>
+        /// <returns></returns>
         public static string GetclassName(int status)
         {
             string classitem = "Status_Normal";//状态为2

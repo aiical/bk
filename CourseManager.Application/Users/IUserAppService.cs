@@ -11,8 +11,8 @@ namespace CourseManager.Users
 
         Task RemoveFromRole(long userId, string roleName);
 
-        Task<ListResultDto<UserListDto>> GetUsers();
-
+        Task<ListResultDto<UserListDto>> GetUsersAsync();
+        ListResultDto<UserListDto> GetUsers(UserInput input);
         Task CreateUser(CreateUserInput input);
     }
 }

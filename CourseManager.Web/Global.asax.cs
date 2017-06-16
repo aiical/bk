@@ -21,20 +21,20 @@ namespace CourseManager.Web
             base.Application_Start(sender, e);
         }
 
-        //protected override void Application_Error(object sender, EventArgs e)
-        //{
-        //    var exception = ((HttpApplication)sender).Server.GetLastError();
-        //    var lastError = exception.GetBaseException() as HttpException;
-        //    if (lastError != null)
-        //    {
-        //        var httpStatusCode = lastError.GetHttpCode();
-        //        LogManager.GetLogger("Application_Error").Error(lastError.InnerException == null ? lastError.Message : lastError.InnerException.Message, lastError.InnerException ?? lastError);
-        //        if (httpStatusCode == 404)
-        //        {
-        //            Response.Redirect("~/404.html");
-        //        }
-        //    }
-        //    base.Application_Error(sender, e);
-        //}
+        protected override void Application_Error(object sender, EventArgs e)
+        {
+            var exception = ((HttpApplication)sender).Server.GetLastError();
+            var lastError = exception.GetBaseException() as HttpException;
+            if (lastError != null)
+            {
+                var httpStatusCode = lastError.GetHttpCode();
+                LogManager.GetLogger("Application_Error").Error(lastError.InnerException == null ? lastError.Message : lastError.InnerException.Message, lastError.InnerException ?? lastError);
+                if (httpStatusCode == 404)
+                {
+                    Response.Redirect("~/404.html");
+                }
+            }
+            base.Application_Error(sender, e);
+        }
     }
 }

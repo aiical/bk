@@ -20,7 +20,7 @@ namespace CourseManager.Tests.Users
         public async Task GetUsers_Test()
         {
             //Act
-            var output = await _userAppService.GetUsers();
+            var output = await _userAppService.GetUsersAsync();
 
             //Assert
             output.Items.Count.ShouldBeGreaterThan(0);

@@ -95,7 +95,7 @@ margin-left:8%;
 .btn-add {
     width: 90%;
     background-color: #69B1FF !important;
-    color: white;
+    /*#D9D9D9 */ color: white;
     padding: 0px 5%;
 }
 .select-course-condition-table {
@@ -104,6 +104,13 @@ margin-left:8%;
         border-top: solid 1px #D9D9D9;
         border-left: solid 1px #D9D9D9;
     }
+.course-arrange-table .course-arrange-item-wrapper {
+    min-height: 50px;
+    margin-bottom: 10px;
+}
+.course-arrange-table ul {
+    padding:10px;
+}
 /*.MonthTopBar{width: 100%;height: 42px;background-image: url(../../images/MonthTopBg.jpg);
 background-position: center center;background-repeat: repeat-x;border-right: solid 1px #D9D9D9;
 border-left: solid 1px #D9D9D9;}*/
@@ -699,7 +706,7 @@ border-left: solid 1px #D9D9D9;}*/
     margin-top: 2px;
     margin-bottom: 2px;
     vertical-align: middle;
-    background-image: url('/Content/Images/Icon/cancel.png');
+    background-image: url('/Assets/images/Icon/cancel.png');
     background-position: center center;
     background-repeat: no-repeat;
 }
@@ -750,14 +757,14 @@ border-left: solid 1px #D9D9D9;}*/
     font-weight: bold;
 }
 
-.classedit {
+.course-edit {
     cursor: pointer;
     display: inline-block;
     width: 100%;
 }
 
-    .classedit:hover {
-        background-image: url('/Content/Images/Icon/05.png');
+    .course-edit:hover {
+        background-image: url('/Assets/images/Icon/05.png');
         background-position: right center;
         background-repeat: no-repeat;
         padding-right: 0;
@@ -770,7 +777,7 @@ border-left: solid 1px #D9D9D9;}*/
 }
 
     .MonthArea .Status_Rest:hover {
-        background-image: url('/Content/Images/Icon/05.png');
+        background-image: url('/Assets/images/Icon/05.png');
         background-position: right center;
         background-repeat: no-repeat;
         padding-right: 0;
