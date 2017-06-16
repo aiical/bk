@@ -69,6 +69,7 @@
     <text name="StudentDeleteWarningMessage" value="学生{0}将被删除" />
 
     <text name="CourseManager" value="贝课" />
+    <text name="CourseSchedule" value="排课时间表" />
     <text name="Sign" value="签到" />
     <text name="SignIn" value="上课签到" />
     <text name="Address" value="上课地点" />

@@ -87,6 +87,7 @@
     <text name="StudentDeleteWarningMessage" value="StudentDeleteWarningMessage" />
     
     <text name="CourseManager" value="CourseManager" />
+    <text name="CourseSchedule" value="CourseSchedule" />
     <text name="Sign" value="Sign" />
     <text name="SignIn" value="SignIn" />
     <text name="Address" value="Address" />

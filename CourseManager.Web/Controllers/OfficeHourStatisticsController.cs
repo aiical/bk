@@ -2,6 +2,7 @@
 using CourseManager.ClassHourStatistics;
 using CourseManager.ClassHourStatistics.Dto;
 using CourseManager.Core.EntitiesFromCustom;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -27,26 +28,30 @@ namespace CourseManager.Web.Controllers
         public JsonResult GetTeacherOfficeHourStatistics(ClassHourStatisticsInput input)
         {
             var result = _teacherOfficeHoursStatisticsAppService.GetClassHourStatistics(input).Items;
-            List<decimal> durations = new List<decimal>();
-            var totalDuration = result.Sum(r => r.Duration);
+            var totalDuration = 0.0M;
             var beginTimeDay = input.BeginTime.Day;
             var endTimeDay = input.EndTime.Day;
-            decimal[] classHoursArray = new decimal[endTimeDay - beginTimeDay + 1]; //取得的值是大于等于开始时间 小于结束时间
+            decimal[] classHoursArray = new decimal[endTimeDay - beginTimeDay + 1];
             for (int i = beginTimeDay - 1; i < endTimeDay; i++)
             {
                 var duration = 0.0M;
                 classHoursArray[i] = duration;
                 if (result.Any(v => v.EndTime.Day == i + 1))
                 {
-                    duration = decimal.Round(result.Where(r => r.EndTime.Day == i + 1).Sum(c => c.Duration) / 60,1);
+                    var maxEndTime = result.Where(r => r.EndTime.Day == i + 1).Max(t => t.EndTime);
+                    var minBeginTime = result.Where(r => r.EndTime.Day == i + 1).Min(t => t.BeginTime);
+                    var totalMinutes = (maxEndTime - minBeginTime).TotalMinutes;
+                    duration = decimal.Round(Convert.ToDecimal(totalMinutes) / 60, 1);
+                    //  duration = decimal.Round(result.Where(r => r.EndTime.Day == i + 1).Sum(c => c.Duration) / 60, 1);
                     classHoursArray[i] = duration;
                 }
+                totalDuration += classHoursArray[i];
             }
             ResultData data = new ResultData();
             data.returnData = new Dictionary<string, object>
             {
                 { "durations",classHoursArray},// durations.ToArray()
-                {"total",decimal.Round(totalDuration/60,1) }
+                {"total",totalDuration }
             };
             return Json(data, JsonRequestBehavior.AllowGet);
         }

@@ -29,6 +29,12 @@ namespace CourseManager.SignIn
         [MaxLength(MaxMultiLength)]
         public string StudentId { get; set; }
         /// <summary>
+        /// 当前上的是排课中的那个时间段
+        /// </summary>
+        [Required]
+        [MaxLength(MaxMultiLength)]
+        public string CourseArranges { get; set; }
+        /// <summary>
         /// 上课地点类型（如外派/学院）（因为外派会有车费补贴 和工资统计有关）
         /// </summary>
         [Required]

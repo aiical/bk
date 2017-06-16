@@ -4,13 +4,15 @@
         '$uibModalInstance',
         'abp.services.app.signInRecord',
         'abp.services.app.categorys',
-        function ($scope, $uibModalInstance, $signInService, $categoryService) {
+        'abp.services.app.teacherCourseArrange',
+        function ($scope, $uibModalInstance, $signInService, $categoryService, $teacherCourseArrangeService) {
 
             var vm = this, defaultSelectItem = { "CategoryName": "--请选择--", "Id": "-1" };
             vm.signInRecord = {
                 isActive: true,
                 beginTime: "",
                 endTime: "",
+                courseArranges: [],
                 type: [
                     defaultSelectItem
                 ],
@@ -83,9 +85,25 @@
                         $scope.selectedUnNormalType = vm.signInRecord.unNormalType[0];
                     });
             }
+
+            function getCourseArrange() {
+                var now = new Date(), year = now.getFullYear(), month = now.getMonth() + 1, day = now.getDate();
+                $teacherCourseArrangeService.getTeacherCourseArrange2SignIn(
+                    { "beginTime": year + "-" + month + "-" + day, "endTime": year + "-" + month + "-" + (day + 1) }
+                )
+                    .then(function (res) {
+                        console.log(res.data);
+                        $.each(res.data, function (index, item) {
+                            var courseArrangeItem = { "TimeDuration": item.timeDuration, "Id": item.id };
+                            vm.signInRecord.courseArranges.push(courseArrangeItem);
+                        });
+                        $scope.selectCourseArrange = vm.signInRecord.courseArranges[0];//如果想要第一个值
+                    });
+            }
             $uibModalInstance.opened.then(function () {//模态框打开之后执行的函数 一个契约，当模态窗口打开并且加载完内容时传递的变量
                 //console.log('模态框打开');
                 getCategorys();//初始化分类
+                getCourseArrange();
             });
             //select 的ng-change事件和原始ng-change相同  
             vm.signInRecord.selectChange = function () {
@@ -111,7 +129,7 @@
                         return;
                     }
                     var now = new Date();
-                    console.log(vm.signInRecord.endTime + "--" + now.getHours() + ":" + now.getMinutes());
+                  //  console.log(vm.signInRecord.endTime + "--" + now.getHours() + ":" + now.getMinutes());
                     if ((vm.signInRecord.endTime != null) &&
                         (vm.signInRecord.endTime > now.getHours() + ":" + now.getMinutes()
                             || new Date(vm.signInRecord.endTime).getTime() > new Date().getTime())) {
@@ -128,7 +146,7 @@
                 vm.signInRecord.unNormalType = $scope.selectedUnNormalType.Id;
                 vm.signInRecord.courseType = $scope.selectedCourseType.Id;
                 vm.signInRecord.courseAddressType = $scope.selectedAddressType.Id;
-
+                vm.signInRecord.courseArranges = $scope.selectCourseArrange.Id;
                 console.log(vm.signInRecord);
                 $signInService.createSignInRecord(vm.signInRecord)
                     .then(function () {

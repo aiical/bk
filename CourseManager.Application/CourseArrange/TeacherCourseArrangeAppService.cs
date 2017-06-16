@@ -75,7 +75,20 @@ namespace CourseManager.CourseArrange
         {
             return _teacherCourseArrangeRepository.Get(input.Id);
         }
-
+        public List<TeacherCourseArrange2SignInOutput> GetTeacherCourseArrange2SignIn(TeacherCourseArrangeInput input)
+        {
+            var res = GetArrangesByCondition(input).ToList();
+            List<TeacherCourseArrange2SignInOutput> output = new List<TeacherCourseArrange2SignInOutput>();
+            foreach (var item in res)
+            {
+                output.Add(new TeacherCourseArrange2SignInOutput()
+                {
+                    TimeDuration = string.Format("{0}--{1}", item.BeginTime.Value.ToString("HH:mm"), item.EndTime.Value.ToString("HH:mm")),
+                    Id = item.Id
+                });
+            }
+            return output;
+        }
         public PagedResultDto<TeacherCourseArrangeListDto> GetPagedArranges(TeacherCourseArrangeInput input)
         {
             var query = GetArrangesByCondition(input);

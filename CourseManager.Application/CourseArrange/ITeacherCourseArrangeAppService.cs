@@ -23,5 +23,11 @@ namespace CourseManager.CourseArrange
         ListResultDto<TeacherCourseArrangeListDto> GetArranages(TeacherCourseArrangeInput input);
 
         PagedResultDto<TeacherCourseArrangeListDto> GetPagedArranges(TeacherCourseArrangeInput input);
+        /// <summary>
+        /// 获取签到用的课程安排时间段
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        List<TeacherCourseArrange2SignInOutput> GetTeacherCourseArrange2SignIn(TeacherCourseArrangeInput input);
     }
 }

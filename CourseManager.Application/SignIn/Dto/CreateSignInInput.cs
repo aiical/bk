@@ -9,6 +9,7 @@ namespace CourseManager.SignIn.Dto
     {
         public string Id { get; set; }
         public string TeacherId { get; set; }
+        public string CourseArranges { get; set; }
         /// <summary>
         /// 当前给哪个学生上课
         /// </summary>

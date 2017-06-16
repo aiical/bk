@@ -12,6 +12,7 @@ namespace CourseManager.SignIn.Dto
         /// 当前给哪个学生上课
         /// </summary>
         public string StudentId { get; set; }
+        public string CourseArranges { get; set; }
         /// <summary>
         /// 上课签到类型（迟到，正常，未上课（如果是迟到或者未上课 请说明原因））
         /// </summary>
