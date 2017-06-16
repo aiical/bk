@@ -11,7 +11,7 @@ Bk.TeacherCourseArrange = {
     },
     initData: function () {
         var nowYearMonth = Bk.Common.getUrlParam('yearMonth'), nowMonth = "";
-        if (nowYearMonth != '') {
+        if (nowYearMonth != '' && nowYearMonth != null && typeof nowYearMonth != 'undefined') {
             nowMonth = nowYearMonth.split('-')[1];
             $('#Month').val(nowMonth);
         };
@@ -43,13 +43,40 @@ Bk.TeacherCourseArrange = {
         });
         //弹出modal
         $(".btn-add").click(function (e) {
-            $("#addTeacherCourseArrangeModal").modal("show");
+            if ($('#hidTeacherId').val() > 0) {
+                $("#addTeacherCourseArrangeModal").modal("show");
+            }
         });
         //保存排课信息
         $('#btn-save').click(function () {
             var postData = $('#add-teacherCourse-form').serializeJson();
             console.info(postData);
+
             //console.log(JSON.stringify(postData));
+            var beginTime = postData.BeginTime, endTime = postData.EndTime;
+            //验证数据 如开始时间和结束时间
+            if (
+                (endTime == null || endTime == "")
+                || (beginTime == null || beginTime == "")
+            ) {
+                abp.notify.warn("请先选择上课时间");
+                $('#BeginTime').focus();
+                return false;
+            }
+
+            if (endTime != null && endTime != "" && beginTime != null && beginTime != "") {
+                if (endTime < beginTime
+                    ||
+                    new Date(endTime).getTime() < new Date(beginTime).getTime()
+                ) {
+                    endTime = null;
+                    abp.notify.error("上课时间不能大于下课时间");
+                    abp.ui.clearBusy();
+                    $('#BeginTime').focus();
+                    return;
+                }
+            }
+            postData = $.extend(postData, { "TeacherId": $('#hidTeacherId').val() });
             abp.ui.setBusy(
                 abp.ajax({
                     context: this,
@@ -65,7 +92,7 @@ Bk.TeacherCourseArrange = {
                     }
                 }).fail(function (error) {
                     console.info(error);
-                    console.log(error.responseText);
+                    //abp.notify.error(error.responseText);
                 })
             );
         });
@@ -100,6 +127,7 @@ Bk.TeacherCourseArrange = {
             }
         }).result(function (event, row, formatted) {
             $("#scTeacher").val(row.to);
+            $("#hidTeacherId").val(row.to);
             //Bk.TeacherCourseArrange.actions.showTeacherCourses();
         });
 
@@ -130,6 +158,7 @@ Bk.TeacherCourseArrange = {
 
         //上月
         preMonth: function () {
+            //if (Bk.TeacherCourseArrange.actions.validTeacherInput($('#scTeacher').val())) {
             var _year = parseInt($.trim($("#Year").val()));
             var _month = parseInt($.trim($("#Month").val()));
             //如果此时月份是1月的话，则上月为上一年的12月，年减1
@@ -140,9 +169,11 @@ Bk.TeacherCourseArrange = {
                 $("#Month").val(_month - 1);
             }
             Bk.TeacherCourseArrange.actions.showTeacherCourses();
+            //}
         },
         //下月
         nextMonth: function () {
+            // if (Bk.TeacherCourseArrange.actions.validTeacherInput($('#scTeacher').val())) {
             var _year = parseInt($.trim($("#Year").val()));
             var _month = parseInt($.trim($("#Month").val()));
             if (_month == 12) {
@@ -153,6 +184,7 @@ Bk.TeacherCourseArrange = {
                 $("#Month").val(_month + 1);
             }
             Bk.TeacherCourseArrange.actions.showTeacherCourses();
+            // }
         },
         //本月
         curMonth: function () {
@@ -163,6 +195,8 @@ Bk.TeacherCourseArrange = {
         },
         //导出
         exportExcel: function () {
+            abp.notify.info('导出功能暂未开放，程序员正在奋力开发中');
+            return;
             var teacherId = $("#scTeacher").val();
             if (Bk.TeacherCourseArrange.actions.validTeacherInput(teacherId)) {
                 var yearmonth = $("#Year").val() + "-" + ($("#Month").val() + 1);
@@ -171,7 +205,8 @@ Bk.TeacherCourseArrange = {
         },
         showTeacherCourses: function () { //得到某个老师的课程安排
             var teacherId = $("#scTeacher").val();
-            // alert(teacherId);
+            //因为现在系统主要给自己用 如果没有选择老师 默认加载胡老师 亦即id为1的数据   如果开放给其他人用 则需先选择老师 
+            teacherId = (teacherId == "" || teacherId == 0) ? 1 : teacherId;
             if (Bk.TeacherCourseArrange.actions.validTeacherInput(teacherId)) {
                 var yearmonth = $("#Year").val() + "-" + (parseInt($("#Month").val()));
                 console.log("/CourseArrange/TeacherCourseArrange?TeacherId=" + teacherId + "&yearMonth=" + yearmonth);

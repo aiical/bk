@@ -43,6 +43,7 @@ namespace CourseManager.Web.Controllers
                 string[] yearMonthArr = yearMonth.Split('-');
                 int year = Convert.ToInt32(yearMonthArr[0]);
                 int month = Convert.ToInt32(yearMonthArr[1]);
+                ViewBag.YearMonth = new DateTime(year, month, 01, 00, 00, 00);
                 courseArrangeData = _teacherCourseArrangeAppService.GetArranages(new TeacherCourseArrangeInput()
                 {
                     TeacherId = teacherId < 1 ? 1 : teacherId,
@@ -50,6 +51,7 @@ namespace CourseManager.Web.Controllers
                     EndTime = new DateTime(year, month + 1, 01, 00, 00, 00)
                 });
             }
+
             ViewBag.Teachers = _userAppService.GetUsers(new Users.Dto.UserInput() { }).Items;
             ViewBag.CourseArranges = courseArrangeData;
             return View();

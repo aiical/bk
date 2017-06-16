@@ -129,7 +129,7 @@
                 vm.signInRecord.courseType = $scope.selectedCourseType.Id;
                 vm.signInRecord.courseAddressType = $scope.selectedAddressType.Id;
 
-                // console.log(vm.signInRecord);
+                console.log(vm.signInRecord);
                 $signInService.createSignInRecord(vm.signInRecord)
                     .then(function () {
                         abp.notify.info(App.localize('SavedSuccessfully'));

@@ -53,6 +53,7 @@ namespace CourseManager.SignIn
             if (!string.IsNullOrEmpty(input.Id)) await _signInRepository.UpdateAsync(record);
             else
             {
+                //todo:防止重复签到 如：我7到八点课程签到了，就不能再在这段时间签到 如果选错了时间自动提示
                 record.Id = IdentityCreator.NewGuid;
                 record.CreatorUserId = AbpSession.UserId.Value;
                 record.TeacherId = AbpSession.UserId.Value.ToString();

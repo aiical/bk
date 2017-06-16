@@ -202,6 +202,10 @@
     <Compile Include="Migrations\201706150741107_Update_Entity_TeacherCourseArrange2.Designer.cs">
       <DependentUpon>201706150741107_Update_Entity_TeacherCourseArrange2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706160809282_Update_Entity1.cs" />
+    <Compile Include="Migrations\201706160809282_Update_Entity1.Designer.cs">
+      <DependentUpon>201706160809282_Update_Entity1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="CourseManagerDataModule.cs" />
@@ -282,6 +286,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706150741107_Update_Entity_TeacherCourseArrange2.resx">
       <DependentUpon>201706150741107_Update_Entity_TeacherCourseArrange2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706160809282_Update_Entity1.resx">
+      <DependentUpon>201706160809282_Update_Entity1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

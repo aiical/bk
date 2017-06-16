@@ -51,7 +51,7 @@ namespace CourseManager.Users
             //WhereIf 是ABP针对IQueryable<T>的扩展方法 第一个参数为条件，第二个参数为一个Predicate 当条件为true执行后面的条件过滤
             var query = _studentRepository.GetAll()
                         .WhereIf(!input.Id.IsNullOrEmpty(), o => o.Id == input.Id)
-                        .WhereIf(!input.Filter.IsNullOrEmpty(), t => t.CnName.Contains(input.Filter))
+                        .WhereIf(!input.CnName.IsNullOrEmpty(), t => t.CnName.Contains(input.CnName))
                         .WhereIf(input.IsActive.HasValue, o => o.IsActive == input.IsActive)
                         .Where(o => o.IsDeleted == false);
             query = string.IsNullOrEmpty(input.Sorting)

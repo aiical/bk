@@ -10,6 +10,10 @@
     var teacherSchedule = ViewBag.CourseArranges as ListResultDto<TeacherCourseArrangeListDto>;
     var teacherScheduleList = teacherSchedule == null ? new List<TeacherCourseArrangeListDto>() : teacherSchedule.Items.ToList();
     var thisMonth = DateTime.Now;
+    if (ViewBag.YearMonth != null)
+    {
+        thisMonth =(DateTime)ViewBag.YearMonth;
+    }
     var teachers = ViewBag.Teachers as List<UserListDto>;
     //CourseArrangeTable 相关
     var curDateFirstDay = CalendarHelper.GetYearMonthFirstDayWeekIndex(thisMonth.Year, thisMonth.Month);
@@ -47,6 +51,7 @@
         <table cellpadding="5" class="select-course-condition-table">
             <tr>
                 <td valign="bottom" class="select-course-area">
+                    <input type="hidden" id="hidTeacherId" value="1" />
                     <span>教师：</span>
                     <input id="keyword" placeholder="请先选择某个老师进行排课" />
                     <select id="scTeacher" class="selsty" name="scTeacher" onchange="Bk.TeacherCourseArrange.actions.showTeacherCourse()" style="display: none;">
@@ -56,12 +61,12 @@
                             {
                                 foreach (var item in teachers)
                                 {
-                            <option value="@item.Id">@item.Name</option>
+                        <option value="@item.Id">@item.Name</option>
                                 }
                             }
                             else
                             {
-                            <option value="0">无教师</option>
+                        <option value="0">无教师</option>
                             }
                     </select>
 

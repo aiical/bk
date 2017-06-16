@@ -33,6 +33,9 @@ namespace CourseManager.CourseArrange.Dto
         /// </summary>
         public string StudentId { get; set; }
         public long? CreatorUserId { get; set; }
+        /// <summary>
+        /// 约定 必填 按照模板 如：学生名 上课时间 在哪里 什么类型的课上什么课 （eg:崔俊燮 下午3点到4点 在蛇口 1v1上课 TSC）
+        /// </summary>
         public string Remark { get; set; }
     }
 }

@@ -66,6 +66,10 @@ namespace CourseManager.CourseArrange
         public long? CreatorUserId { get; set; }
         public DateTime CreationTime { get; set; }
         public int TenantId { get; set; }
+        /// <summary>
+        ///  约定 必填 按照模板 如：学生名 上课时间 在哪里 什么类型的课上什么课 （eg:崔俊燮 下午3点到4点 在蛇口 1v1上课 TSC）
+        /// </summary>
+        [Required]
         [MaxLength(MaxRemarkLength)]
         public string Remark { get; set; }
 

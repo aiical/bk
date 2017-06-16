@@ -131,15 +131,16 @@ namespace CourseManager.Web
                         icon: "fa fa-users",
                           requiredPermissionName: PermissionNames.Pages_Users
                         )
-                ).AddItem(
-                    new MenuItemDefinition(
-                        "Teachers",
-                        L("Teachers"),
-                        url: "#teachers",
-                        icon: "fa fa-users",
-                          requiredPermissionName: PermissionNames.Pages_Users
-                        )
                 )
+                //.AddItem( //将老师数据直接保存在系统用户user表
+                //    new MenuItemDefinition(
+                //        "Teachers",
+                //        L("Teachers"),
+                //        url: "#teachers",
+                //        icon: "fa fa-users",
+                //          requiredPermissionName: PermissionNames.Pages_Users
+                //        )
+                //)
                 .AddItem(
                     new MenuItemDefinition(
                         "Users",
