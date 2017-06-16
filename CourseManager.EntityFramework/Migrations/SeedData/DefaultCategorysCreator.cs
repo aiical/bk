@@ -38,6 +38,14 @@ namespace CourseManager.Migrations.SeedData
                             new Categorys{ Id=Common.IdentityCreator.NewGuid, CategoryName="老师请假",DictionaryValue="TeacherLeave", CategoryType="NoCourseReasonType", CreationTime=DateTime.Now, CreatorUserId=0, IsActive=true, IsDeleted=false, Level=1, SortNo=1, SysDefined=1, TenantId=1,ParentId="0"  },
                                new Categorys{ Id=Common.IdentityCreator.NewGuid, CategoryName="学生请假",DictionaryValue="StudentLeave", CategoryType="NoCourseReasonType", CreationTime=DateTime.Now, CreatorUserId=0, IsActive=true, IsDeleted=false, Level=1, SortNo=2, SysDefined=1, TenantId=1,ParentId="0"  },
                                 new Categorys{ Id=Common.IdentityCreator.NewGuid, CategoryName="其他原因",DictionaryValue="OtherReason", CategoryType="NoCourseReasonType", CreationTime=DateTime.Now, CreatorUserId=0, IsActive=true, IsDeleted=false, Level=1, SortNo=3, SysDefined=1, TenantId=1,ParentId="0"  },
+
+
+                                //课程状态 预排 待放课 放课 取消 结课
+                              new Categorys{ Id=Common.IdentityCreator.NewGuid, CategoryName="预排",DictionaryValue="Default", CategoryType="CourseStatusType", CreationTime=DateTime.Now, CreatorUserId=0, IsActive=true, IsDeleted=false, Level=1, SortNo=1, SysDefined=1, TenantId=1,ParentId="0"  },
+                                  new Categorys{ Id=Common.IdentityCreator.NewGuid, CategoryName="待放课",DictionaryValue="Normal", CategoryType="CourseStatusType", CreationTime=DateTime.Now, CreatorUserId=0, IsActive=true, IsDeleted=false, Level=1, SortNo=2, SysDefined=1, TenantId=1,ParentId="0"  },
+                                     new Categorys{ Id=Common.IdentityCreator.NewGuid, CategoryName="已放课",DictionaryValue="Effective", CategoryType="CourseStatusType", CreationTime=DateTime.Now, CreatorUserId=0, IsActive=true, IsDeleted=false, Level=1, SortNo=3, SysDefined=1, TenantId=1,ParentId="0"  },
+                                      new Categorys{ Id=Common.IdentityCreator.NewGuid, CategoryName="已取消",DictionaryValue="Cancel", CategoryType="CourseStatusType", CreationTime=DateTime.Now, CreatorUserId=0, IsActive=true, IsDeleted=false, Level=1, SortNo=4, SysDefined=1, TenantId=1,ParentId="0"  },
+                                           new Categorys{ Id=Common.IdentityCreator.NewGuid, CategoryName="已结课",DictionaryValue="Finished", CategoryType="CourseStatusType", CreationTime=DateTime.Now, CreatorUserId=0, IsActive=true, IsDeleted=false, Level=1, SortNo=5, SysDefined=1, TenantId=1,ParentId="0"  },
             };
         }
 

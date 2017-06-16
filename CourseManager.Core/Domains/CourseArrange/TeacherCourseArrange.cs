@@ -12,7 +12,7 @@ namespace CourseManager.CourseArrange
         public const short MaxIdLength = 36;
         public const short MaxRemarkLength = 1024;
         public const short MaxCategoryTypeLength = 64;
-
+        public const short MaxCourseStatusLength = 64;
         #endregion
         /// <summary>
         /// 必须选择老师 因为要知道给哪个老师安排课 将老师数据存在在用户表中 沿用用户表长整型id
@@ -39,7 +39,7 @@ namespace CourseManager.CourseArrange
         /// </summary>
         [Required]
         [MaxLength(MaxIdLength)]
-        public string CourseAddressType { get; set;}
+        public string CourseAddressType { get; set; }
         [Required]
         /// <summary>
         /// 如果是选择了外派就必须填写具体的上课地点 如东角头/学院
@@ -72,9 +72,15 @@ namespace CourseManager.CourseArrange
         [Required]
         [MaxLength(MaxRemarkLength)]
         public string Remark { get; set; }
-
+        /// <summary> 
+        /// 上课状态 刚刚创建的时候为默认值 签到之后更新为Effective
+        /// </summary>
+        [Required]
+        [MaxLength(MaxCourseStatusLength)]
+        public string CourseStatus { get; set; }
         public TeacherCourseArrange()
         {
+            CourseStatus = "Default";
             TenantId = 1;
         }
     }

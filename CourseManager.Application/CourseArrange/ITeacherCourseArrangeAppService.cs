@@ -29,5 +29,8 @@ namespace CourseManager.CourseArrange
         /// <param name="input"></param>
         /// <returns></returns>
         List<TeacherCourseArrange2SignInOutput> GetTeacherCourseArrange2SignIn(TeacherCourseArrangeInput input);
+
+        bool UpdateCourseArrange(UpdateTeacherCourseArrangeInput updateInput);
+        bool UpdateCourseArrange(TeacherCourseArrange updateModel);
     }
 }

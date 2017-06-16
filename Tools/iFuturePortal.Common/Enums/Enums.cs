@@ -66,14 +66,29 @@ namespace CourseManager.Common.Enums
 
     public enum ArrageCourseStatus
     {
+        /// <summary>
+        /// 预排
+        /// </summary>
         [Description("预排")]//只有预排课才可以在排课时自动删除
         Default = 1,
+        /// <summary>
+        /// 待放课
+        /// </summary>
         [Description("待放课")]
         Normal = 2,
+        /// <summary>
+        /// 已放课
+        /// </summary>
         [Description("已放课")]//只有正式课表才可以放课
         Effective = 3,
+        /// <summary>
+        /// 已取消
+        /// </summary>
         [Description("已取消")]//只有放课后的课才可以取消
         Cancel = 4,
+        /// <summary>
+        /// 已结课
+        /// </summary>
         [Description("已结课")]//只有放课后的课才可以结课
         Finished = 5
     }

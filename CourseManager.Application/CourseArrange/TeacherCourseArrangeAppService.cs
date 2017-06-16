@@ -135,6 +135,14 @@ namespace CourseManager.CourseArrange
             }
             return result ?? new TeacherCourseArrange();
         }
-
+        public bool UpdateCourseArrange(UpdateTeacherCourseArrangeInput updateInput)
+        {
+            var upadteArrange = updateInput.MapTo<TeacherCourseArrange>();
+            return !string.IsNullOrEmpty(_teacherCourseArrangeRepository.Update(upadteArrange).Id);
+        }
+        public bool UpdateCourseArrange(TeacherCourseArrange updateModel)
+        {
+            return !string.IsNullOrEmpty(_teacherCourseArrangeRepository.Update(updateModel).Id);
+        }
     }
 }

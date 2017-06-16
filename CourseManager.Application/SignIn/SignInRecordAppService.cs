@@ -16,6 +16,7 @@ using CourseManager.Category.Dtos;
 using CourseManager.Common.Enums;
 using CourseManager.Students;
 using CourseManager.Students.Dto;
+using CourseManager.CourseArrange;
 
 namespace CourseManager.SignIn
 {
@@ -25,14 +26,18 @@ namespace CourseManager.SignIn
         private readonly IRepository<SignInRecord, string> _signInRepository;
         private readonly ICategorysAppService _categorysAppService;
         private readonly IStudentAppService _studentAppService;
+        private readonly ITeacherCourseArrangeAppService _teacherCourseArrangeAppService;
         public SignInRecordAppService(
             IRepository<SignInRecord, string> signInRepository,
             ICategorysAppService categorysAppService,
-             IStudentAppService studentAppService)
+             IStudentAppService studentAppService,
+              ITeacherCourseArrangeAppService teacherCourseArrangeAppService
+        )
         {
             this._signInRepository = signInRepository;
             this._categorysAppService = categorysAppService;
             this._studentAppService = studentAppService;
+            this._teacherCourseArrangeAppService = teacherCourseArrangeAppService;
         }
 
         private IQueryable<SignInRecord> GetSignInRecordByCondition(SignInInput input)
@@ -68,7 +73,13 @@ namespace CourseManager.SignIn
                     studentIds += _studentAppService.GetStudent(new StudentInput() { CnName = stu }).Id + ",";
                 }
                 record.StudentId = studentIds.TrimEnd(',');//孙京儿测试用 "fd3fd836655e4502a40db5acfca5d115" 自己录入数据的时候 输入准确学生名去匹配 如果是班级课就用逗号隔开
-                await _signInRepository.InsertAsync(record);
+                var result = await _signInRepository.InsertAsync(record);
+                if (!string.IsNullOrEmpty(result.Id))
+                {
+                    var courseArrange = _teacherCourseArrangeAppService.GetArranage(new CourseArrange.Dto.TeacherCourseArrangeInput() { Id = result.CourseArranges });
+                    courseArrange.CourseStatus = Common.Enums.ArrageCourseStatus.Effective.ToString();
+                    _teacherCourseArrangeAppService.UpdateCourseArrange(courseArrange);
+                }
             }
         }
 

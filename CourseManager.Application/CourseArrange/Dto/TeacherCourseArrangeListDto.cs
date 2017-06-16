@@ -37,5 +37,6 @@ namespace CourseManager.CourseArrange.Dto
         public DateTime CreationTime { get; set; }
         public int TenantId { get; set; }
         public string Remark { get; set; }
+        public string CourseStatus { get; set; }
     }
 }

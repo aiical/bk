@@ -33,5 +33,7 @@ namespace CourseManager.CourseArrange.Dto
         /// 必须选择学生 因为要知道是安排给哪个学生上课 如果是班级课 那么是选择多个学生
         /// </summary>
         public string StudentId { get; set; }
+
+        public string CourseStatus { get; set; }
     }
 }
