@@ -419,6 +419,7 @@
     <Content Include="Assets\images\ji-max.png" />
     <Content Include="Assets\images\ji.png" />
     <Content Include="Assets\images\loading.png" />
+    <Content Include="Assets\images\login-bg2.jpg" />
     <Content Include="Assets\images\mail.png" />
     <Content Include="Assets\images\maintitlebg.gif" />
     <Content Include="Assets\images\main_bg.jpg" />
