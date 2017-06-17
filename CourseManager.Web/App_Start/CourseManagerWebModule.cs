@@ -10,6 +10,7 @@ using Abp.Web.SignalR;
 using Abp.Zero.Configuration;
 using CourseManager.Api;
 using Hangfire;
+using Abp.Configuration.Startup;
 
 namespace CourseManager.Web
 {
@@ -29,7 +30,7 @@ namespace CourseManager.Web
 
             //Configure navigation/menu
             Configuration.Navigation.Providers.Add<CourseManagerNavigationProvider>();
-
+            Configuration.Modules.AbpWeb().AntiForgery.IsEnabled = false; //禁用csrf跨站验证
             //Configure Hangfire - ENABLE TO USE HANGFIRE INSTEAD OF DEFAULT JOB MANAGER
             //Configuration.BackgroundJobs.UseHangfire(configuration =>
             //{

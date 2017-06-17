@@ -38,5 +38,15 @@ namespace CourseManager.CourseArrange.Dto
         /// </summary>
         public string Remark { get; set; }
         public string CourseStatus { get; set; }
+
+        /// <summary>
+        /// 每周这个时间拍一节课 
+        /// </summary>
+        public bool? CrossWeek { get; set; }
+
+        public CreateTeacherCourseArrangeInput()
+        {
+            this.CourseStatus = "Normal";
+        }
     }
 }

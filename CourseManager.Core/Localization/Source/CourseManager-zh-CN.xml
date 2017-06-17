@@ -28,6 +28,7 @@
     <text name="DeleteSuccessfully" value="删除成功"/>
     <text name="ToggleSuccessfully" value="切换成功"/>
     <text name="Save" value="保存" />
+    <text name="WeekSave" value="每周排一节（当前月）" />
     <text name="Cancel" value="取消" />
     <text name="Add" value="新增"/>
     <!--华丽分割线-->

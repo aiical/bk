@@ -36,6 +36,7 @@
     <text name="CreateNewTenant" value="Create new tenant" />
     <text name="AdminEmailAddress" value="Admin email address" />
     <text name="Save" value="Save" />
+    <text name="WeekSave" value="WeekSave" />
     <text name="Cancel" value="Cancel" />
     <text name="TenantName_Regex_Description" value="Tenant name must be at least 2 chars, starts with a letter and continue with letter, number, dash or underscore." />
     <text name="DefaultPasswordIs" value="Default password is {0}" />

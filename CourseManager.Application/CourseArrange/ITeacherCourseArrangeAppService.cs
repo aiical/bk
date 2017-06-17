@@ -16,7 +16,7 @@ namespace CourseManager.CourseArrange
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        TeacherCourseArrange TeacherArrangeCourse(CreateTeacherCourseArrangeInput input);
+        bool TeacherArrangeCourse(CreateTeacherCourseArrangeInput input);
         TeacherCourseArrange GetArranage(TeacherCourseArrangeInput input);
 
         Task<ListResultDto<TeacherCourseArrangeListDto>> GetArranagesAsync();

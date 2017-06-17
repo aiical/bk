@@ -48,7 +48,7 @@ Bk.TeacherCourseArrange = {
             }
         });
         //保存排课信息
-        $('#btn-save').click(function () {
+        $('.save-arrange').click(function () {
             var postData = $('#add-teacherCourse-form').serializeJson();
             console.info(postData);
 
@@ -77,6 +77,9 @@ Bk.TeacherCourseArrange = {
                 }
             }
             postData = $.extend(postData, { "TeacherId": $('#hidTeacherId').val() });
+            if ($(this).attr('crossweek') == 1) {
+                postData = $.extend(postData, { "CrossWeek": true});
+            }
             abp.ui.setBusy(
                 abp.ajax({
                     context: this,
@@ -85,11 +88,11 @@ Bk.TeacherCourseArrange = {
                     data: JSON.stringify(postData) //abp需要进行转换
                 }).done(function (res) {
                     console.log(res);
-                    // if (typeof res == "string") res = res == "true" ? true : false;
-                    if (res != '') {
+                     if (typeof res == "string") res = res == "true" ? true : false;
+                     if (res) {// != ''
                         abp.notify.success("排课成功");
                         window.location.reload();
-                    }
+                    } else abp.notify.info("排课失败，请联系管理员");
                 }).fail(function (error) {
                     console.info(error);
                     //abp.notify.error(error.responseText);

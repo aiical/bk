@@ -87,33 +87,38 @@ namespace CourseManager.Web.Controllers
                 loginModel.Password,
                 loginModel.TenancyName
                 );
-
-            await SignInAsync(loginResult.User, loginResult.Identity, loginModel.RememberMe);
-
-            if (string.IsNullOrWhiteSpace(returnUrl))
+            if (loginResult.Result == AbpLoginResultType.Success)
             {
-                returnUrl = Request.ApplicationPath;
-            }
 
-            if (!string.IsNullOrWhiteSpace(returnUrlHash))
-            {
-                returnUrl = returnUrl + returnUrlHash;
-            }
+                await SignInAsync(loginResult.User, loginResult.Identity, loginModel.RememberMe);
 
-            return Json(new AjaxResponse { TargetUrl = returnUrl });
+                if (string.IsNullOrWhiteSpace(returnUrl))
+                {
+                    returnUrl = Request.ApplicationPath;
+                }
+
+                if (!string.IsNullOrWhiteSpace(returnUrlHash))
+                {
+                    returnUrl = returnUrl + returnUrlHash;
+                }
+                return Json(new AjaxResponse { TargetUrl = returnUrl });
+            }
+            else {
+                return Json(new AjaxResponse {Success=false,Result=(int)loginResult.Result, TargetUrl = returnUrl });
+            }
         }
 
         private async Task<AbpLoginResult<Tenant, User>> GetLoginResultAsync(string usernameOrEmailAddress, string password, string tenancyName)
         {
             var loginResult = await _logInManager.LoginAsync(usernameOrEmailAddress, password, tenancyName);
-
-            switch (loginResult.Result)
-            {
-                case AbpLoginResultType.Success:
-                    return loginResult;
-                default:
-                    throw CreateExceptionForFailedLoginAttempt(loginResult.Result, usernameOrEmailAddress, tenancyName);
-            }
+            return loginResult;
+            //switch (loginResult.Result)
+            //{
+            //    case AbpLoginResultType.Success:
+            //        return loginResult;
+            //    default:
+            //        throw CreateExceptionForFailedLoginAttempt(loginResult.Result, usernameOrEmailAddress, tenancyName);
+            //}
         }
 
         private async Task SignInAsync(User user, ClaimsIdentity identity = null, bool rememberMe = false)

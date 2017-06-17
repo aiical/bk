@@ -60,8 +60,8 @@ namespace CourseManager.Web.Controllers
         //[ValidateAntiForgeryToken]
         public JsonResult AddTeacherCourseArrange(CreateTeacherCourseArrangeInput input)
         {
-            var teacherCourseArrange = _teacherCourseArrangeAppService.TeacherArrangeCourse(input);
-            return AbpJson(teacherCourseArrange.Id);
+            var teacherCourseArrangeResult = _teacherCourseArrangeAppService.TeacherArrangeCourse(input);
+            return AbpJson(teacherCourseArrangeResult);
             //return AbpJson((teacherCourseArrange!=null&&!string.IsNullOrEmpty(teacherCourseArrange.Id))?true:false);
         }
 

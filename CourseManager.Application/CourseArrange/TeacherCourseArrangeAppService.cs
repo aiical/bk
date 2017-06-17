@@ -15,6 +15,7 @@ using Abp.Events.Bus;
 using Abp.Notifications;
 using Abp.Net.Mail.Smtp;
 using CourseManager.Users;
+using Abp.Domain.Uow;
 
 namespace CourseManager.CourseArrange
 {
@@ -25,12 +26,14 @@ namespace CourseManager.CourseArrange
         private readonly INotificationPublisher _notificationPublisher;
         private readonly IRepository<User, long> _userRepository;
         private readonly ISmtpEmailSender _smtpEmailSender;
+        private readonly IUnitOfWorkManager _unitOfWorkManager;
         public TeacherCourseArrangeAppService(
             IRepository<TeacherCourseArrange, string> teacherCourseArrangeRepository,
               IRepository<User, long> userRepository,
             ISmtpEmailSender smtpEmailSender,
             INotificationPublisher notificationPublisher,
-            IEventBus eventBus
+            IEventBus eventBus,
+            IUnitOfWorkManager unitOfWorkManager
             )
         {
             this._teacherCourseArrangeRepository = teacherCourseArrangeRepository;
@@ -38,6 +41,7 @@ namespace CourseManager.CourseArrange
             _smtpEmailSender = smtpEmailSender;
             _notificationPublisher = notificationPublisher;
             _eventBus = eventBus;
+            this._unitOfWorkManager = unitOfWorkManager;
         }
         private IQueryable<TeacherCourseArrange> GetArrangesByCondition(TeacherCourseArrangeInput input)
         {
@@ -105,35 +109,66 @@ namespace CourseManager.CourseArrange
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public TeacherCourseArrange TeacherArrangeCourse(CreateTeacherCourseArrangeInput input)
+        public bool TeacherArrangeCourse(CreateTeacherCourseArrangeInput input)
         {
             Logger.Info("AddTeacherCourseArrange: " + input);
             var arrange = input.MapTo<TeacherCourseArrange>();
-            TeacherCourseArrange result;
-            if (!string.IsNullOrEmpty(input.Id)) result = _teacherCourseArrangeRepository.Update(arrange);
+            bool result = true;
+            if (!string.IsNullOrEmpty(input.Id)) result = !string.IsNullOrEmpty(_teacherCourseArrangeRepository.Update(arrange).Id);
             else
             {
-                arrange.Id = IdentityCreator.NewGuid;
-                arrange.ArrangeTime = DateTime.Now;
-                arrange.CreatorUserId = AbpSession.UserId.Value;
-                result = _teacherCourseArrangeRepository.Insert(arrange);
+                
+                if (input.CrossWeek.Value)
+                {
+                    StringBuilder builder = new StringBuilder();
+                    using (var unitOfWork = _unitOfWorkManager.Begin()) //启用工作单元  
+                    {
+                        try
+                        {
+                            var lastDate=CalendarHelper.LastDayOfMonth(input.BeginTime);
+                            var crossTimes = Math.Floor(Convert.ToDecimal((lastDate.Day - input.BeginTime.Day) / 7));
+                            for (int i =0; i <= crossTimes; i++)
+                            {
+                                var newArrange = input.MapTo<TeacherCourseArrange>();
+                                newArrange.Id = IdentityCreator.NewGuid;
+                                newArrange.ArrangeTime = DateTime.Now;
+                                newArrange.CreatorUserId = AbpSession.UserId.Value;
+                                newArrange.BeginTime = newArrange.BeginTime.Value.AddDays(7*i);
+                                newArrange.EndTime = newArrange.EndTime.Value.AddDays(7*i);
+                              _teacherCourseArrangeRepository.Insert(newArrange);
+                            }
+                            unitOfWork.Complete(); //提交事务  
+                        }
+                        catch (Exception ex)
+                        {
+                            builder.AppendLine(ex.Message);
+                        }
+                        result = builder.Length == 0;
+                    }
+                }
+                else
+                {
+                    result = !string.IsNullOrEmpty(_teacherCourseArrangeRepository.Insert(arrange).Id); //.InsertOrUpdate(arrange);
+                }
             }
-
             //只有创建成功才发送邮件和通知
-            if (result != null)
+            //if (result != null&&!string.IsNullOrEmpty(result.Id))
+            if(result)
             {
-                var user = _userRepository.Load(AbpSession.UserId.Value); //input.TeacherId
+                var user = _userRepository.Load(input.TeacherId); //AbpSession.UserId.Valueinput.TeacherId
 
                 //使用领域事件触发发送通知操作
                 _eventBus.Trigger(new AddTeacherCourseArrangeEventData(arrange, user));
-
+               // _notificationPublisher.Publish("安排了新的课程额", new MessageNotificationData("安排了新的课程额"), null,
+                  //  NotificationSeverity.Info, new[] { user.ToUserIdentifier() });
                 //TODO:需要配置QQ邮箱密码
                 //_smtpEmailSender.Send("ysjshengjie@qq.com", task.AssignedPerson.EmailAddress, "New Todo item", message);
 
                 //_notificationPublisher.Publish("安排了新的课程额", new MessageNotificationData(message), null,
                 //    NotificationSeverity.Info, new[] { task.AssignedPerson.ToUserIdentifier() });
             }
-            return result ?? new TeacherCourseArrange();
+            // return result ?? new TeacherCourseArrange();
+            return result;
         }
         public bool UpdateCourseArrange(UpdateTeacherCourseArrangeInput updateInput)
         {
