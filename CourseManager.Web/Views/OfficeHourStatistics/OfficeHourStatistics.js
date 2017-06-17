@@ -79,7 +79,7 @@ Bk.OfficeHourStatistics = {
                         },
                          yAxis: [{ 
                             title: {
-                                text: '时间段',
+                                text: '时间段(h)',
                                 style: {
                                     color: Highcharts.getOptions().colors[0]
                                 }

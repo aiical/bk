@@ -37,11 +37,11 @@
 @*上课情况切换 nav*@
 <div class="maintitle course-arrange-status">
     <div style="display: inline; float: right; padding-bottom: 2px;" class="colorarea">
-        <span style="cursor: pointer;" onmouseover="Bk.TeacherCourseArrange.actions.mouseover(this)" Bk.TeacherCourseArrange.actions="Bk.TeacherCourseArrange.actions.mouseout()"><span class="Status_Normal" style="width: auto; padding-right: 10px;"></span><span class="named">待放课</span></span>
-        <span style="cursor: pointer;" onmouseover="Bk.TeacherCourseArrange.actions.mouseover(this)" onmouseout="Bk.TeacherCourseArrange.actions.mouseout()"><span class="Status_Effect" style="width: auto; padding-right: 10px;"></span><span class="named">已放课</span></span>
-        <span style="cursor: pointer;" onmouseover="Bk.TeacherCourseArrange.actions.mouseover(this)" onmouseout="Bk.TeacherCourseArrange.actions.mouseout()"><span class="Status_Cancel" style="width: auto; padding-right: 10px;"></span><span class="named">已取消</span></span>
-        <span style="cursor: pointer;" onmouseover="Bk.TeacherCourseArrange.actions.mouseover(this)" onmouseout="Bk.TeacherCourseArrange.actions.mouseout()"><span class="Status_Finished" style="width: auto; padding-right: 10px;"></span><span class="named">已结课</span></span>
-        @*<span style="cursor: pointer;" onmouseover="Bk.TeacherCourseArrange.actions.mouseover(this)" onmouseout="Bk.TeacherCourseArrange.actions.mouseout()"><span class="Status_Rest" style="width: auto; padding-right: 10px;"></span><span class="named">休息中</span></span> 以后针对休息中的时间可以再次进行排课操作 目前暂时不处理显示*@
+        <span style="cursor: pointer;" onmouseover="Bk.TeacherCourseArrange.actions.mouseover(this)" Bk.TeacherCourseArrange.actions="Bk.TeacherCourseArrange.actions.mouseout()"><span class="course-status-common Normal" style="width: auto; padding-right: 10px;"></span><span class="named">待放课</span></span>
+        <span style="cursor: pointer;" onmouseover="Bk.TeacherCourseArrange.actions.mouseover(this)" onmouseout="Bk.TeacherCourseArrange.actions.mouseout()"><span class="course-status-common Effective" style="width: auto; padding-right: 10px;"></span><span class="named">已放课</span></span>
+        <span style="cursor: pointer;" onmouseover="Bk.TeacherCourseArrange.actions.mouseover(this)" onmouseout="Bk.TeacherCourseArrange.actions.mouseout()"><span class="course-status-common Cancel" style="width: auto; padding-right: 10px;"></span><span class="named">已取消</span></span>
+        @*<span style="cursor: pointer;" onmouseover="Bk.TeacherCourseArrange.actions.mouseover(this)" onmouseout="Bk.TeacherCourseArrange.actions.mouseout()"><span class="course-status-common Finished" style="width: auto; padding-right: 10px;"></span><span class="named">已结课</span></span>*@
+        @*<span style="cursor: pointer;" onmouseover="Bk.TeacherCourseArrange.actions.mouseover(this)" onmouseout="Bk.TeacherCourseArrange.actions.mouseout()"><span class="Rest" style="width: auto; padding-right: 10px;"></span><span class="named">休息中</span></span> 以后针对休息中的时间可以再次进行排课操作 目前暂时不处理显示*@
     </div>
 </div>
 
@@ -156,7 +156,7 @@
                                         <ul>
                                             @foreach (var item in curDayScheduleList.ToList())
                                             {
-                                                <li style="position:relative; min-height:20px;" class="Status_Normal course-edit " tag="@item.Id">
+                                                <li style="position:relative; min-height:20px;" class="course-status-common @item.CourseStatus course-edit " tag="@item.Id">
                                                     <span title="@item.Remark" class="remarkflag">@item.Remark&nbsp;</span>
                                                 </li>
                                             }

@@ -16,6 +16,8 @@ using Abp.Notifications;
 using Abp.Net.Mail.Smtp;
 using CourseManager.Users;
 using Abp.Domain.Uow;
+using CourseManager.Students;
+using CourseManager.Students.Dto;
 
 namespace CourseManager.CourseArrange
 {
@@ -23,13 +25,15 @@ namespace CourseManager.CourseArrange
     {
         private readonly IRepository<TeacherCourseArrange, string> _teacherCourseArrangeRepository;
         private readonly IEventBus _eventBus;
+        private readonly IStudentAppService _studentAppService;
         private readonly INotificationPublisher _notificationPublisher;
         private readonly IRepository<User, long> _userRepository;
         private readonly ISmtpEmailSender _smtpEmailSender;
         private readonly IUnitOfWorkManager _unitOfWorkManager;
         public TeacherCourseArrangeAppService(
             IRepository<TeacherCourseArrange, string> teacherCourseArrangeRepository,
-              IRepository<User, long> userRepository,
+            IStudentAppService studentAppService,
+        IRepository<User, long> userRepository,
             ISmtpEmailSender smtpEmailSender,
             INotificationPublisher notificationPublisher,
             IEventBus eventBus,
@@ -37,7 +41,8 @@ namespace CourseManager.CourseArrange
             )
         {
             this._teacherCourseArrangeRepository = teacherCourseArrangeRepository;
-            _userRepository = userRepository;
+            this._studentAppService = studentAppService;
+             _userRepository = userRepository;
             _smtpEmailSender = smtpEmailSender;
             _notificationPublisher = notificationPublisher;
             _eventBus = eventBus;
@@ -70,11 +75,16 @@ namespace CourseManager.CourseArrange
         public ListResultDto<TeacherCourseArrangeListDto> GetArranages(TeacherCourseArrangeInput input)
         {
             var res = GetArrangesByCondition(input);
-
-            return new ListResultDto<TeacherCourseArrangeListDto>(
-                res.MapTo<List<TeacherCourseArrangeListDto>>()
-                );
+            var mapData = res.MapTo<List<TeacherCourseArrangeListDto>>();
+          // SetOtherExtendData(mapData);
+            return new ListResultDto<TeacherCourseArrangeListDto>(mapData);
         }
+
+        private void SetOtherExtendData(IEnumerable<TeacherCourseArrangeListDto> list)
+        {
+           
+        }
+
         public TeacherCourseArrange GetArranage(TeacherCourseArrangeInput input)
         {
             return _teacherCourseArrangeRepository.Get(input.Id);
@@ -113,6 +123,8 @@ namespace CourseManager.CourseArrange
         {
             Logger.Info("AddTeacherCourseArrange: " + input);
             var arrange = input.MapTo<TeacherCourseArrange>();
+            string studentIds = GenerateStudentIds(input);
+            arrange.StudentId = studentIds;
             bool result = true;
             if (!string.IsNullOrEmpty(input.Id)) result = !string.IsNullOrEmpty(_teacherCourseArrangeRepository.Update(arrange).Id);
             else
@@ -133,6 +145,7 @@ namespace CourseManager.CourseArrange
                                 newArrange.Id = IdentityCreator.NewGuid;
                                 newArrange.ArrangeTime = DateTime.Now;
                                 newArrange.CreatorUserId = AbpSession.UserId.Value;
+                                newArrange.StudentId = studentIds;
                                 newArrange.BeginTime = newArrange.BeginTime.Value.AddDays(7*i);
                                 newArrange.EndTime = newArrange.EndTime.Value.AddDays(7*i);
                               _teacherCourseArrangeRepository.Insert(newArrange);
@@ -169,6 +182,16 @@ namespace CourseManager.CourseArrange
             }
             // return result ?? new TeacherCourseArrange();
             return result;
+        }
+        private string GenerateStudentIds(CreateTeacherCourseArrangeInput input)
+        {
+            var students = input.StudentId.Trim().Split(',');
+            var studentIds = "";
+            foreach (var stu in students)
+            {
+                studentIds += _studentAppService.GetStudent(new StudentInput() { CnName = stu }).Id + ",";
+            }
+            return studentIds.TrimEnd(',');
         }
         public bool UpdateCourseArrange(UpdateTeacherCourseArrangeInput updateInput)
         {

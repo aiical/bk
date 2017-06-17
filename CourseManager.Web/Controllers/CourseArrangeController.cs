@@ -51,7 +51,6 @@ namespace CourseManager.Web.Controllers
                     EndTime = new DateTime(year, month + 1, 01, 00, 00, 00)
                 });
             }
-
             ViewBag.Teachers = _userAppService.GetUsers(new Users.Dto.UserInput() { }).Items;
             ViewBag.CourseArranges = courseArrangeData;
             return View();
