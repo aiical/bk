@@ -17,6 +17,7 @@ namespace CourseManager.Web.Controllers
     public class ClassHourStatisticsController : CourseManagerControllerBase
     {
         private readonly IClassHourStatisticsAppService _teacherClassHoursStatisticsAppService;
+        
         public ClassHourStatisticsController(IClassHourStatisticsAppService teacherClassHoursStatisticsAppService)
         {
             this._teacherClassHoursStatisticsAppService = teacherClassHoursStatisticsAppService;
@@ -32,11 +33,17 @@ namespace CourseManager.Web.Controllers
         public JsonResult GetTeacherClassHourStatistics(ClassHourStatisticsInput input)
         {
             var result = _teacherClassHoursStatisticsAppService.GetClassHourStatistics(input).Items;
+            var classResult = result.Where(r => r.ClassType == "f756be8fe8b6487dbb50e6d63c69895c").ToList();
+            var one2OneResult = result.Where(r => r.ClassType == "64c951d110044a51bd83c7e7e82f96ec").ToList();
             List<decimal> durations = new List<decimal>();
             var totalDuration = result.Sum(r => r.Duration);
+            var one2oneDuration = one2OneResult.Sum(r => r.Duration);
+            var classDuration = classResult.Sum(r => r.Duration);
             var beginTimeDay = input.BeginTime.Day;
             var endTimeDay = input.EndTime.Day;
             decimal[] classHoursArray = new decimal[endTimeDay - beginTimeDay + 1]; //取得的值是大于等于开始时间 小于结束时间
+            decimal[] one2OneDurationsArray = new decimal[endTimeDay - beginTimeDay + 1];
+            decimal[] classCourseDurationsArray = new decimal[endTimeDay - beginTimeDay + 1];
             for (int i = beginTimeDay - 1; i < endTimeDay; i++)
             {
                 var duration = 0.0M;
@@ -46,12 +53,24 @@ namespace CourseManager.Web.Controllers
                     duration = decimal.Round(result.Where(r => r.EndTime.Day == i + 1).Sum(c => c.Duration) / 60,1);
                     classHoursArray[i] = duration;
                 }
+                if (one2OneResult.Any(v => v.EndTime.Day == i + 1))
+                {
+                    one2OneDurationsArray[i] = decimal.Round(one2OneResult.Where(r => r.EndTime.Day == i + 1).Sum(c => c.Duration) / 60, 1);
+                }
+                if (classResult.Any(v => v.EndTime.Day == i + 1))
+                {
+                    classCourseDurationsArray[i] = decimal.Round(classResult.Where(r => r.EndTime.Day == i + 1).Sum(c => c.Duration) / 60, 1);
+                }
             }
             ResultData data = new ResultData();
             data.returnData = new Dictionary<string, object>
             {
                 { "durations",classHoursArray},// durations.ToArray()
-                {"total",decimal.Round(totalDuration/60,1) }
+                { "one2OneDurations",one2OneDurationsArray},
+                  { "classCourseDurations",classCourseDurationsArray},
+                {"total",decimal.Round(totalDuration/60,1) },
+                        {"one2oneDuration",decimal.Round(one2oneDuration/60,1) },
+                        {"classDuration",decimal.Round(classDuration/60,1) }
             };
             return Json(data, JsonRequestBehavior.AllowGet);
         }

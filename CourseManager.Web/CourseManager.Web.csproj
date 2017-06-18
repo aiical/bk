@@ -351,6 +351,7 @@
     <Content Include="App\Main\views\tenants\createModal.js" />
     <Content Include="App\Main\views\tenants\index.js" />
     <Content Include="App\Main\_libconfig.js" />
+    <Content Include="App_Data\工资统计说明.txt" />
     <Content Include="Assets\css\pagination.css" />
     <Content Include="Assets\css\common.css" />
     <Content Include="Assets\css\courseArrange\Style.css" />
@@ -1355,8 +1356,8 @@
     <Content Include="Assets\libsReference\uploadify\uploadify.swf" />
     <Content Include="Assets\libsReference\uploadPreview.min.js" />
     <Content Include="Assets\libsReference\zoom.js" />
-    <Content Include="Assets\学生.txt" />
-    <Content Include="Assets\工资统计0.jpg" />
+    <Content Include="App_Data\学生.txt" />
+    <Content Include="App_Data\工资统计0.jpg" />
     <Content Include="Common\Scripts\helpers.js" />
     <Content Include="Configs\ffmpeg\ffmpeg.exe" />
     <Content Include="Configs\ffmpeg\libamrnb-3.dll" />

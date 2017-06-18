@@ -67,7 +67,7 @@ Bk.ClassHourStatistics = {
                             zoomType: 'x'
                         },
                         title: {
-                            text: title + "--" + "(当月共上课" + totalClassHours + "个小时)"
+                            text: title + "--" + "(当月共上课" + totalClassHours + "个小时--【1v1课时：" + result.one2oneDuration + "】【班级课课时：" + result.classDuration +"】)"
                         },
                         subtitle: {
                             text: document.ontouchstart === undefined ?
@@ -98,7 +98,7 @@ Bk.ClassHourStatistics = {
                             floor: 0,
                             ceiling: 14,
                             title: {
-                                text: '课时'
+                                text: '课时(h)'
                             }
                         },
                         legend: {
@@ -130,12 +130,28 @@ Bk.ClassHourStatistics = {
                                 threshold: null
                             }
                         },
-                        series: [{
+                        series: [
+                            {
                             type: 'area',
                             lineWidth: 1, //线条宽度
                             name: '上课课时',
                             data: result.durations// [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0]//result.durations //[1, 2, 3, 4, 5, 6, 7, 9, 0, 3, 2, 10, 0]
-                        }]
+                            },
+                            {
+                                type: 'area',
+                                color:'green',
+                                lineWidth: 1, //线条宽度
+                                name: '1v1课时',
+                                data: result.one2OneDurations
+                            },
+                            {
+                                type: 'area',
+                                color: 'red',
+                                lineWidth: 1, //线条宽度
+                                name: '班级课课时',
+                                data: result.classCourseDurations
+                            }
+                        ]
                     });
                     // abp.notify.success();
                 })
