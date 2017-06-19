@@ -1,13 +1,12 @@
 ﻿@using CourseManager.Common;
-@using CourseManager.CourseArrange;
 @using Abp.Web.Mvc.Extensions;
 @using Abp.Application.Services.Dto;
 @using CourseManager.CourseArrange.Dto;
-@using CourseManager.Users.Dto;
 @using CourseManager.Students.Dto;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = L("StudentArrange");
+    if (ViewBag.StudentName != null) { ViewBag.Title += "--" + ViewBag.StudentName; }
     var studentSchedule = ViewBag.CourseArranges as ListResultDto<StudentCourseArrangeListDto>;
     var studentScheduleList = studentSchedule == null ? new List<StudentCourseArrangeListDto>() : studentSchedule.Items.ToList();
     var thisMonth = DateTime.Now;
@@ -53,7 +52,7 @@
                     <input type="hidden" id="hidStudentId" value="" />
                     <span>学生：</span>
                     <input id="keyword" placeholder="请先选择某个学生进行排课" />
-                    <select id="scTeacher" class="selsty" name="scTeacher" onchange="Bk.StudentCourseArrange.actions.showStudentCourse()" style="display: none;">
+                    <select id="scStudent" class="selsty" name="scStudent"  onchange="Bk.StudentCourseArrange.actions.showStudentCourse()" style="display: none;">
                         <option value="0">请选择</option>
                         @if (students.Any())
                         {
@@ -191,7 +190,7 @@
     <script src="~/Assets/libsReference/jquery.autocomplete.min.js"></script>
     <script src="~/Assets/libsReference/jquery.datetimepicker/jquery.datetimepicker.js"></script>
     <script src="~/Assets/js/dateTimeUtil.js"></script>
-    @Html.IncludeScript("~/Views/CourseArrange/StudentCourseArrange.js")
+    @Html.IncludeScript("~/Views/CourseArrange/StudentCourseArrange/StudentCourseArrange.js")
     <script type="text/javascript">
         $(function () {
             Bk.StudentCourseArrange.bootstrap();

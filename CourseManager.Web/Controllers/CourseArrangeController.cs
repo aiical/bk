@@ -58,7 +58,9 @@ namespace CourseManager.Web.Controllers
                     EndTime = new DateTime(year, month + 1, 01, 00, 00, 00)
                 });
             }
-            ViewBag.Teachers = _userAppService.GetUsers(new Users.Dto.UserInput() { }).Items;
+            var teachers = _userAppService.GetUsers(new Users.Dto.UserInput() { }).Items; ;
+            ViewBag.Teachers = teachers;
+            ViewBag.TeacherName = teachers.SingleOrDefault(t => t.Id == (teacherId < 1 ? 1 : teacherId)).FullName;
             ViewBag.CourseArranges = courseArrangeData;
             return View();
         }
@@ -73,7 +75,7 @@ namespace CourseManager.Web.Controllers
 
         #endregion
         #region 学生排课
-        public ActionResult StudentCourseArrange(int teacherId = 1, string yearMonth = "")
+        public ActionResult StudentCourseArrange(string studentId = "", string yearMonth = "")
         {
             ViewBag.ActiveMenu = "ArrangeCourse";
             var categorys = _categoryAppService.GetAllCategorys();
@@ -91,12 +93,15 @@ namespace CourseManager.Web.Controllers
                 ViewBag.YearMonth = new DateTime(year, month, 01, 00, 00, 00);
                 courseArrangeData = _studentCourseArrangeAppService.GetArranages(new StudentCourseArrangeInput()
                 {
-                    TeacherId = teacherId < 1 ? 1 : teacherId,
+                    StudentId = studentId,
                     BeginTime = new DateTime(year, month, 01, 00, 00, 00),
                     EndTime = new DateTime(year, month + 1, 01, 00, 00, 00)
                 });
             }
-            ViewBag.Students = _studentAppService.GetStudents().Items;
+            var students = _studentAppService.GetStudents().Items;
+            ViewBag.Students = students;
+
+            ViewBag.StudentName = string.IsNullOrEmpty(studentId) ? string.Empty : students.SingleOrDefault(t => t.Id == studentId).CnName;
             ViewBag.CourseArranges = courseArrangeData;
             return View("~/Views/CourseArrange/StudentCourseArrange/StudentCourseArrange.cshtml");
         }

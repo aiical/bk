@@ -2449,7 +2449,7 @@
     <Content Include="Views\OfficeHourStatistics\OfficeHourStatistics.cshtml" />
     <Content Include="Views\PayCalculation\PayCalculation.cshtml" />
     <Content Include="Views\PayCalculation\PayCalculation - bak.cshtml" />
-    <Content Include="Views\CourseArrange\StudentCourseArrange\_AddStudentCourseArrange.cshtml" />
+    <Content Include="Views\CourseArrange\_AddStudentCourseArrange.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -8,10 +8,6 @@ namespace CourseManager.CourseArrange.Dto
     {
         public string Id { get; set; }
         /// <summary>
-        /// 必须选择老师 因为要知道给哪个老师安排课
-        /// </summary>
-        public long TeacherId { get; set; }
-        /// <summary>
         /// 必须选择上课类型（不同类型 如1v1和班级课 课时费不同）
         /// </summary>
         public string ClassType { get; set; }
