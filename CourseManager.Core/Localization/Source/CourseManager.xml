@@ -105,6 +105,7 @@
     <text name="UnNormalType" value="UnNormalType" />
     <text name="Reason" value="Reason" />
     <text name="Remark" value="Remark" />
+    <text name="ToggleStatus" value="ToggleStatus" />
 
     <text name="ClassHourStatistics" value="ClassHourStatistics" />
     <text name="OfficeHourStatistics" value="OfficeHourStatistics" />

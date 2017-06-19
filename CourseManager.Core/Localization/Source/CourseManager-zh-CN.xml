@@ -91,5 +91,6 @@
     <text name="UnNormalType" value="未上课原因" /><!--学生请假，老师请假 其他原因-->
     <text name="Reason" value="原因" />   <!--如果迟到或者旷课 请填写原因说明-->
     <text name="Remark" value="备注" />
+    <text name="ToggleStatus" value="切换状态" />
   </texts>
 </localizationDictionary>

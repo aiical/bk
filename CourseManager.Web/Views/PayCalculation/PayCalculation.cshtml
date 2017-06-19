@@ -5,49 +5,84 @@
 @section Styles{
     <link href="~/Assets/libsReference/jquery.datetimepicker/jquery.datetimepicker.css" rel="stylesheet" />
     <style>
-        .salary {
-            background: url(../../Assets/images/salary_blue.jpg) no-repeat;
-            border-radius: 50px;
-            width: 860px;
-            height: 573px;
-            margin-left: 20%;
+        #container {
+            min-height: 660px;
         }
 
-        .only-bottom {
+        .salary {
+            width: 100%;
+            min-height: 600px;
+            margin-top: 20px;
+            clear: both;
+            overflow: auto;
+        }
+
+            .salary h3 {
+                line-height: 30px;
+                position: relative;
+                margin: 0px 15% 20px 15%;
+                font-weight: bold;
+                color: red;
+                font-size: 16px;
+            }
+
+                .salary h3:before {
+                    position: relative;
+                    padding-left: 15px;
+                    margin-left: 20px;
+                    margin-bottom: 40px;
+                    color: red;
+                    font-size: 15px;
+                }
+
+        label {
+            position: relative;
+            padding-right: 10px;
+            text-align: right;
+            font-weight: bold;
+        }
+        /*.label-special {
+            display: block;
+            font-weight: normal;
+        }*/
+        .form-control {
+            display: block;
+            width: 100%;
+            height: 34px;
+            padding: 6px 10px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        }
+
+        .form-group {
+            height: 34px;
+            margin-bottom: 35px;
+        }
+
+        .input-only-bottom {
+            border: none;
             color: red;
             font-family: "方正";
-            font-size: 20px;
-            position: absolute;
-            right: 28%;
-            top: 160px;
-            width: 180px;
-            border: none;
-            background-color: #fff;
-            border-radius: 5px;
-            height: 50px;
-            line-height: 50px;
-            padding-left: 30px;
-            border-bottom: 1px solid red;
+            font-size: 16px;
+            border-bottom: 1px solid #007fff !important;
         }
 
-        .basic {
-            height:100px; 
-            overflow:hidden;
-            top: 250px;
+        .specialStyle {
+            display: flex;
         }
 
-        .extra {
-            top: 560px;
-        }
-
-        .early {
-            top: 400px;
-        }
-        .total{
-            width:660px;
-            background-color:#fff;
-            border-radius:5px;
-            top:640px;
+        .cf {
+            zoom: 1;
         }
     </style>
 }
@@ -70,17 +105,95 @@
             <input type="button" id="btnSearch" class="btn btn-sm btn-primary" value="搜索">
         </div>
     </form>
-    <div id="pay-calculation" class="salary">
+    @*工资明细*@
+    <div id="pay-calculation" class="salary cf">
+        <h3 class="fa fa-star">底薪：20小时以下2000元，20小时～40小时3000元，40以上4000元;如果没有满70个小时 那么相关补贴都会没有;社保另算不列入统计</h3>
+        @*<div class="info cf">*@
+        <div class="col-lg-5">
+            <div class="form-group cf">
+                <label class="col-sm-6">姓名（中文）：<i></i></label>
+                <div class="col-sm-6">
+                    <input type="text" name="CnName" value="" class="form-control input-only-bottom">
+                </div>
+            </div>
+            <div class="form-group cf">
+                <label class="col-sm-6" for="">基本工资(当前月课时超过40个课时)：</label>
+                <div class="col-sm-6">
+                    <input type="text" name="BasicSalary" value="4000" class="form-control input-sm input-only-bottom" id="BasicSalary">
+                </div>
+            </div>
+            <div class="form-group cf">
+                <label class="col-sm-6" for="">全勤奖金：</label>
+                <div class="col-sm-6">
+                    <input type="text" name="AllOfficeHoursSalary" class="form-control input-sm input-only-bottom" id="AllOfficeHoursSalary">
+                </div>
+            </div>
+            <div class="form-group cf">
+                <label class="col-sm-6" for="">总课时：</label>
+                <div class="col-sm-6">
+                    <input type="text" name="TotalClassHours" class="form-control input-sm input-only-bottom" id="TotalClassHours">
+                </div>
+            </div>
+            <div class="form-group cf">
 
-        <input type="text" id="outside-fee" value="20X10" class="only-bottom" />
-        <textarea id="basic-fee" class="only-bottom basic">80X50 
-20X70</textarea>
-        @*<input  id="basic-fee" class="only-bottom basic" />*@
-        <input type="text" id="early-fee" class="only-bottom early"  value="12X5"  />
-        <input type="text" id="exta-fee" class="only-bottom extra"   value="200" />
+                <label class="col-sm-6" for="">1对1课时费（次数 X 50元）：</label>
+                <div class="col-sm-6">
+                    <input type="text" name="One2OneFee" class="form-control input-sm input-only-bottom" id="One2OneFee">
+                </div>
 
-        <input type="text" id="total-fee" class="only-bottom total" />
+            </div>
+            <div class="form-group cf">
+                <label class="col-sm-6" for="">班级课时费（次数 X 70元）：</label>
+                <div class="col-sm-6">
+                    <input type="text" name="ClassFee" class="form-control input-sm input-only-bottom" id="ClassFee">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-5">
+            <div class="form-group cf">
+                <label class="col-sm-6" for="">续学人数：</label>
+                <div class="col-sm-6">
+                    <input type="text" name="RenewNum" placeholder="1对1的学生一个月满15个小时 视为续学" class="form-control input-sm input-only-bottom" id="RenewNum">
+                </div>
+            </div>
+
+            <div class="form-group cf">
+                <label class="col-sm-6" for="">续学奖金(续学人数 X 25元)：</label>
+                <div class="col-sm-6">
+                    <input type="text" name="RenewFee" class="form-control input-sm input-only-bottom" id="RenewFee">
+                </div>
+            </div>
+            <div class="form-group cf">
+                <label class="col-sm-6" for="">早晚课时数：</label>
+                <div class="col-sm-6">
+                    <input type="text" name="EarlyLateNum" class="form-control input-sm input-only-bottom" id="EarlyLateNum">
+                </div>
+            </div>
+            <div class="form-group cf">
+                <label class="col-sm-6" for="">早晚课补助（早晚课时数 X 5元）：</label>
+                <div class="col-sm-6">
+                    <input type="text" name="EarlyLateBonus" class="form-control input-sm input-only-bottom" id="EarlyLateBonus">
+                </div>
+            </div>
+            <div class="form-group cf">
+                <label class="col-sm-6" for="">外派补助（排课为外派的课 X 10元）：</label>
+                <div class="col-sm-6">
+                    <input type="text" name="AssignmentBonus" class="form-control input-sm input-only-bottom" id="AssignmentBonus">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-10 form-group">
+            <label class="col-sm-2" for="">合计：</label>
+            <div class="col-sm-10">
+                <input type="text" name="totalSalary" placeholder="综合以上各项统计结果" class="form-control input-sm input-only-bottom" id="totalSalary">
+            </div>
+        </div>
     </div>
+
+
 
 </div>
 @section Scripts{

@@ -32,10 +32,10 @@
                         <td>{{student.countryName}}</td>
                         <td>{{student.isActive ? '@L("Yes")' : '@L("No")'}}</td>
                         <td>
-                            <a href="javascript:void(0)" ng-click='vm.openStudentCreationModal(student.id)' class="fa fa-edit">@L("Edit")</a>&nbsp;
-                            <a href="javascript:void(0)" ng-click="vm.deleteStudent(student)" class="fa  fa-trash-o">@L("Delete")</a>
+                            <a href="javascript:void(0)" title="@L("Edit")" ng-click='vm.openStudentCreationModal(student.id)' class="fa fa-edit"></a>&nbsp;
+                            <a href="javascript:void(0)" title="@L("Delete")" ng-click="vm.deleteStudent(student)" class="fa  fa-trash-o"></a>
                             &nbsp;
-                            <a href="javascript:void(0)" ng-click="vm.updateActiveState(student)" class="fa   fa-lock">切换状态</a>
+                            <a href="javascript:void(0)" title="@L("ToggleStatus")" ng-click="vm.updateActiveState(student)" class="fa   fa-lock"></a>
                         </td>
                     </tr>
                 </tbody>
