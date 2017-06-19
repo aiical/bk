@@ -1,0 +1,200 @@
+﻿@using CourseManager.Common;
+@using CourseManager.CourseArrange;
+@using Abp.Web.Mvc.Extensions;
+@using Abp.Application.Services.Dto;
+@using CourseManager.CourseArrange.Dto;
+@using CourseManager.Users.Dto;
+@using CourseManager.Students.Dto;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = L("StudentArrange");
+    var studentSchedule = ViewBag.CourseArranges as ListResultDto<StudentCourseArrangeListDto>;
+    var studentScheduleList = studentSchedule == null ? new List<StudentCourseArrangeListDto>() : studentSchedule.Items.ToList();
+    var thisMonth = DateTime.Now;
+    if (ViewBag.YearMonth != null)
+    {
+        thisMonth = (DateTime)ViewBag.YearMonth;
+    }
+    var students = ViewBag.Students as List<StudentListDto>;
+    //CourseArrangeTable 相关
+    var curDateFirstDay = CalendarHelper.GetYearMonthFirstDayWeekIndex(thisMonth.Year, thisMonth.Month);
+    var curMonthdays = CalendarHelper.GetYearMonthDays(thisMonth.Year, thisMonth.Month);
+    var rows = 6;
+    var curDayIndex = 1;
+    string[] weekArr = new string[] { "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日" };
+}
+@section Styles{
+    <link href="~/Assets/css/jquery.autocomplete.css" rel="stylesheet" />
+    <link href="~/Assets/css/courseArrange/Style.css" rel="stylesheet" />
+    <link href="~/Assets/libsReference/jquery.datetimepicker/jquery.datetimepicker.css" rel="stylesheet" />
+    <style>
+        .xdsoft_noselect {
+            width: 360px !important;
+        }
+        /*如果既要显示日期又要显示分钟 则width:360px 否则76px*/
+    </style>
+}
+<input type="hidden" id="nowday" name="nowday" />
+@*上课情况切换 nav*@
+<div class="maintitle course-arrange-status">
+    <div style="display: inline; float: right; padding-bottom: 2px;" class="colorarea">
+        <span style="cursor: pointer;" onmouseover="Bk.StudentCourseArrange.actions.mouseover(this)" Bk.TeacherCourseArrange.actions="Bk.TeacherCourseArrange.actions.mouseout()"><span class="course-status-common Normal" style="width: auto; padding-right: 10px;"></span><span class="named">待放课</span></span>
+        <span style="cursor: pointer;" onmouseover="Bk.StudentCourseArrange.actions.mouseover(this)" onmouseout="Bk.StudentCourseArrange.actions.mouseout()"><span class="course-status-common Effective" style="width: auto; padding-right: 10px;"></span><span class="named">已放课</span></span>
+        <span style="cursor: pointer;" onmouseover="Bk.StudentCourseArrange.actions.mouseover(this)" onmouseout="Bk.StudentCourseArrange.actions.mouseout()"><span class="course-status-common Cancel" style="width: auto; padding-right: 10px;"></span><span class="named">已取消</span></span>
+    </div>
+</div>
+
+@*日历排课*@
+<div>
+    <div id="condition-wrapper">
+        <table cellpadding="5" class="select-course-condition-table">
+            <tr>
+                <td valign="bottom" class="select-course-area">
+                    <input type="hidden" id="hidStudentId" value="" />
+                    <span>学生：</span>
+                    <input id="keyword" placeholder="请先选择某个学生进行排课" />
+                    <select id="scTeacher" class="selsty" name="scTeacher" onchange="Bk.StudentCourseArrange.actions.showStudentCourse()" style="display: none;">
+                        <option value="0">请选择</option>
+                        @if (students.Any())
+                        {
+                            foreach (var item in students)
+                            {
+                                <option value="@item.Id">@item.CnName</option>
+                            }
+                        }
+                        else
+                        {
+                            <option value="0">无学生</option>
+                        }
+                    </select>
+
+                    <img src="~/Assets/images/rl_l.gif" align="absmiddle" alt="Last Month"
+                         onclick="Bk.StudentCourseArrange.actions.preMonth()" />
+                    @Html.TextBox("Year", thisMonth.Year.ToString(), new { @class = "TxtItem", @readonly = "true" })
+                    年 @Html.TextBox("Month", thisMonth.Month, new { @class = "TxtItem", @readonly = "true" })
+                    月
+                    <img src="~/Assets/images/rl_r.gif" align="absmiddle" alt="Next Month"
+                         onclick="Bk.StudentCourseArrange.actions.nextMonth()" />
+                </td>
+                <td align="right" style="padding-left:20px;" valign="bottom">
+
+                    <button type="button" class="btn btn-sm btn-primary" onclick="Bk.StudentCourseArrange.actions.showStudentCourses()">
+                        <span class="fa fa-check-circle" aria-hidden="true">确定</span>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-primary" onclick="Bk.StudentCourseArrange.actions.curMonth()">
+                        <span class="fa fa-home" aria-hidden="true"></span>本月
+                    </button>
+
+                    &nbsp;
+                    <button type="button" class="btn btn-sm btn-primary" onclick="Bk.StudentCourseArrange.actions.exportExcel();">
+                        <span class="fa  fa-plus-square" aria-hidden="true"></span>导出
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <table class="course-arrange-table" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+            @for (int i = 0; i < weekArr.Length; i++)
+            {
+                <th class="calendar-item-title @(Helper.ShowCurrentDateCls(i + 1, "cur-date"))"> @weekArr[i] </th>
+            }
+        </tr>
+        @{
+            for (var row = 1; row <= rows; row++)
+            {
+                if ((curMonthdays < curDayIndex))
+                {
+                    break;
+                }
+                <tr>
+                    @{
+                        for (var col = 1; col <= 7; col++)
+                        {
+                            if (curMonthdays < curDayIndex)
+                            {
+                                <td class="DayItem" valign="middle">
+                                    &nbsp;
+                                </td>
+                                continue;
+                            }
+                            if (row == 1)
+                            {
+                                if (curDateFirstDay > col)
+                                {
+                                    <td class="DayItem" valign="middle">
+                                        &nbsp;
+                                    </td>
+                                    continue;
+                                }
+                            }
+                            var curDayScheduleList = studentScheduleList.Where(p => p.BeginTime.Day == curDayIndex).ToList();
+                            var restDay = thisMonth.Year + "-" + thisMonth.Month + "-" + curDayIndex;
+                            int teacherId = 0;
+                            var isrest = true;
+                            <td valign="top" class="DayItem" style="text-align: center; position: relative; padding-bottom: 10px;">
+                                @if (DateTime.Now.Day == curDayIndex)
+                                {
+                                    <div class='@(isrest ? "RestTip" : "ItemTip") cur-date'>
+                                        @thisMonth.Month 月 @curDayIndex 日
+                                    </div>
+                                    curDayIndex++;
+                                }
+                                else
+                                {
+                                    <div class='RestTitle'>
+                                        @thisMonth.Month 月 @curDayIndex 日
+                                    </div>
+                                    curDayIndex++;
+                                }
+                                @*在日历上显示排课明细*@
+                                <div class="course-arrange-item-wrapper">
+                                    @if (curDayScheduleList.Count() > 0)
+                                    {
+                                        <ul>
+                                            @foreach (var item in curDayScheduleList.ToList())
+                                            {
+                                                <li style="position:relative; min-height:20px;" class="course-status-common @item.CourseStatus course-edit " tag="@item.Id">
+                                                    <span title="@item.Remark" class="remarkflag">@item.Remark&nbsp;</span>
+                                                </li>
+                                            }
+                                        </ul>
+                                    }
+                                </div>
+                                <div style="padding: 0; bottom: 0px; text-align: center; width: 100%; position: absolute;">
+                                    @*仅当大于等于当前日的时候 才可以排课*@
+                                    @if (DateTime.Now.Day < curDayIndex)
+                                    {
+                                        <button type="button" class="btn btn-sm btn-primary btn-add">
+                                            <span class="glyphicon  glyphicon-plus" aria-hidden="true"></span>@L("ArrangeCourse")
+                                        </button>
+                                    }
+                                </div>
+                            </td>
+                        }
+                    }
+                </tr>
+                        }
+        }
+    </table>
+
+</div>
+
+
+<!--通过初始加载页面的时候提前将添加排课的模态框加载进来-->
+@Html.Partial("_AddStudentCourseArrange")
+
+<!--编辑模态框通过ajax动态填充到此div中-->
+<div id="edit">
+</div>
+@section Scripts{
+    <script src="~/Assets/libsReference/jquery.autocomplete.min.js"></script>
+    <script src="~/Assets/libsReference/jquery.datetimepicker/jquery.datetimepicker.js"></script>
+    <script src="~/Assets/js/dateTimeUtil.js"></script>
+    @Html.IncludeScript("~/Views/CourseArrange/StudentCourseArrange.js")
+    <script type="text/javascript">
+        $(function () {
+            Bk.StudentCourseArrange.bootstrap();
+        })
+    </script>
+}

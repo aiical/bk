@@ -38,6 +38,10 @@ namespace CourseManager.ClassHourStatistics.Dto
         /// 上课地点 如蛇口东角头 侨城东 
         /// </summary>
         public string Address { get; set; }
+        /// <summary>
+        /// 上课地点类型（如外派/学院）（因为外派会有车费补贴 和工资统计有关）
+        /// </summary>
+        public string CourseAddressType { get; set; }
         public bool IsDeleted { get; set; }
         public long? CreatorUserId { get; set; }
         /// <summary>

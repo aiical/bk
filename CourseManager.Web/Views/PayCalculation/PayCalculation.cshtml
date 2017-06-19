@@ -74,7 +74,7 @@
             color: red;
             font-family: "方正";
             font-size: 16px;
-            border-bottom: 1px solid #007fff !important;
+            border-bottom: 1px solid #ccc !important;
         }
 
         .specialStyle {
@@ -107,13 +107,13 @@
     </form>
     @*工资明细*@
     <div id="pay-calculation" class="salary cf">
-        <h3 class="fa fa-star">底薪：20小时以下2000元，20小时～40小时3000元，40以上4000元;如果没有满70个小时 那么相关补贴都会没有;社保另算不列入统计</h3>
+        <h3 class="fa fa-star">1.早上七点半的课视为早课，晚上七点开始的课程视为晚课;2. 底薪：20小时以下2000元，20小时～40小时3000元，40以上4000元;3.如果学生经常请假未达到当月课时的80%，少了的那部分课时需要按合同80%支付;4.如果没有满70个小时 那么相关补贴都会没有;社保另算不列入统计</h3>
         @*<div class="info cf">*@
         <div class="col-lg-5">
             <div class="form-group cf">
                 <label class="col-sm-6">姓名（中文）：<i></i></label>
                 <div class="col-sm-6">
-                    <input type="text" name="CnName" value="" class="form-control input-only-bottom">
+                    <input type="text" name="ShowTeacherName"  id="ShowTeacherName" value="" class="form-control input-only-bottom">
                 </div>
             </div>
             <div class="form-group cf">
@@ -166,13 +166,13 @@
                 </div>
             </div>
             <div class="form-group cf">
-                <label class="col-sm-6" for="">早晚课时数：</label>
+                <label class="col-sm-6" for="">早晚课次数：</label>
                 <div class="col-sm-6">
                     <input type="text" name="EarlyLateNum" class="form-control input-sm input-only-bottom" id="EarlyLateNum">
                 </div>
             </div>
             <div class="form-group cf">
-                <label class="col-sm-6" for="">早晚课补助（早晚课时数 X 5元）：</label>
+                <label class="col-sm-6" for="">早晚课补助（早晚课次数 X 5元）：</label>
                 <div class="col-sm-6">
                     <input type="text" name="EarlyLateBonus" class="form-control input-sm input-only-bottom" id="EarlyLateBonus">
                 </div>
@@ -183,12 +183,18 @@
                     <input type="text" name="AssignmentBonus" class="form-control input-sm input-only-bottom" id="AssignmentBonus">
                 </div>
             </div>
+            <div class="form-group cf">
+                <label class="col-sm-6" for="">学生请假（学生课时未达到80%时）：</label>
+                <div class="col-sm-6">
+                    <input type="text" name="ExtraSalary" class="form-control input-sm input-only-bottom" id="ExtraSalary">
+                </div>
+            </div>
         </div>
 
         <div class="col-lg-10 form-group">
-            <label class="col-sm-2" for="">合计：</label>
-            <div class="col-sm-10">
-                <input type="text" name="totalSalary" placeholder="综合以上各项统计结果" class="form-control input-sm input-only-bottom" id="totalSalary">
+            <label class="col-sm-3" for="">合计<br/>(公式：基础工资+全勤奖+早晚课补贴+外派补贴+续学补贴+学生请假折扣学费=工资)：</label>
+            <div class="col-sm-9">
+                <input type="text" name="TotalSalary" placeholder="综合以上各项统计结果" class="form-control input-sm input-only-bottom" id="TotalSalary">
             </div>
         </div>
     </div>

@@ -30,9 +30,21 @@ namespace CourseManager.Common.Enums
         /// </summary>
         NoCourseReasonType,
         /// <summary>
-        /// 课程类型
+        /// 课程类型(入门上/下等)
         /// </summary>
-        CourseType
+        CourseType,
+        /// <summary>
+        /// 1v1/班级课
+        /// </summary>
+        ClassType,
+        /// <summary>
+        /// 外派/学院上课
+        /// </summary>
+        CourseAddressType,
+        /// <summary>
+        /// 待上课/已上课等
+        /// </summary>
+        CourseStatusType
     }
 
 

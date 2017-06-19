@@ -22,6 +22,7 @@ namespace CourseManager.EntityFramework
 
         public IDbSet<TeacherCourseArrange> TeacherCourseArrange { get; set; }
         public IDbSet<SignInRecord> SignInRecord { get; set; }
+        public IDbSet<StudentCourseArrange> StudentCourseArrange { get; set; }
         /// <summary>
         /// 覆盖方法OnModelCreating  然后将SurName设置为忽略  然后将Name EmailAddress设置为可空。
         /// </summary>
