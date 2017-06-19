@@ -26,14 +26,14 @@
                 font-size: 16px;
             }
 
-                .salary h3:before {
-                    position: relative;
-                    padding-left: 15px;
-                    margin-left: 20px;
-                    margin-bottom: 40px;
-                    color: red;
-                    font-size: 15px;
-                }
+        .lead h3:before {
+            position: relative;
+            padding-left: 15px;
+            margin-left: 20px;
+            margin-bottom: 40px;
+            color: red;
+            font-size: 15px;
+        }
 
         label {
             position: relative;
@@ -84,8 +84,45 @@
         .cf {
             zoom: 1;
         }
+        .container {
+            margin: 0 auto;
+            max-width: 1024px;
+            padding: 0 20px;
+        }
+        .headline {
+            margin: 2em 0;
+            text-align: left;
+        }
+        p.lead {
+            font-size: 1.38em;
+            line-height: 1.8em;
+            font-weight: 300;
+            color: #354953;
+        }
+      
     </style>
 }
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-md-push-6">
+            <div class="hero">
+                <img class="hero-illustration" src="~/Assets/images/pay.png" width="460" height="319">
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-md-pull-6">
+            <div class="headline">
+                <!-- <h1>Shipping has never been easier.</h1> -->
+                <p class="lead fa fa-star">1.早上七点半的课视为早课，晚上七点开始的课程视为晚课;2. 底薪：20小时以下2000元，20小时～40小时3000元，40以上4000元;3.如果学生经常请假未达到当月课时的80%，少了的那部分课时需要按合同80%支付;4.如果没有满70个小时 那么相关补贴都会没有;社保另算不列入统计@*<strong>your application.</strong>*@
+                </p>
+            </div>
+            @*<div class="main-cta">
+                <a class="get-started-cta" href="https://laracasts.com/series/laravel-spark" target="_blank">
+                    <div class="get-started-cta-btn"><strong>Watch The Laracasts</strong></div>
+                </a>
+            </div>*@
+        </div>
+    </div>
+</div>
 <div id="container">
     <form id="queryForm">
         <div class="form-inline" style="margin:20px 22% 20px 22%;">
@@ -107,7 +144,7 @@
     </form>
     @*工资明细*@
     <div id="pay-calculation" class="salary cf">
-        <h3 class="fa fa-star">1.早上七点半的课视为早课，晚上七点开始的课程视为晚课;2. 底薪：20小时以下2000元，20小时～40小时3000元，40以上4000元;3.如果学生经常请假未达到当月课时的80%，少了的那部分课时需要按合同80%支付;4.如果没有满70个小时 那么相关补贴都会没有;社保另算不列入统计</h3>
+        @*<h3 class="fa fa-star">1.早上七点半的课视为早课，晚上七点开始的课程视为晚课;2. 底薪：20小时以下2000元，20小时～40小时3000元，40以上4000元;3.如果学生经常请假未达到当月课时的80%，少了的那部分课时需要按合同80%支付;4.如果没有满70个小时 那么相关补贴都会没有;社保另算不列入统计</h3>*@
         @*<div class="info cf">*@
         <div class="col-lg-5">
             <div class="form-group cf">

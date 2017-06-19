@@ -434,6 +434,7 @@
     <Content Include="Assets\images\navlinenow.gif" />
     <Content Include="Assets\images\news.png" />
     <Content Include="Assets\images\nophoto.jpg" />
+    <Content Include="Assets\images\pay.png" />
     <Content Include="Assets\images\popclose.gif" />
     <Content Include="Assets\images\PopDivClose.jpg" />
     <Content Include="Assets\images\PopDivTopBg.jpg" />
