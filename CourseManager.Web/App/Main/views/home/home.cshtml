@@ -52,6 +52,12 @@
     .Finished {
         background-color: #56AE65;
     }
+    .rest {
+        height: 1200px;
+        width: 1200px;
+        display:flex;
+       background: url(/Assets/images/rest3.png) no-repeat;
+    }
 </style>
 <div class="course-arrange-status">
     <div style="display: inline; float: right; padding-bottom: 2px;" class="colorarea">
@@ -62,7 +68,7 @@
     <div ng-controller="app.views.home as vm">
         <input type="hidden" value="@DateTime.Now.ToShortDateString()" id="beginTime" />
         <input type="hidden" value="@DateTime.Now.AddDays(1).ToShortDateString()" id="endTime" />
-        <div class="row">
+        <div class="row {{vm.restCls}}" >
             <div class="col-md-12" style="margin-bottom:20px;">
                 <h4>{{vm.todaySignInRecord}}</h4>@*截止到目前，今天已经给 张三上课 8：00-9：00，李四上课 11：00-12：00  <br />合计上课两个小时*@
             </div>

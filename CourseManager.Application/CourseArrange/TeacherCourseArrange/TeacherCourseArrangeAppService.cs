@@ -42,7 +42,7 @@ namespace CourseManager.CourseArrange
         {
             this._teacherCourseArrangeRepository = teacherCourseArrangeRepository;
             this._studentAppService = studentAppService;
-             _userRepository = userRepository;
+            _userRepository = userRepository;
             _smtpEmailSender = smtpEmailSender;
             _notificationPublisher = notificationPublisher;
             _eventBus = eventBus;
@@ -76,13 +76,13 @@ namespace CourseManager.CourseArrange
         {
             var res = GetArrangesByCondition(input);
             var mapData = res.MapTo<List<TeacherCourseArrangeListDto>>();
-          // SetOtherExtendData(mapData);
+            // SetOtherExtendData(mapData);
             return new ListResultDto<TeacherCourseArrangeListDto>(mapData);
         }
 
         private void SetOtherExtendData(IEnumerable<TeacherCourseArrangeListDto> list)
         {
-           
+
         }
 
         public TeacherCourseArrange GetArranage(TeacherCourseArrangeInput input)
@@ -129,26 +129,28 @@ namespace CourseManager.CourseArrange
             if (!string.IsNullOrEmpty(input.Id)) result = !string.IsNullOrEmpty(_teacherCourseArrangeRepository.Update(arrange).Id);
             else
             {
-                
-                if (input.CrossWeek.Value)
+                arrange.Id = IdentityCreator.NewGuid;
+                arrange.ArrangeTime = DateTime.Now;
+                arrange.CreatorUserId = AbpSession.UserId.Value;
+                if (input.CrossWeek != null && input.CrossWeek.Value)
                 {
                     StringBuilder builder = new StringBuilder();
                     using (var unitOfWork = _unitOfWorkManager.Begin()) //启用工作单元  
                     {
                         try
                         {
-                            var lastDate=CalendarHelper.LastDayOfMonth(input.BeginTime);
+                            var lastDate = CalendarHelper.LastDayOfMonth(input.BeginTime);
                             var crossTimes = Math.Floor(Convert.ToDecimal((lastDate.Day - input.BeginTime.Day) / 7));
-                            for (int i =0; i <= crossTimes; i++)
+                            for (int i = 0; i <= crossTimes; i++)
                             {
                                 var newArrange = input.MapTo<TeacherCourseArrange>();
                                 newArrange.Id = IdentityCreator.NewGuid;
                                 newArrange.ArrangeTime = DateTime.Now;
                                 newArrange.CreatorUserId = AbpSession.UserId.Value;
                                 newArrange.StudentId = studentIds;
-                                newArrange.BeginTime = newArrange.BeginTime.Value.AddDays(7*i);
-                                newArrange.EndTime = newArrange.EndTime.Value.AddDays(7*i);
-                              _teacherCourseArrangeRepository.Insert(newArrange);
+                                newArrange.BeginTime = newArrange.BeginTime.Value.AddDays(7 * i);
+                                newArrange.EndTime = newArrange.EndTime.Value.AddDays(7 * i);
+                                _teacherCourseArrangeRepository.Insert(newArrange);
                             }
                             unitOfWork.Complete(); //提交事务  
                         }
@@ -166,14 +168,14 @@ namespace CourseManager.CourseArrange
             }
             //只有创建成功才发送邮件和通知
             //if (result != null&&!string.IsNullOrEmpty(result.Id))
-            if(result)
+            if (result)
             {
                 var user = _userRepository.Load(input.TeacherId); //AbpSession.UserId.Valueinput.TeacherId
 
                 //使用领域事件触发发送通知操作
                 _eventBus.Trigger(new AddTeacherCourseArrangeEventData(arrange, user));
-               // _notificationPublisher.Publish("安排了新的课程额", new MessageNotificationData("安排了新的课程额"), null,
-                  //  NotificationSeverity.Info, new[] { user.ToUserIdentifier() });
+                // _notificationPublisher.Publish("安排了新的课程额", new MessageNotificationData("安排了新的课程额"), null,
+                //  NotificationSeverity.Info, new[] { user.ToUserIdentifier() });
                 //TODO:需要配置QQ邮箱密码
                 //_smtpEmailSender.Send("ysjshengjie@qq.com", task.AssignedPerson.EmailAddress, "New Todo item", message);
 

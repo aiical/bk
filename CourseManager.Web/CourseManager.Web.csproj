@@ -442,6 +442,9 @@
     <Content Include="Assets\images\reasonbg.gif" />
     <Content Include="Assets\images\remark.png" />
     <Content Include="Assets\images\remarkforce.png" />
+    <Content Include="Assets\images\rest.png" />
+    <Content Include="Assets\images\rest2.jpg" />
+    <Content Include="Assets\images\rest3.png" />
     <Content Include="Assets\images\return.png" />
     <Content Include="Assets\images\rl_l.gif" />
     <Content Include="Assets\images\rl_r.gif" />
