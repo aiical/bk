@@ -1,4 +1,13 @@
 ﻿<link href="~/Assets/css/pagination.css" rel="stylesheet" />
+<style type="text/css">
+    table {
+        table-layout: fixed;
+        word-wrap: break-word;
+    }
+    div {
+        word-wrap: break-word;
+    } 
+</style>
 <div  ng-controller="app.views.student.index as vm">
     <div class="row">
         <div class="col-md-12">
@@ -32,9 +41,8 @@
                         <td>{{student.countryName}}</td>
                         <td>{{student.isActive ? '@L("Yes")' : '@L("No")'}}</td>
                         <td>
-                            <a href="javascript:void(0)" title="@L("Edit")" ng-click='vm.openStudentCreationModal(student.id)' class="fa fa-edit"></a>&nbsp;
+                            <a href="javascript:void(0)" title="@L("Edit")" ng-click='vm.openStudentCreationModal(student.id)' class="fa fa-edit"></a>
                             <a href="javascript:void(0)" title="@L("Delete")" ng-click="vm.deleteStudent(student)" class="fa  fa-trash-o"></a>
-                            &nbsp;
                             <a href="javascript:void(0)" title="@L("ToggleStatus")" ng-click="vm.updateActiveState(student)" class="fa   fa-lock"></a>
                         </td>
                     </tr>

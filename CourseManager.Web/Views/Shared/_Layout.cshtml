@@ -1,4 +1,5 @@
-﻿@using Abp.Timing
+﻿@using System.Web.Optimization
+@using Abp.Timing
 @using Abp.Web.Mvc.Extensions
 @*
     IMPORTANT NOTES FROM ASP.NET BOILERPLATE:
@@ -24,13 +25,14 @@
 
     <link rel="shortcut icon" href="~/favicon.ico">
 
-    @Html.IncludeStyle("~/Content/themes/base/all.css")
+    @*@Html.IncludeStyle("~/Content/themes/base/all.css")
     @Html.IncludeStyle("~/Content/bootstrap-cosmo.min.css")
     @Html.IncludeStyle("~/Content/font-awesome.min.css")
     @Html.IncludeStyle("~/Content/toastr.min.css")
     @Html.IncludeStyle("~/Content/flags/famfamfam-flags.css")
-    @Html.IncludeStyle("~/Scripts/sweetalert/sweet-alert.css")
-
+    @Html.IncludeStyle("~/Scripts/sweetalert/sweet-alert.css")*@
+    @Styles.Render("~/Bundles/App/vendor/css")
+    @Styles.Render("~/Bundles/App/Main/css")
     @RenderSection("Styles", false)
 
     <script type="text/javascript">

@@ -20,21 +20,18 @@
 blockquote, body, dd, dir, dl, fieldset, figure, h1, h2, h3, h4, h5, h6, hr, input[type=checkbox], input[type=radio], input[type=range], listing, menu, ol, p, plaintext, pre, ul, xmp {
     margin: 0;
 }
-
-button, dir, fieldset, input, input[type=button], input[type=checkbox], input[type=file], input[type=hidden], input[type=image], input[type=password], input[type=radio], input[type=range], input[type=reset], input[type=search], input[type=submit], isindex, legend, menu, ol, textarea, ul {
-    padding: 0;
-}
-
 html * {
     outline: 0;
     -webkit-text-size-adjust: none;
     -webkit-tap-highlight-color: transparent;
 }
 #footer {
+    height: 32px;
     margin: 0 auto;
     position: fixed;
     bottom: 0px;
-    width: 100%;
+    width:100%;
+    max-width: 100%;
 }
 
 
@@ -43,8 +40,8 @@ html * {
     }
 
         #footer .copyRight p {
-            height: 48px;
-            line-height: 48px;
+            height: 32px;
+            line-height: 32px;
             text-align: center;
             font-size: 14px;
             color: #8d8d8d;
@@ -54,24 +51,18 @@ html * {
         display: inline-block;
         margin-left: 32px;
     }
-button, input, select {
+/*button, input, select {
     color: inherit
-}
+}*/
 
-button, input, select, textarea {
+/*button, input, select, textarea {
     font-family: inherit;
     font-weight: inherit;
     font-size: inherit;
     margin: 0;
-}
+}*/
 address, cite, dfn, em, i, var {
     font-style: normal;
-}
-
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    font-family: normal;
 }
 
 fieldset, iframe {
@@ -81,12 +72,10 @@ fieldset, iframe {
 ol, ul {
     list-style: none
 }
-a{
+/*a{
     color: #333;
     text-decoration:none;
-}
-
-
+}*/
  /*IE7不支持的清除浮动*/
 .clearfix:after{
     visibility:hidden;

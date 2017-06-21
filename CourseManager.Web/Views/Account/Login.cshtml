@@ -12,7 +12,7 @@
 <div class="container login-container">
     <div id="LoginArea" class="row">
         <div class="col-lg-4" >@*style="float:right; margin:50px 120px 20px 20px"*@
-            <div class="well bs-component">
+            <div class="well bs-component" style=" max-width: 100%;">
                 <form id="LoginForm" class="form-horizontal" action="@(Url.Action("Login", "Account"))?returnUrl=@(Model.ReturnUrl)" method="POST">
                     <fieldset>
                         <legend>@L("LogIn")</legend>

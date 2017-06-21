@@ -13,9 +13,9 @@
         line-height: 38px;
         background: #fff;
         border: 1px dashed rgb(221, 221, 221);
-        font-size:18px;
+        font-size: 18px;
         cursor: pointer;
-        padding:1em 2em;
+        padding: 1em 2em;
     }
 
         .today-course li span:hover {
@@ -23,6 +23,7 @@
             width: 100%;
             background: #d8fbac;
         }
+
     .course-arrange-status span {
         display: block;
         float: left;
@@ -30,6 +31,7 @@
         text-align: center;
         line-height: 10px;
     }
+
     .course-status-common {
         width: 100%;
         margin: 1px;
@@ -37,11 +39,12 @@
         padding: 5px 5px;
         color: white;
     }
+
     .Normal {
         background-color: #8763B3;
     }
 
-    .Effective {  
+    .Effective {
         background-color: #37A7DB;
     }
 
@@ -52,11 +55,37 @@
     .Finished {
         background-color: #56AE65;
     }
-    .rest {
-        height: 1200px;
+
+    @@media screen and (min-width:720px) {
+        .rest {
+            /*height: 1200px;
         width: 1200px;
-        display:flex;
-       background: url(/Assets/images/rest3.png) no-repeat;
+        display: flex;
+        background: url(/Assets/images/rest3.png) no-repeat;
+        max-width: 100%;
+        max-height: 100%;*/
+            position: fixed;
+            height: 650px;
+            width: 650px;
+            z-index: -10;
+            background-image: url(/Assets/images/rest3.png);
+            background-repeat: no-repeat;
+            background-position: 0px 0px;
+            background-size: 100% 100%;
+        }
+    }
+
+    @@media screen and (max-width:720px) {
+        .rest {
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            z-index: -10;
+            background-image: url(/Assets/images/rest3.png);
+            background-repeat: no-repeat;
+            background-position: 0px 0px;
+            background-size: 100% 100%;
+        }
     }
 </style>
 <div class="course-arrange-status">
@@ -65,38 +94,38 @@
         <span style="cursor: pointer;"><span class="course-status-common Effective" style="width: auto; padding-right: 10px;"></span><span class="named">已放课</span></span>
     </div>
 </div>
-    <div ng-controller="app.views.home as vm">
-        <input type="hidden" value="@DateTime.Now.ToShortDateString()" id="beginTime" />
-        <input type="hidden" value="@DateTime.Now.AddDays(1).ToShortDateString()" id="endTime" />
-        <div class="row {{vm.restCls}}" >
-            <div class="col-md-12" style="margin-bottom:20px;">
-                <h4>{{vm.todaySignInRecord}}</h4>@*截止到目前，今天已经给 张三上课 8：00-9：00，李四上课 11：00-12：00  <br />合计上课两个小时*@
-            </div>
-            <div class="col-md-12">
-                <ul class="today-course" ng-repeat="course in vm.schedule">
-                    <li>
-                        <span> {{course.beginTime|date:"HH:mm"}}-{{course.endTime|date:"HH:mm"}}</span>
-                        <span class="course-status-common {{course.courseStatus}}  remark">{{course.remark}} </span>
-                    </li>
-                </ul>
-                @*<table class="table table-bordered">
+<div ng-controller="app.views.home as vm">
+    <input type="hidden" value="@DateTime.Now.ToShortDateString()" id="beginTime" />
+    <input type="hidden" value="@DateTime.Now.AddDays(1).ToShortDateString()" id="endTime" />
+    <div class="row {{vm.restCls}}">
+        <div class="col-md-12" style="margin-bottom:20px;">
+            <h4>{{vm.todaySignInRecord}}</h4>@*截止到目前，今天已经给 张三上课 8：00-9：00，李四上课 11：00-12：00  <br />合计上课两个小时*@
+        </div>
+        <div class="col-md-12">
+            <ul class="today-course" ng-repeat="course in vm.schedule">
+                <li>
+                    <span> {{course.beginTime|date:"HH:mm"}}-{{course.endTime|date:"HH:mm"}}</span>
+                    <span class="course-status-common {{course.courseStatus}}  remark">{{course.remark}} </span>
+                </li>
+            </ul>
+            @*<table class="table table-bordered">
 
-                        <tbody>
-                            @foreach (var hour in classHours)
-                            {
-                                <tr>
+                    <tbody>
+                        @foreach (var hour in classHours)
+                        {
+                            <tr>
 
-                                    <td id="td_1" class=" calendarItem" count="0" date="2017-05-28" style="border: 1px solid rgb(221, 221, 221);">
-                                        @hour
-                                        <div class="records">
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
-                            <tr></tr>
+                                <td id="td_1" class=" calendarItem" count="0" date="2017-05-28" style="border: 1px solid rgb(221, 221, 221);">
+                                    @hour
+                                    <div class="records">
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                        <tr></tr>
 
-                        </tbody>
-                    </table>*@
-            </div>
+                    </tbody>
+                </table>*@
         </div>
     </div>
+</div>

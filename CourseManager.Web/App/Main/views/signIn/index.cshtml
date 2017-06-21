@@ -1,13 +1,27 @@
-﻿@using Abp.Web.Mvc.Extensions
-@{
-    @*@Html.IncludeScript("~/Views/CourseArrange/TeacherCourseArrange.js")*@
-    @*@Html.IncludeScript("~/Assets/libsReference/bootstrap.tool.js")*@
-    @*@Html.IncludeScript("~/App/Main/views/directives/ngDatePicker.js")*@
-}
+﻿
 <link href="~/Assets/css/pagination.css" rel="stylesheet" />
 <style type="text/css">
-    .xdsoft_noselect{width:76px !important;}
-    /*如果既要显示日期又要显示分钟 则width:360px 否则76px*/
+    .xdsoft_noselect {
+        width: 76px !important; /*如果既要显示日期又要显示分钟 则width:360px 否则76px*/
+    }
+    /*另外，只要在CSS中定义了如下句子，可保网页不会再被撑开了。*/
+    /*table {
+        table-layout: fixed;
+    }
+
+    td {
+        word-break: break-all;
+        word-wrap: break-word;
+    }*/
+        /*6 既防止表格/层撑破又防止单词断裂*/ 
+        table {
+        table-layout: fixed;
+        word-wrap: break-word;
+    }
+
+    div {
+        word-wrap: break-word;
+    } 
 </style>
 <div ng-controller="app.views.signInRecord.index as vm">
     <div class="row">

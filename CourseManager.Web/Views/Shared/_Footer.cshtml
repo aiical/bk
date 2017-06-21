@@ -1,33 +1,14 @@
 ﻿@{
     Layout = null;
 }
-<style type="text/css">
+<!-- footer外包裹一层div-->
+<div>
+    <!--充当占位符的div块，无实质内容 -->
+    <div style="height:96px;"></div>
 
-    #footer {
-        margin: 0 auto;
-        position: fixed;
-        bottom:0px;
-        width: 100%;
-    }
-
-   
-    #footer .copyRight {
-        background: #3e424d;
-    }
-
-        #footer .copyRight p {
-            height: 48px;
-            line-height: 48px;
-            text-align: center;
-            font-size: 14px;
-            color: #8d8d8d;
-        }
-
-    #footer p b {
-        display: inline-block;
-        margin-left: 32px;
-    }
-</style>
-<div id="footer">
-    <div class="copyRight clearfix"><p>CopyRight @@2017-2030 本站版权归贝课教育培训公司所有 <b>粤ICP备1298789x1号</b></p></div>
+    <!--fixed悬浮出来的footer -->
+    <div id="footer">
+        <div class="copyRight clearfix"><p>CopyRight @@2017-2030 本站版权归贝课教育培训公司所有 <b>粤ICP备1298789x1号</b></p></div>
+    </div>
 </div>
+
