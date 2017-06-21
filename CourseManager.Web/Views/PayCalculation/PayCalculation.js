@@ -58,7 +58,7 @@ Bk.PayCalculation = {
                     $('#AssignmentBonus').val(data.assignmentTimes * 10 + unit);
                     $('#RenewNum').val(data.renewNum);
                     $('#RenewFee').val(data.renewFee + unit);
-                    $('#ExtraSalary').val(data.studentAbsentFees + unit + "(" + data.studentAbsentFeeDes + ")");
+                    $('#ExtraSalary').val(data.studentAbsentFees + unit + "-" + data.studentAbsentFeeDes);
                     $('#AllOfficeHoursSalary').val(data.allOfficeHoursBonus + unit);
 
                     if (data.basicSalary >= 4000 && data.totalDuration >= 70) {//工资达到了底薪标准 且工时达到了70个小时标准 则有其他福利
