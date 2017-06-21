@@ -11,15 +11,20 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CourseManager.Web.Models.PayCalculation;
+using CourseManager.Students;
+
 namespace CourseManager.Web.Controllers
 {
     [AbpMvcAuthorize]
     public class PayCalculationController : CourseManagerControllerBase
     {
         private readonly IClassHourStatisticsAppService _teacherClassHoursStatisticsAppService;
-        public PayCalculationController(IClassHourStatisticsAppService teacherClassHoursStatisticsAppService)
+        private readonly IStudentAppService _studentAppService;
+        public PayCalculationController(IClassHourStatisticsAppService teacherClassHoursStatisticsAppService
+            , IStudentAppService studentAppService)
         {
             this._teacherClassHoursStatisticsAppService = teacherClassHoursStatisticsAppService;
+            this._studentAppService = studentAppService;
         }
 
         public ActionResult PayCalculation()
@@ -38,6 +43,7 @@ namespace CourseManager.Web.Controllers
             --早课和晚课通过 上课开始时间是否小于早上七点半 和开始时间是否大于晚上七点 进行统计
             --1对1课时数和班级数 通过课程类型来统计
             --外派次数 通过上课类型来统计
+            --学生当前月上课是否80%达标，防止学生随意请假，影响老师收益（如果学生当月需要上课20小时，然后请假次数太多导致不够80% 也就是不够16个小时 那么缺少的课时按照正常课时的80%费用收取 如仅仅上了8个小时，那么就是缺少8个小时也就是需要补贴老师8*50*0.8=320元） 这里暂只处理 1对1
             --统计输出的话 就是按照自定义的格式综合输出
              */
             var classResult = result.Where(r => r.ClassType == "f756be8fe8b6487dbb50e6d63c69895c").ToList();
@@ -96,6 +102,73 @@ namespace CourseManager.Web.Controllers
             vm.AssignmentTimes = result.Where(r => r.CourseAddressType == "55c431fd26b845b0a00880243d1a25a3").Count(); //外派
             vm.OfficeHours = totalOfficeHours;
             vm.AllOfficeHoursBonus = totalOfficeHours >= CourseManagerConsts.JuneOfficeHours ? CourseManagerConsts.AllOfficeHoursBonus : 0.0M;
+
+            #region 统计各个学生当前月需要上课多少个小时 以及续学学生
+            var result2DealAbsentFee = from p in result
+                                       where p.BeginTime > input.BeginTime && p.EndTime <= input.EndTime
+                                       select p;
+            var allGroupHours = from p in result2DealAbsentFee
+                                group p by p.StudentId into g
+                                select new PayCalculation2StuViewModel
+                                {
+                                    TotalDuration = g.Sum(r => r.Duration),
+                                    StudentId = g.Key
+                                };
+
+            var allGroupAbsentHours = from p in result2DealAbsentFee
+                                      where p.UnNormalType == "c9749429307348e08f1dc8aba035eaed" //学生请假
+                                      group p by p.StudentId into g
+                                      select new PayCalculation2StuViewModel
+                                      {
+                                          TotalDuration = g.Sum(r => r.Duration),
+                                          StudentId = g.Key
+                                      };
+
+            var absentHoursFee = new Dictionary<string, PayCalculation2StuViewModel>();
+            var renewFee = new List<string>();//续学记录
+            var stus = _studentAppService.GetStudents().Items;
+            foreach (var item in allGroupHours)
+            {
+                foreach (var absent in allGroupAbsentHours)
+                {
+                    if (absent.StudentId == item.StudentId)
+                    {
+                        var realDutaion = item.TotalDuration - absent.TotalDuration;
+                        var ruleBasicDuration = item.TotalDuration * 0.8M;//合同规定的基数
+                        //续学
+                        if (realDutaion >= 15)
+                        {
+                            renewFee.Add(stus.SingleOrDefault(s => s.Id == item.StudentId).CnName);
+                        }
+                        //学生请假次数太多
+                        if (ruleBasicDuration > realDutaion)
+                        {
+                            absentHoursFee.Add(
+                                stus.SingleOrDefault(s => s.Id == item.StudentId).CnName,
+                                    new PayCalculation2StuViewModel
+                                    {
+                                        StudentId = item.StudentId,
+                                        TotalDuration = decimal.Round(ruleBasicDuration.Value / 60, 1),
+                                        RealDuration = decimal.Round(realDutaion.Value / 60, 1),
+                                        Balance = decimal.Round((ruleBasicDuration.Value - realDutaion.Value) / 60, 1) * CourseManagerConsts.One2OneClassFees * 0.8M
+                                    }
+                                );
+                        }
+                    }
+                }
+            }
+            vm.StudentAbsentFees = 0.0M;
+            foreach (KeyValuePair<string, PayCalculation2StuViewModel> kvp in absentHoursFee)
+            {
+                var model = kvp.Value;
+                vm.StudentAbsentFees += model.Balance;
+                vm.StudentAbsentFeeDes += string.Format("学生{0}应上至少{1}h 实上{2}h ，需按照课时费80%付费{3}\r\n", kvp.Key, model.TotalDuration, model.RealDuration, model.Balance);//因请假未到到80%应上课时
+            }
+
+            vm.RenewNum = renewFee.Count;
+            vm.RenewFee = vm.RenewNum > 0 ? vm.RenewNum * CourseManagerConsts.RenewBonus : 0;
+            #endregion
+
             ResultData data = new ResultData()
             {
                 returnData = new Dictionary<string, object> {

@@ -60,5 +60,33 @@ namespace CourseManager.Web.Models.PayCalculation
         /// 全勤奖
         /// </summary>
         public decimal? AllOfficeHoursBonus { get; set; }
+        /// <summary>
+        /// 学生当前月上课是否80%达标，防止学生随意请假，影响老师收益（如果学生当月需要上课20小时，然后请假次数太多导致不够80% 也就是不够16个小时 那么缺少的课时按照正常课时的80%费用收取 如仅仅上了8个小时，那么就是缺少8个小时也就是需要补贴老师8*50*0.8=320元） 这里暂只处理 1对1
+        /// </summary>
+        public decimal? StudentAbsentFees { get; set; }
+        /// <summary>
+        /// 费用说明
+        /// </summary>
+        public string StudentAbsentFeeDes { get; set; }
+    }
+    /// <summary>
+    /// 统计学生请假
+    /// </summary>
+    public class PayCalculation2StuViewModel
+    {
+        /// <summary>
+        /// 应上课时
+        /// </summary>
+        public decimal? TotalDuration { get; set; }
+        public string StudentId { get; set; }
+        public string StudentName { get; set; }
+        /// <summary>
+        /// 实际课时
+        /// </summary>
+        public decimal? RealDuration { get; set; }
+        /// <summary>
+        /// 差额
+        /// </summary>
+        public decimal? Balance { get; set; }
     }
 }

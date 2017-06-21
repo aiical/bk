@@ -38,14 +38,14 @@ Bk.PayCalculation = {
                 abp.notify.error("时间筛选周期为1个月 请选择开始时间所在月时间");
                 return;
             }
-            console.log(postData);
+            //  console.log(postData);
             abp.ui.setBusy(
                 abp.ajax({
                     url: abp.appPath + 'PayCalculation/GetPayCalculation',
                     type: 'POST',
                     data: JSON.stringify(postData) //abp需要进行转换
                 }).done(function (res) {
-                    console.log(res.returnData.result);
+                   // console.log(res.returnData.result);
                     var data = res.returnData.result, earlyLateNum = data.earlyCourseTimes + data.nightCourseTimes, unit = "元";
                     $('#ShowTeacherName').val(data.teacherName);
                     $('#BasicSalary').val(data.basicSalary + unit);
@@ -54,11 +54,13 @@ Bk.PayCalculation = {
                     $('#TotalClassHours').val(data.totalDuration);
                     $('#EarlyLateNum').val(earlyLateNum);
                     $('#EarlyLateBonus').val(earlyLateNum * 5 + unit);
+                    $('#AssignmentTimes').val(data.assignmentTimes);
                     $('#AssignmentBonus').val(data.assignmentTimes * 10 + unit);
                     $('#RenewNum').val(data.renewNum);
-                    $('#RenewFee').val((data.renewNum < 1 ? 0 : data.renewFee) + unit);
+                    $('#RenewFee').val(data.renewFee + unit);
+                    $('#ExtraSalary').val(data.studentAbsentFees + unit + "(" + data.studentAbsentFeeDes + ")");
                     $('#AllOfficeHoursSalary').val(data.allOfficeHoursBonus + unit);
-                   
+
                     if (data.basicSalary >= 4000 && data.totalDuration >= 70) {//工资达到了底薪标准 且工时达到了70个小时标准 则有其他福利
                         $('#TotalSalary').val(
                             data.basicSalary + "+"
@@ -68,6 +70,7 @@ Bk.PayCalculation = {
                             + (data.renewNum < 1 ? 0 : data.renewFee) + "+"
                             + data.extraFee + "="
                             + (data.basicSalary + data.allOfficeHoursBonus + (data.earlyCourseTimes * 5) + (data.assignmentTimes * 10) + (data.renewNum < 1 ? 0 : data.renewFee))
+                            + data.studentAbsentFees || 0
                             + unit
                         );
                     }
