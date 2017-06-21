@@ -32,10 +32,11 @@ namespace CourseManager.Web.Controllers
             var beginTimeDay = input.BeginTime.Day;
             var endTimeDay = input.EndTime.Day;
             decimal[] classHoursArray = new decimal[endTimeDay - beginTimeDay + 1];
+            int index = 0;
             for (int i = beginTimeDay - 1; i < endTimeDay; i++)
             {
                 var duration = 0.0M;
-                classHoursArray[i] = duration;
+                classHoursArray[index] = duration;
                 if (result.Any(v => v.EndTime.Day == i + 1))
                 {
                     var maxEndTime = result.Where(r => r.EndTime.Day == i + 1).Max(t => t.EndTime);
@@ -43,9 +44,10 @@ namespace CourseManager.Web.Controllers
                     var totalMinutes = (maxEndTime - minBeginTime).TotalMinutes;
                     duration = decimal.Round(Convert.ToDecimal(totalMinutes) / 60, 1);
                     //  duration = decimal.Round(result.Where(r => r.EndTime.Day == i + 1).Sum(c => c.Duration) / 60, 1);
-                    classHoursArray[i] = duration;
+                    classHoursArray[index] = duration;
                 }
-                totalDuration += classHoursArray[i];
+                totalDuration += classHoursArray[index];
+                index++;
             }
             ResultData data = new ResultData();
             data.returnData = new Dictionary<string, object>

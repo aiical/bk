@@ -17,7 +17,7 @@ namespace CourseManager.Web.Controllers
     public class ClassHourStatisticsController : CourseManagerControllerBase
     {
         private readonly IClassHourStatisticsAppService _teacherClassHoursStatisticsAppService;
-        
+
         public ClassHourStatisticsController(IClassHourStatisticsAppService teacherClassHoursStatisticsAppService)
         {
             this._teacherClassHoursStatisticsAppService = teacherClassHoursStatisticsAppService;
@@ -44,23 +44,25 @@ namespace CourseManager.Web.Controllers
             decimal[] classHoursArray = new decimal[endTimeDay - beginTimeDay + 1]; //取得的值是大于等于开始时间 小于结束时间
             decimal[] one2OneDurationsArray = new decimal[endTimeDay - beginTimeDay + 1];
             decimal[] classCourseDurationsArray = new decimal[endTimeDay - beginTimeDay + 1];
+            int index = 0;
             for (int i = beginTimeDay - 1; i < endTimeDay; i++)
             {
                 var duration = 0.0M;
-                classHoursArray[i] = duration;
+                classHoursArray[index] = duration;
                 if (result.Any(v => v.EndTime.Day == i + 1))
                 {
-                    duration = decimal.Round(result.Where(r => r.EndTime.Day == i + 1).Sum(c => c.Duration) / 60,1);
-                    classHoursArray[i] = duration;
+                    duration = decimal.Round(result.Where(r => r.EndTime.Day == i + 1).Sum(c => c.Duration) / 60, 1);
+                    classHoursArray[index] = duration;
                 }
                 if (one2OneResult.Any(v => v.EndTime.Day == i + 1))
                 {
-                    one2OneDurationsArray[i] = decimal.Round(one2OneResult.Where(r => r.EndTime.Day == i + 1).Sum(c => c.Duration) / 60, 1);
+                    one2OneDurationsArray[index] = decimal.Round(one2OneResult.Where(r => r.EndTime.Day == i + 1).Sum(c => c.Duration) / 60, 1);
                 }
                 if (classResult.Any(v => v.EndTime.Day == i + 1))
                 {
-                    classCourseDurationsArray[i] = decimal.Round(classResult.Where(r => r.EndTime.Day == i + 1).Sum(c => c.Duration) / 60, 1);
+                    classCourseDurationsArray[index] = decimal.Round(classResult.Where(r => r.EndTime.Day == i + 1).Sum(c => c.Duration) / 60, 1);
                 }
+                index++;
             }
             ResultData data = new ResultData();
             data.returnData = new Dictionary<string, object>
