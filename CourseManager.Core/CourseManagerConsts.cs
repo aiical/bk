@@ -56,6 +56,10 @@
         public const decimal ClassCourseFees = 70;
 
         /// <summary>
+        /// 学生续学（该学生当月课时达到15小时)
+        /// </summary>
+        public const decimal RenewHours = 15;
+        /// <summary>
         /// 学生续学（当前月学生上课达到15个小时） 奖金
         /// </summary>
         public const decimal RenewBonus = 25;

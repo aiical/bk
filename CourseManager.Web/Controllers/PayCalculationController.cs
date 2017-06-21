@@ -136,7 +136,7 @@ namespace CourseManager.Web.Controllers
                         var realDutaion = item.TotalDuration - absent.TotalDuration;
                         var ruleBasicDuration = item.TotalDuration * 0.8M;//合同规定的基数
                         //续学
-                        if (realDutaion >= 15)
+                        if (realDutaion >= CourseManagerConsts.RenewHours * 60)//
                         {
                             renewFee.Add(stus.SingleOrDefault(s => s.Id == item.StudentId).CnName);
                         }
