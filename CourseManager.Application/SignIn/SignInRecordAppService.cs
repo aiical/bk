@@ -117,17 +117,18 @@ namespace CourseManager.SignIn
         public string GenerateHomeSignRecordDescription(SignInInput input)
         {
             var signInRecords = GetSignInRecordByCondition(input);
-            var result = (signInRecords != null && signInRecords.Count() > 0) ? "今天已经给以下学生上课：\r\n" : "今天还没有签到 下课后当天记得签到哟";
-            if (signInRecords == null) return result;
+            var sb = new StringBuilder();
+            var result = (signInRecords != null && signInRecords.Count() > 0) ? sb.AppendLine("今天已经给以下学生上课：") : sb.AppendLine("今天还没有签到 下课后当天记得签到哟");
+            if (signInRecords == null) return result.ToString();
             var list = signInRecords.MapTo<List<SignInListDto>>();
             SetOtherExtendData(list);
-            var template = "【学生：{0}  上课时间：{1}~{2}\r\n】";
+            var template = "【{0}：{1}~{2}】\r\n";
 
             foreach (var item in list)
             {
-                result += string.Format(template, item.StudentName, item.BeginTime.ToString("MM-dd HH:mm"), item.EndTime.ToString("MM-dd HH:mm"));
+                sb.AppendLine(string.Format(template, item.StudentName, item.BeginTime.ToString("HH:mm"), item.EndTime.ToString("HH:mm")));
             }
-            return result;
+            return sb.ToString();
         }
         private void SetOtherExtendData(IEnumerable<SignInListDto> list)
         {

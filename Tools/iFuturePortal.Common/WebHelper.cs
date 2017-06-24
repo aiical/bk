@@ -976,5 +976,12 @@ namespace CourseManager.Common
             }
         }
 
-	}
+        public static string ReplaceSpecialChar(string source)
+        {
+            return string.IsNullOrEmpty(source)
+                ? source
+                : source.Replace("\r\n", "<br/>").Replace("\n", "<br/>").Replace(" ", "&nbsp;");
+        }
+
+    }
 }

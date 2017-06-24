@@ -10,7 +10,8 @@
 
     .today-course li {
         min-height: 60px;
-        line-height: 38px;
+        /*line-height: 38px;*/
+        margin-top:1em;
         background: #fff;
         border: 1px dashed rgb(221, 221, 221);
         font-size: 18px;
@@ -23,7 +24,9 @@
             width: 100%;
             background: #d8fbac;
         }
-
+    .course-arrange-status{
+        height:30px;
+    } 
     .course-arrange-status span {
         display: block;
         float: left;
@@ -95,6 +98,7 @@
             background-size: 100% 76%;
         }
     }
+    .remark{display:block;}
 </style>
 <div class="course-arrange-status">
     <div style="display: inline; float: right; padding-bottom: 2px;" class="colorarea">
@@ -102,17 +106,18 @@
         <span style="cursor: pointer;"><span class="course-status-common Effective" style="width: auto; padding-right: 10px;"></span><span class="named">已放课</span></span>
     </div>
 </div>
+<div class="clearfix"></div>
 <div ng-controller="app.views.home as vm">
     <input type="hidden" value="@DateTime.Now.ToShortDateString()" id="beginTime" />
     <input type="hidden" value="@DateTime.Now.AddDays(1).ToShortDateString()" id="endTime" />
     <div class="row {{vm.restCls}}">
         <div class="col-md-12" style="margin-bottom:20px;">
-            <h4>{{vm.todaySignInRecord}}</h4>@*截止到目前，今天已经给 张三上课 8：00-9：00，李四上课 11：00-12：00  <br />合计上课两个小时*@
+            <h4>@(CourseManager.Common.WebHelper.ReplaceSpecialChar(Html.Raw("{{vm.todaySignInRecord}}").ToString())) </h4>@*截止到目前，今天已经给 张三上课 8：00-9：00，李四上课 11：00-12：00  <br />合计上课两个小时*@
         </div>
         <div class="col-md-12">
             <ul class="today-course" ng-repeat="course in vm.schedule">
                 <li>
-                    <span> {{course.beginTime|date:"HH:mm"}}-{{course.endTime|date:"HH:mm"}}</span>
+                    <span> {{course.beginTime|date:"HH:mm"}}-{{course.endTime|date:"HH:mm"}}</span><br/>
                     <span class="course-status-common {{course.courseStatus}}  remark">{{course.remark}} </span>
                 </li>
             </ul>
