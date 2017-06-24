@@ -13,21 +13,20 @@
         word-break: break-all;
         word-wrap: break-word;
     }*/
-        /*6 既防止表格/层撑破又防止单词断裂*/ 
-        table {
+    /*6 既防止表格/层撑破又防止单词断裂*/
+    table {
         table-layout: fixed;
         word-wrap: break-word;
     }
-
     div {
         word-wrap: break-word;
-    } 
+    }
 </style>
 <div ng-controller="app.views.signInRecord.index as vm">
     <div class="row">
         <div class="col-md-12">
             <button ng-click="vm.openSignInModal()" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> @L("SignIn")</button>
-            <table class="table">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>@L("StudentName")</th>
@@ -61,4 +60,3 @@
     </div>
     <tm-pagination conf="paginationConf"></tm-pagination>
 </div>
-

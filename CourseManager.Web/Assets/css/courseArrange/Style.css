@@ -59,37 +59,46 @@
 .calendar-item-title {
     width: 110px;
     height: 30px;
-    line-height:30px;
-    padding-left:30px;
+    line-height: 30px;
+    padding-left: 30px;
     color: #007fff;
     /*border-bottom: solid 2px #8EB38A;*/
     background-color: #F7F7F7;
 }
+
 .cur-date {
     background-color: #FFBB00 !important;
-    color:white;
+    color: white;
+}
+
+#keyword {
+    max-width: 168px;
+    display: inline;
+}
+
+@media screen and (max-width:320px) { /*文档宽度小于320的时候隐藏切换日期按钮*/
+    #keyword {
+        max-width: 135px;
+        display: inline;
+    }
 }
 /*日历显示*/
-#condition-wrapper
-{
-margin-left:8%;
+#condition-wrapper {
+    /*padding-left:3%;*/
 }
 /*上课情况条件切换*/
 .course-arrange-status {
     /*margin-top: 60px;*/
-    margin-right:8%;
+    margin-right: 8%;
 }
 
-#keyword{
-    width:200px;
-}
-.course-arrange-status span {
-    display: block;
-    float: left;
-    margin: 3px 5px 1px 2px;
-    text-align: center;
-    line-height: 10px;
-}
+    .course-arrange-status span {
+        display: block;
+        float: left;
+        margin: 3px 5px 1px 2px;
+        text-align: center;
+        line-height: 10px;
+    }
 /*排课按钮*/
 .btn-add {
     width: 90%;
@@ -97,23 +106,33 @@ margin-left:8%;
     /*#D9D9D9 */ color: white;
     padding: 0px 5%;
 }
+
 .select-course-condition-table {
+    border-top: none;
+    margin-bottom: 0px !important;
 }
-    .course-arrange-table td, .course-arrange-table th {
-        border-top: solid 1px #D9D9D9;
-        border-left: solid 1px #D9D9D9;
-    }
+
+.course-arrange-table td, .course-arrange-table th {
+    border-top: solid 1px #D9D9D9;
+    border-left: solid 1px #D9D9D9;
+}
+
 .course-arrange-table .course-arrange-item-wrapper {
     min-height: 50px;
     margin-bottom: 10px;
 }
+
+
+
 .course-arrange-table ul {
-    padding:10px;
+    padding: 10px;
 }
 /*.MonthTopBar{width: 100%;height: 42px;background-image: url(../../images/MonthTopBg.jpg);
 background-position: center center;background-repeat: repeat-x;border-right: solid 1px #D9D9D9;
 border-left: solid 1px #D9D9D9;}*/
 .select-course-area {
+    text-align: right;
+    width: 65%;
     padding-left: 10px;
     font-size: 15px;
     text-align: left;
@@ -137,17 +156,32 @@ border-left: solid 1px #D9D9D9;}*/
         font-family: Arial Baltic;
         margin: 0px 5px;
     }
+
+@media screen and (max-width:500px) { /*文档宽度小于320的时候隐藏切换日期按钮*/
+    .toggle-date {
+        display: none;
+    }
+}
+
+@media screen and (min-width:500px) {
+    .toggle-date {
+        display: inline-block;
+    }
+}
+
 .course-arrange-table {
     table-layout: fixed;
+    border-top: solid 1px #69B1FF;
     border-bottom: solid 1px #D9D9D9;
     border-right: solid 1px #D9D9D9;
-    margin-top: 20px;
-    width: 94%;
+    /*margin-top: 20px;*/
+    width: 100%;
 }
+
 .DayItem {
     width: 110px;
-   min-height: 110px;
-   height:auto;
+    min-height: 110px;
+    height: auto;
     text-align: center;
     font-family: Arial Baltic;
     font-size: 30px;
@@ -624,6 +658,7 @@ border-left: solid 1px #D9D9D9;}*/
     padding: 5px 0;
     color: white;
 }
+
 .course-status-common {
     display: inline-block;
     width: 100%;
@@ -632,6 +667,7 @@ border-left: solid 1px #D9D9D9;}*/
     padding: 5px 1px;
     color: white;
 }
+
 .Normal {
     background-color: #8763B3;
 }

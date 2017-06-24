@@ -158,6 +158,7 @@ namespace CourseManager.Web.Controllers
                 }
             }
             vm.StudentAbsentFees = 0.0M;
+            vm.StudentAbsentFeeDes = string.Empty;
             foreach (KeyValuePair<string, PayCalculation2StuViewModel> kvp in absentHoursFee)
             {
                 var model = kvp.Value;

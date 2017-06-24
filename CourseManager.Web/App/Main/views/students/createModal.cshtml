@@ -11,22 +11,22 @@
                     <div class="col-md-6">
                         <label>@L("CnName")</label>
                         <input type="hidden" value="{{vm.student.id}}" name="Id" />
-                        <input class="form-control form-inline" type="text" name="CnName" ng-model="vm.student.cnName" required maxlength="@StudentNamespace.MaxCnNameLength">
+                        <input class="form-control input-sm form-inline" type="text" name="CnName" ng-model="vm.student.cnName" required maxlength="@StudentNamespace.MaxCnNameLength">
                     </div>
                     <div class="col-md-6">
                         <label>@L("EnName")</label>
-                        <input type="text" name="EnName" class="form-control form-inline" ng-model="vm.student.enName" required maxlength="@StudentNamespace.MaxEnNameLength">
+                        <input type="text" name="EnName" class="form-control input-sm form-inline" ng-model="vm.student.enName" required maxlength="@StudentNamespace.MaxEnNameLength">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-md-6">
                         <label>@L("LocalCountryName")</label>
-                        <input type="text" name="LocalCountryName" class="form-control" ng-model="vm.student.localCountryName" required maxlength="@StudentNamespace.MaxLocalCountryNameLength">
+                        <input type="text" name="LocalCountryName" class="form-control input-sm" ng-model="vm.student.localCountryName" required maxlength="@StudentNamespace.MaxLocalCountryNameLength">
                     </div>
                     <div class="col-md-6">
                         <label>@L("Mobile")</label>
-                        <input type="text" name="Mobile" class="form-control" ng-model="vm.student.mobile">
+                        <input type="text" name="Mobile" class="form-control input-sm" ng-model="vm.student.mobile">
                     </div>
                 </div>
 
@@ -34,22 +34,22 @@
                 <div class="form-group">
                     <div class="col-md-6">
                         <label>@L("Position")</label>
-                        <input type="text" name="Position" class="form-control" ng-model="vm.student.position" maxlength="@StudentNamespace.MaxPositionLength">
+                        <input type="text" name="Position" class="form-control input-sm" ng-model="vm.student.position" maxlength="@StudentNamespace.MaxPositionLength">
                     </div>
                     <div class="col-md-6">
                         <label>@L("CountryName")</label>
-                        <input type="text" name="CountryName" class="form-control" ng-model="vm.student.countryName" maxlength="@StudentNamespace.MaxCountryNameLength">
+                        <input type="text" name="CountryName" class="form-control input-sm" ng-model="vm.student.countryName" maxlength="@StudentNamespace.MaxCountryNameLength">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-md-6">
                         <label>@L("Age")</label>
-                        <input type="number" name="Age" class="form-control" ng-model="vm.student.age">
+                        <input type="number" name="Age" class="form-control input-sm" ng-model="vm.student.age">
                     </div>
                     <div class="col-md-6">
                         <label>@L("WeChat")</label>
-                        <input type="text" name="WeChat" class="form-control" ng-model="vm.student.weChat">
+                        <input type="text" name="WeChat" class="form-control input-sm" ng-model="vm.student.weChat">
                     </div>
                 </div>
 
@@ -66,8 +66,8 @@
             </div>
             <div class="clearfix"></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" ng-click="vm.cancel()">@L("Cancel")</button>
-                <button type="submit" class="btn btn-primary blue" ng-click="vm.save()" ng-disabled="studentCreateForm.$invalid"><i class="fa fa-save"></i> <span>@L("Save")</span></button>
+                <button type="button" class="btn btn-default btn-sm" ng-click="vm.cancel()">@L("Cancel")</button>
+                <button type="submit" class="btn btn-primary btn-sm blue" ng-click="vm.save()" ng-disabled="studentCreateForm.$invalid"><i class="fa fa-save"></i> <span>@L("Save")</span></button>
             </div>
         </form>
     </div>

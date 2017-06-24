@@ -31,6 +31,9 @@
             width: 360px !important;
         }
         /*如果既要显示日期又要显示分钟 则width:360px 否则76px*/
+        .select-course-condition-table a {
+            text-decoration: none;
+        }
     </style>
 }
 <input type="hidden" id="nowday" name="nowday" />
@@ -46,51 +49,56 @@
 @*日历排课*@
 <div>
     <div id="condition-wrapper">
-        <table cellpadding="5" class="select-course-condition-table">
-            <tr>
-                <td valign="bottom" class="select-course-area">
-                    <input type="hidden" id="hidStudentId" value="" />
-                    <span>学生：</span>
-                    <input id="keyword" placeholder="请先选择某个学生进行排课" />
-                    <select id="scStudent" class="selsty" name="scStudent"  onchange="Bk.StudentCourseArrange.actions.showStudentCourse()" style="display: none;">
-                        <option value="0">请选择</option>
-                        @if (students.Any())
-                        {
-                            foreach (var item in students)
-                            {
-                                <option value="@item.Id">@item.CnName</option>
-                            }
-                        }
-                        else
-                        {
-                            <option value="0">无学生</option>
-                        }
-                    </select>
-
-                    <img src="~/Assets/images/rl_l.gif" align="absmiddle" alt="Last Month"
-                         onclick="Bk.StudentCourseArrange.actions.preMonth()" />
-                    @Html.TextBox("Year", thisMonth.Year.ToString(), new { @class = "TxtItem", @readonly = "true" })
-                    年 @Html.TextBox("Month", thisMonth.Month, new { @class = "TxtItem", @readonly = "true" })
-                    月
-                    <img src="~/Assets/images/rl_r.gif" align="absmiddle" alt="Next Month"
-                         onclick="Bk.StudentCourseArrange.actions.nextMonth()" />
-                </td>
-                <td align="right" style="padding-left:20px;" valign="bottom">
-
-                    <button type="button" class="btn btn-sm btn-primary" onclick="Bk.StudentCourseArrange.actions.showStudentCourses()">
-                        <span class="fa fa-check-circle" aria-hidden="true">确定</span>
-                    </button>
-                    <button type="button" class="btn btn-sm btn-primary" onclick="Bk.StudentCourseArrange.actions.curMonth()">
-                        <span class="fa fa-home" aria-hidden="true"></span>本月
-                    </button>
-
-                    &nbsp;
-                    <button type="button" class="btn btn-sm btn-primary" onclick="Bk.StudentCourseArrange.actions.exportExcel();">
-                        <span class="fa  fa-plus-square" aria-hidden="true"></span>导出
-                    </button>
-                </td>
-            </tr>
-        </table>
+        <form class="form-inline">
+            <table cellpadding="2" class="table table-hover select-course-condition-table">
+                <tbody>
+                    <tr>
+                        <td class="select-course-area" style="text-align:right !important; vertical-align:middle;">
+                            <input type="hidden" id="hidStudentId"  value="1" />
+                            <div class="form-group">
+                                <label class="" for="keyword">学生：</label>
+                                <input id="keyword" class="form-control input-sm" placeholder="请先选择某个学生进行排课" />
+                                <select id="scStudent" class="selsty" name="scStudent" onchange="Bk.StudentCourseArrange.actions.showStudentCourses()" style="display: none;">
+                                    <option value="0">请选择</option>
+                                    @if (students.Any())
+                                    {
+                                        foreach (var item in students)
+                                        {
+                                            <option value="@item.Id">@item.CnName</option>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option value="0">无学生</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group toggle-date">
+                                <img src="~/Assets/images/rl_l.gif" align="absmiddle" alt="Last Month"
+                                     onclick="Bk.StudentCourseArrange.actions.preMonth()" />
+                                @Html.TextBox("Year", thisMonth.Year.ToString(), new { @class = "TxtItem", @readonly = "true" })
+                                @Html.TextBox("Month", thisMonth.Month, new { @class = "TxtItem", @readonly = "true" })
+                                <img src="~/Assets/images/rl_r.gif" align="absmiddle" alt="Next Month"
+                                     onclick="Bk.StudentCourseArrange.actions.nextMonth()" />
+                            </div>
+                        </td>
+                        <td valign="middle" style="vertical-align:middle !important;">
+                            <div class="form-group">
+                                <a href="javascript:void(0);" onclick="Bk.StudentCourseArrange.actions.showStudentCourses()">
+                                    <span class="fa fa-check-circle" aria-hidden="true">确定</span>
+                                </a>
+                                <a href="javascript:void(0);" onclick="Bk.StudentCourseArrange.actions.curMonth()">
+                                    <span class="fa fa-home" aria-hidden="true"></span>本月
+                                </a>
+                                @*<a href="javascript:void(0);" onclick="Bk.StudentCourseArrange.actions.exportExcel();">
+        <span class="fa  fa-plus-square" aria-hidden="true"></span>导出
+    </a>*@
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
     </div>
     <table class="course-arrange-table" align="center" cellpadding="0" cellspacing="0">
         <tr>

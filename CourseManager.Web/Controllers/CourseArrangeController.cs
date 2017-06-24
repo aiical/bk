@@ -60,7 +60,10 @@ namespace CourseManager.Web.Controllers
             }
             var teachers = _userAppService.GetUsers(new Users.Dto.UserInput() { }).Items; ;
             ViewBag.Teachers = teachers;
-            ViewBag.TeacherName = teachers.SingleOrDefault(t => t.Id == (teacherId < 1 ? 1 : teacherId)).FullName;
+            string name = string.Empty;
+            var teacher = teachers.Where(t => t.Id == (teacherId < 1 ? 1 : teacherId)).FirstOrDefault();
+            if (teacher != null && teacher.Id > 0) name = teacher.FullName;
+            ViewBag.TeacherName = name;
             ViewBag.CourseArranges = courseArrangeData;
             return View();
         }
@@ -100,8 +103,16 @@ namespace CourseManager.Web.Controllers
             }
             var students = _studentAppService.GetStudents().Items;
             ViewBag.Students = students;
-
-            ViewBag.StudentName = string.IsNullOrEmpty(studentId) ? string.Empty : students.SingleOrDefault(t => t.Id == studentId).CnName;
+            string stuName = string.Empty;
+            if (!string.IsNullOrEmpty(studentId))
+            {
+                var stu = students.Where(t => t.Id == studentId).FirstOrDefault();
+                if (stu != null)
+                {
+                    stuName = stu.CnName;
+                }
+            }
+            ViewBag.StudentName = stuName;
             ViewBag.CourseArranges = courseArrangeData;
             return View("~/Views/CourseArrange/StudentCourseArrange/StudentCourseArrange.cshtml");
         }

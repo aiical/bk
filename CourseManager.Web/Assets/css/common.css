@@ -72,10 +72,7 @@ fieldset, iframe {
 ol, ul {
     list-style: none
 }
-/*a{
-    color: #333;
-    text-decoration:none;
-}*/
+
  /*IE7不支持的清除浮动*/
 .clearfix:after{
     visibility:hidden;
@@ -91,7 +88,7 @@ ol, ul {
 /*全版本兼容清楚浮动*/
 .clears{ clear:both; line-height:0px; overflow:hidden; font-size:0px; height:0px;}
 input,textarea,select{font-family:Verdana,Arial,"Microsoft Yahei","微软雅黑";}
-a{color: #333;text-decoration: none;}
+a{text-decoration: none;}/*color: #333;*/
 a:hover {color: inherit;}
 
 

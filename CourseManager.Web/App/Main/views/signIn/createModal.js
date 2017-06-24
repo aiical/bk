@@ -93,6 +93,12 @@
                 )
                     .then(function (res) {
                         console.log(res.data);
+                        var data = res.data;
+                        if (data.length == 0) {
+                            abp.notify.info("当前安排上课哟，如需补签请联系管理员!");
+                            $uibModalInstance.dismiss({});
+                            return;
+                        }
                         $.each(res.data, function (index, item) {
                             var courseArrangeItem = { "TimeDuration": item.timeDuration, "Id": item.id };
                             vm.signInRecord.courseArranges.push(courseArrangeItem);
@@ -129,7 +135,7 @@
                         return;
                     }
                     var now = new Date();
-                  //  console.log(vm.signInRecord.endTime + "--" + now.getHours() + ":" + now.getMinutes());
+                    //  console.log(vm.signInRecord.endTime + "--" + now.getHours() + ":" + now.getMinutes());
                     if ((vm.signInRecord.endTime != null) &&
                         (vm.signInRecord.endTime > now.getHours() + ":" + now.getMinutes()
                             || new Date(vm.signInRecord.endTime).getTime() > new Date().getTime())) {
