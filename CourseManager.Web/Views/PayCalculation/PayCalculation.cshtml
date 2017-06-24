@@ -109,7 +109,9 @@
             font-weight: 300;
             color: #354953;
         }
-      
+        #TeacherName, .datetime {
+            max-width: 135px;
+        }
     </style>
 }
 <div class="container">
@@ -134,10 +136,10 @@
 </div>
 <div id="container">
     <form id="queryForm">
-        <div class="form-inline" style="margin:20px 22% 20px 16%;">
+        <div class="form-inline" style="margin:20px 0 20px 12%;">
             <div class="form-group">
                 <label class="" for="">老师姓名：</label>
-                <input type="text" name="TeacherName" placeholder="中/英（中文相同请用英文）" class="form-control input-sm" id="TeacherName">
+                <input type="text" name="TeacherName" placeholder="中/英（唯一）" class="form-control input-sm" id="TeacherName">
             </div>
             <div class="form-group">
                 @*页面首次加载的时候获取当月开始到当前时间的所有课时*@

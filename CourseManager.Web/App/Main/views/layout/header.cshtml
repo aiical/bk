@@ -26,7 +26,7 @@
             @*当前用户登录/退出*@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="" data-toggle="dropdown"><i ng-class="vm.currentLanguage.icon"></i> <span>{{vm.currentLanguage.displayName}}</span> <b class="caret"></b></a>
+                    <a href="" data-toggle="dropdown"><i ng-class="vm.currentLanguage.icon"></i> <b class="caret"></b></a>@*<span>{{vm.currentLanguage.displayName}}</span>*@ 
                     <ul class="dropdown-menu">
                         <li ng-repeat="language in vm.languages" ng-hide="vm.currentLanguage.name == language.name"><a href="@(ApplicationPath)AbpLocalization/ChangeCulture?cultureName={{language.name}}"><i ng-class="language.icon"></i> {{language.displayName}}</a></li>
                     </ul>

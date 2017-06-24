@@ -72,13 +72,13 @@
     <text name="CourseManager" value="贝课" />
     <text name="CourseSchedule" value="排课时间表" />
     <text name="Sign" value="签到" />
-    <text name="SignIn" value="上课签到" />
+    <text name="SignIn" value="签到" />
     <text name="Address" value="上课地点" />
     <text name="DetailAddress" value="具体位置" />
     <text name="AbsentCheckIn" value="异常登记（未上课记录）" />
-    <text name="ClassHourStatistics" value="课时统计" />
-    <text name="OfficeHourStatistics" value="坐班时间统计" />
-    <text name="PayCalculation" value="工资结算" />
+    <text name="ClassHourStatistics" value="课时" />
+    <text name="OfficeHourStatistics" value="坐班时间" />
+    <text name="PayCalculation" value="工资" />
 
 
     <!--签到记录 记录给某个学生某堂课上课和下课时间 是否是正常上课还是学生旷课或者老师请假-->
