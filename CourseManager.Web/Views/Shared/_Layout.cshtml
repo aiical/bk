@@ -82,8 +82,11 @@
 
         @Html.Partial("_TopBar")
 
-        @RenderBody()
+        <div id="content-wrapper" style="margin-top:80px;">
 
+            @RenderBody()
+
+        </div>
         @Html.Partial("_Footer")
 
     </div>

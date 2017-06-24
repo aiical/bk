@@ -443,6 +443,8 @@
     <Content Include="Assets\images\remark.png" />
     <Content Include="Assets\images\remarkforce.png" />
     <Content Include="Assets\images\rest.png" />
+    <Content Include="Assets\images\rest06.png" />
+    <Content Include="Assets\images\rest07.png" />
     <Content Include="Assets\images\rest2.jpg" />
     <Content Include="Assets\images\rest3.png" />
     <Content Include="Assets\images\return.png" />

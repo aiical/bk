@@ -67,7 +67,7 @@ Bk.ClassHourStatistics = {
                             zoomType: 'x'
                         },
                         title: {
-                            text: title + "--" + "(当月共上课" + totalClassHours + "个小时--【1v1课时：" + result.one2oneDuration + "】【班级课课时：" + result.classDuration +"】)"
+                            text: title + "--" + "【当月共上课" + totalClassHours + "个小时】【1v1课时：" + result.one2oneDuration + "】【班级课课时：" + result.classDuration +"】"
                         },
                         subtitle: {
                             text: document.ontouchstart === undefined ?
