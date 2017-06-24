@@ -95,7 +95,7 @@
                         console.log(res.data);
                         var data = res.data;
                         if (data.length == 0) {
-                            abp.notify.info("当前安排上课哟，如需补签请联系管理员!");
+                            abp.notify.info("当前没有安排上课哟，如需补签请联系管理员!");
                             $uibModalInstance.dismiss({});
                             return;
                         }
