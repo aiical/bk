@@ -36,7 +36,7 @@ Bk.TeacherCourseArrange = {
         $('.datetime').datetimepicker({
             lang: 'ch',
             scrollTime: true,
-            step: 10
+            step: 15
         });
         $("body").on("click", function () {
             $("#area").css("display", "none");

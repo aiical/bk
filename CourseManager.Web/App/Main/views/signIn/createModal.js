@@ -4,12 +4,15 @@
         '$uibModalInstance',
         'abp.services.app.signInRecord',
         'abp.services.app.categorys',
-        function ($scope, $uibModalInstance, $signInService, $categoryService) {
+        'abp.services.app.teacherCourseArrange',
+        function ($scope, $uibModalInstance, $signInService, $categoryService, $teacherCourseArrangeService) {
+
             var vm = this, defaultSelectItem = { "CategoryName": "--请选择--", "Id": "-1" };
             vm.signInRecord = {
                 isActive: true,
                 beginTime: "",
                 endTime: "",
+                courseArranges: [],
                 type: [
                     defaultSelectItem
                 ],
@@ -21,8 +24,10 @@
                 ],
                 unNormalType: [
                     defaultSelectItem
+                ],
+                addressType: [
+                    defaultSelectItem
                 ]
-
                 //type: [
                 //    { "CategoryName": "准时上课", "Id": "305ab34ea2674ed4a1c9dbcc7265d2e9" },//["迟到", "正常", "未上课"]
                 //    { "CategoryName": "迟到", "Id": "4a7f3fde896544a68756762eebaa12e2" },
@@ -50,10 +55,13 @@
             function getCategorys() {
                 $categoryService.getAllCategorys()
                     .then(function (res) {
-                        // console.log(res.data);
+                        console.log(res.data);
                         $.each(res.data, function (index, item) {
                             var cd = { "CategoryName": item.categoryName, "Id": item.id };
                             switch (item.categoryType) {
+                                case "CourseAddressType":
+                                    vm.signInRecord.addressType.push(cd);
+                                    break;
                                 case "SignInRecordType":
                                     vm.signInRecord.type.push(cd);
                                     break;
@@ -73,90 +81,79 @@
                         $scope.selectedType = vm.signInRecord.type[0];//如果想要第一个值
                         $scope.selectedClassType = vm.signInRecord.classType[0]
                         $scope.selectedCourseType = vm.signInRecord.courseType[0];
+                        $scope.selectedAddressType = vm.signInRecord.addressType[0];
                         $scope.selectedUnNormalType = vm.signInRecord.unNormalType[0];
+                    });
+            }
+
+            function getCourseArrange() {
+                var now = new Date(), year = now.getFullYear(), month = now.getMonth() + 1, day = now.getDate();
+                $teacherCourseArrangeService.getTeacherCourseArrange2SignIn(
+                    { "beginTime": year + "-" + month + "-" + day, "endTime": year + "-" + month + "-" + (day + 1) }
+                )
+                    .then(function (res) {
+                        console.log(res.data);
+                        var data = res.data;
+                        if (data.length == 0) {
+                            abp.notify.info("当前没有安排上课或已经签到哟，如需补签请联系管理员!");
+                            $uibModalInstance.dismiss({});
+                            return;
+                        }
+                        $.each(res.data, function (index, item) {
+                            var courseArrangeItem = { "TimeDuration": item.timeDuration, "Id": item.id };
+                            vm.signInRecord.courseArranges.push(courseArrangeItem);
+                        });
+                        $scope.selectCourseArrange = vm.signInRecord.courseArranges[0];//如果想要第一个值
                     });
             }
             $uibModalInstance.opened.then(function () {//模态框打开之后执行的函数 一个契约，当模态窗口打开并且加载完内容时传递的变量
                 //console.log('模态框打开');
                 getCategorys();//初始化分类
+                getCourseArrange();
             });
             //select 的ng-change事件和原始ng-change相同  
             vm.signInRecord.selectChange = function () {
                 var curSelect = $scope.selectedUnNormalType;
-                if (curSelect.Id != "-1") {
-                    $('#Reason-Container').show();
-                } else $('#Reason-Container').hide();
-            }
-
-            //比较两个日期大小
-            function dateCompare(startDate, endDate) {
-                var aStart = startDate.split('-'); //转成成数组，分别为年，月，日，下同
-                var aEnd = endDate.split('-');
-                var startDateTemp = aStart[0] + "/" + aStart[1] + "/" + aStart[2];
-                var endDateTemp = aEnd[0] + "/" + aEnd[1] + "/" + aEnd[2];
-                if (startDateTemp > endDateTemp)
-                    return true;
-                else
-                    return false;
+                if (curSelect != null) {
+                    if (curSelect.Id != "-1") {
+                        $('#Reason-Container').show();
+                    } else $('#Reason-Container').hide();
+                }
             }
             vm.save = function () {
-
                 abp.ui.setBusy();
                 if (vm.signInRecord.endTime != null && vm.signInRecord.endTime != "" && vm.signInRecord.beginTime != null && vm.signInRecord.beginTime != "") {
-                    var beginTimeArr = vm.signInRecord.beginTime.split(':'), endTimeArr = vm.signInRecord.endTime.split(':'), now = new Date(), year = now.getFullYear(), month = now.getMonth(), day = now.getDay();
-                    var beginTimeDate = new Date(year + "-" + month + "-" + day + "-" + vm.signInRecord.beginTime);
-                    var endTimeDate = new Date(year + "-" + month + "-" + day + "-" + vm.signInRecord.endTime);
 
-
-                    console.log(beginTimeDate);
-                    console.log(endTimeDate);
-                    console.log(endTimeDate.getTime());
-                    console.log(now.getTime());
-                    return;
-                    if (endTimeDate.getTime() < beginTimeDate.getTime()) {
+                    if (vm.signInRecord.endTime < vm.signInRecord.beginTime
+                        ||
+                        new Date(vm.signInRecord.endTime).getTime() < new Date(vm.signInRecord.beginTime).getTime()
+                    ) {
                         vm.signInRecord.endTime = null;
                         abp.notify.error("上课时间不能大于下课时间");
                         abp.ui.clearBusy();
                         $('#BeginTime').focus();
                         return;
                     }
-
-                    if (endTimeDate.getTime() > now.getTime()) {
+                    var now = new Date();
+                    //  console.log(vm.signInRecord.endTime + "--" + now.getHours() + ":" + now.getMinutes());
+                    if ((vm.signInRecord.endTime != null) &&
+                        (vm.signInRecord.endTime > now.getHours() + ":" + now.getMinutes()
+                            || new Date(vm.signInRecord.endTime).getTime() > new Date().getTime())) {
                         vm.signInRecord.endTime = null;
                         abp.notify.error("下课时间不能大于当前时间");
                         abp.ui.clearBusy();
                         $('#EndTime').focus();
                         return;
                     }
-
-
-                    //if (vm.signInRecord.endTime < vm.signInRecord.beginTime
-                    //    ||
-                    //    new Date(vm.signInRecord.endTime).getTime() < new Date(vm.signInRecord.beginTime).getTime()
-                    //) {
-                    //    vm.signInRecord.endTime = null;
-                    //    abp.notify.error("上课时间不能大于下课时间");
-                    //    abp.ui.clearBusy();
-                    //    $('#BeginTime').focus();
-                    //    return;
-                    //}
-                    //var now = new Date();
-                    //console.log(now.getHours() + ":" + now.getMinutes());
-                    //if (vm.signInRecord.endTime < now.getHours() + ":" + now.getMinutes()
-                    //    || new Date(vm.signInRecord.endTime).getTime() > new Date().getTime()) {
-                    //    vm.signInRecord.endTime = null;
-                    //    abp.notify.error("下课时间不能大于当前时间");
-                    //    abp.ui.clearBusy();
-                    //    $('#EndTime').focus();
-                    //    return;
-                    //}
                 }
 
                 vm.signInRecord.type = $scope.selectedType.Id;
                 vm.signInRecord.classType = $scope.selectedClassType.Id;
                 vm.signInRecord.unNormalType = $scope.selectedUnNormalType.Id;
                 vm.signInRecord.courseType = $scope.selectedCourseType.Id;
-                // console.log(vm.signInRecord);
+                vm.signInRecord.courseAddressType = $scope.selectedAddressType.Id;
+                vm.signInRecord.courseArranges = $scope.selectCourseArrange.Id;
+                console.log(vm.signInRecord);
                 $signInService.createSignInRecord(vm.signInRecord)
                     .then(function () {
                         abp.notify.info(App.localize('SavedSuccessfully'));
@@ -176,7 +173,7 @@
             require: "ngModel",
             link: function (scope, element, attrs, ctrl) {
                 var unregister = scope.$watch(function () {
-                    $(element).append("<input placeHolder=\"请选择准确的时间\" autocomplete=\"off\" id='date-" + attrs.dateid + "' style='border:none;width:100%;height:100%' " +
+                    $(element).append("<input placeHolder=\"请选择准确的时间\" readonly=\"readonly\" autocomplete=\"off\" id='date-" + attrs.dateid + "' style='border:none;width:100%;height:100%' " +
                         "value='" + ctrl.$modelValue + "'>");
                     $(element).css("padding", "0");
 

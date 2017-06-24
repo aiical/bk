@@ -18,7 +18,7 @@ Bk.StudentCourseArrange = {
         $('.datetime').datetimepicker({
             lang: 'ch',
             scrollTime: true,
-            step: 10
+            step: 15
         });
         //弹出modal
         $(".btn-add").click(function (e) {
