@@ -49,55 +49,58 @@ Bk.TeacherCourseArrange = {
         });
         //保存排课信息
         $('.save-arrange').click(function () {
-            var postData = $('#add-teacherCourse-form').serializeJson();
-            console.info(postData);
+            CourseArrangeValidator.init();
+            if ($('.course-arrange-form').validate().form()) {
+                var postData = $('#add-teacherCourse-form').serializeJson();
+                console.info(postData);
 
-            //console.log(JSON.stringify(postData));
-            var beginTime = postData.BeginTime, endTime = postData.EndTime;
-            //验证数据 如开始时间和结束时间
-            if (
-                (endTime == null || endTime == "")
-                || (beginTime == null || beginTime == "")
-            ) {
-                abp.notify.warn("请先选择上课时间");
-                $('#BeginTime').focus();
-                return false;
-            }
-
-            if (endTime != null && endTime != "" && beginTime != null && beginTime != "") {
-                if (endTime < beginTime
-                    ||
-                    new Date(endTime).getTime() < new Date(beginTime).getTime()
+                //console.log(JSON.stringify(postData));
+                var beginTime = postData.BeginTime, endTime = postData.EndTime;
+                //验证数据 如开始时间和结束时间
+                if (
+                    (endTime == null || endTime == "")
+                    || (beginTime == null || beginTime == "")
                 ) {
-                    endTime = null;
-                    abp.notify.error("上课时间不能大于下课时间");
-                    abp.ui.clearBusy();
+                    abp.notify.warn("请先选择上课时间");
                     $('#BeginTime').focus();
-                    return;
+                    return false;
                 }
+
+                if (endTime != null && endTime != "" && beginTime != null && beginTime != "") {
+                    if (endTime < beginTime
+                        ||
+                        new Date(endTime).getTime() < new Date(beginTime).getTime()
+                    ) {
+                        endTime = null;
+                        abp.notify.error("上课时间不能大于下课时间");
+                        abp.ui.clearBusy();
+                        $('#BeginTime').focus();
+                        return;
+                    }
+                }
+                postData = $.extend(postData, { "TeacherId": $('#hidTeacherId').val() });
+                if ($(this).attr('crossweek') == 1) {
+                    postData = $.extend(postData, { "CrossWeek": true });
+                }
+                abp.ui.setBusy(
+                    abp.ajax({
+                        context: this,
+                        url: abp.appPath + 'CourseArrange/AddTeacherCourseArrange',
+                        type: 'POST',
+                        data: JSON.stringify(postData) //abp需要进行转换
+                    }).done(function (res) {
+                        console.log(res);
+                        if (typeof res == "string") res = res == "true" ? true : false;
+                        if (res) {// != ''
+                            abp.notify.success("排课成功");
+                            window.location.reload();
+                        } else abp.notify.info("排课失败，请联系管理员");
+                    }).fail(function (error) {
+                        console.info(error);
+                        //abp.notify.error(error.responseText);
+                    })
+                );
             }
-            postData = $.extend(postData, { "TeacherId": $('#hidTeacherId').val() });
-            if ($(this).attr('crossweek') == 1) {
-                postData = $.extend(postData, { "CrossWeek": true});
-            }
-            abp.ui.setBusy(
-                abp.ajax({
-                    context: this,
-                    url: abp.appPath + 'CourseArrange/AddTeacherCourseArrange',
-                    type: 'POST',
-                    data: JSON.stringify(postData) //abp需要进行转换
-                }).done(function (res) {
-                    console.log(res);
-                     if (typeof res == "string") res = res == "true" ? true : false;
-                     if (res) {// != ''
-                        abp.notify.success("排课成功");
-                        window.location.reload();
-                    } else abp.notify.info("排课失败，请联系管理员");
-                }).fail(function (error) {
-                    console.info(error);
-                    //abp.notify.error(error.responseText);
-                })
-            );
         });
 
         //智能搜索

@@ -31,7 +31,12 @@
             width: 360px !important;
         }
         /*如果既要显示日期又要显示分钟 则width:360px 否则76px*/
-        .select-course-condition-table a{text-decoration:none;}
+        .select-course-condition-table a {
+            text-decoration: none;
+        }
+        .datetime {
+            background: #fff!important;
+        }
         /*tr:hover {
             background: red !important;
             #f7fdf0
@@ -206,6 +211,9 @@
 @section Scripts{
     <script src="~/Assets/libsReference/jquery.autocomplete.min.js"></script>
     <script src="~/Assets/libsReference/jquery.datetimepicker/jquery.datetimepicker.js"></script>
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Views/CourseArrange/courseArrange-form-validate.js"></script>
     <script src="~/Assets/js/dateTimeUtil.js"></script>
     @Html.IncludeScript("~/Views/CourseArrange/TeacherCourseArrange.js")
     <script type="text/javascript">

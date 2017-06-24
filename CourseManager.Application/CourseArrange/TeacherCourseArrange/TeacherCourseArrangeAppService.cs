@@ -18,6 +18,7 @@ using CourseManager.Users;
 using Abp.Domain.Uow;
 using CourseManager.Students;
 using CourseManager.Students.Dto;
+using CourseManager.SignIn;
 
 namespace CourseManager.CourseArrange
 {
@@ -30,6 +31,7 @@ namespace CourseManager.CourseArrange
         private readonly IRepository<User, long> _userRepository;
         private readonly ISmtpEmailSender _smtpEmailSender;
         private readonly IUnitOfWorkManager _unitOfWorkManager;
+        private readonly IRepository<SignInRecord, string> _signInRepository;
         public TeacherCourseArrangeAppService(
             IRepository<TeacherCourseArrange, string> teacherCourseArrangeRepository,
             IStudentAppService studentAppService,
@@ -37,7 +39,8 @@ namespace CourseManager.CourseArrange
             ISmtpEmailSender smtpEmailSender,
             INotificationPublisher notificationPublisher,
             IEventBus eventBus,
-            IUnitOfWorkManager unitOfWorkManager
+            IUnitOfWorkManager unitOfWorkManager,
+            IRepository<SignInRecord, string> signInRepository
             )
         {
             this._teacherCourseArrangeRepository = teacherCourseArrangeRepository;
@@ -47,6 +50,7 @@ namespace CourseManager.CourseArrange
             _notificationPublisher = notificationPublisher;
             _eventBus = eventBus;
             this._unitOfWorkManager = unitOfWorkManager;
+            this._signInRepository = signInRepository;
         }
         private IQueryable<TeacherCourseArrange> GetArrangesByCondition(TeacherCourseArrangeInput input)
         {
@@ -92,6 +96,18 @@ namespace CourseManager.CourseArrange
         public List<TeacherCourseArrange2SignInOutput> GetTeacherCourseArrange2SignIn(TeacherCourseArrangeInput input)
         {
             var res = GetArrangesByCondition(input).ToList();
+            List<TeacherCourseArrange> toRemove = new List<TeacherCourseArrange>();
+            foreach (var item in res)
+            {
+                var hasSign = _signInRepository.GetAllList(s => s.CourseArranges == item.Id).Count() > 0;
+                if (hasSign)
+                    toRemove.Add(item);
+            }
+            toRemove.ForEach(o =>
+            {
+                res.Remove(o);
+            });
+
             List<TeacherCourseArrange2SignInOutput> output = new List<TeacherCourseArrange2SignInOutput>();
             foreach (var item in res)
             {

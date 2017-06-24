@@ -2373,6 +2373,7 @@
     </Content>
     <Content Include="Views\Account\Register.js" />
     <Content Include="Views\CourseArrange\StudentCourseArrange\StudentCourseArrange.js" />
+    <Content Include="Views\CourseArrange\courseArrange-form-validate.js" />
     <Content Include="Views\PayCalculation\PayCalculation.js" />
     <Content Include="Views\OfficeHourStatistics\OfficeHourStatistics.js" />
     <Content Include="Views\ClassHourStatistics\ClassHourStatistics.js" />

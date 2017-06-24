@@ -7,8 +7,6 @@
             </h4>
         </div>
         <div class="modal-body" style="min-height:399px;">
-
-
             <div class="form-group">
                 <div class="col-md-6">
                     <label>@L("Students")</label>
@@ -35,7 +33,7 @@
             <div class="form-group">
                 <div class="col-md-6">
                     <label>@L("BeginTime")</label>
-                    @*<input ng-datepicker  type="text" id="BeginTime" class="form-control"  max-date="{{vm.signInRecord.max}}" min-date="{{vm.signInRecord.min}}" ng-model="vm.signInRecord.beginTime" required />*@
+
                     <datetimepicker dateID="timepicker" name="BeginTime" ng-model="vm.signInRecord.beginTime"
                                     format="H:i" id="BeginTime" class="form-control" required></datetimepicker>  @*format="Y/m/d h:i"*@
                                     @*<input type="text" name="BeginTime" class="form-control" ng-model="vm.signInRecord.beginTime" required>*@

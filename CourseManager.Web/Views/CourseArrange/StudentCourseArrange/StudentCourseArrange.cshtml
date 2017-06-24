@@ -34,6 +34,9 @@
         .select-course-condition-table a {
             text-decoration: none;
         }
+        .datetime {
+            background: #fff !important;
+        }
     </style>
 }
 <input type="hidden" id="nowday" name="nowday" />
@@ -198,6 +201,8 @@
     <script src="~/Assets/libsReference/jquery.autocomplete.min.js"></script>
     <script src="~/Assets/libsReference/jquery.datetimepicker/jquery.datetimepicker.js"></script>
     <script src="~/Assets/js/dateTimeUtil.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Views/CourseArrange/courseArrange-form-validate.js"></script>
     @Html.IncludeScript("~/Views/CourseArrange/StudentCourseArrange/StudentCourseArrange.js")
     <script type="text/javascript">
         $(function () {
