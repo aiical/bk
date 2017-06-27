@@ -42,7 +42,7 @@ namespace CourseManager.CourseArrange
         {
             this._studentCourseArrangeRepository = studentCourseArrangeRepository;
             this._studentAppService = studentAppService;
-             _userRepository = userRepository;
+            _userRepository = userRepository;
             _smtpEmailSender = smtpEmailSender;
             _notificationPublisher = notificationPublisher;
             _eventBus = eventBus;
@@ -76,13 +76,13 @@ namespace CourseManager.CourseArrange
         {
             var res = GetArrangesByCondition(input);
             var mapData = res.MapTo<List<StudentCourseArrangeListDto>>();
-          // SetOtherExtendData(mapData);
+            // SetOtherExtendData(mapData);
             return new ListResultDto<StudentCourseArrangeListDto>(mapData);
         }
 
         private void SetOtherExtendData(IEnumerable<StudentCourseArrangeListDto> list)
         {
-           
+
         }
 
         public StudentCourseArrange GetArranage(StudentCourseArrangeInput input)
@@ -129,43 +129,64 @@ namespace CourseManager.CourseArrange
             if (!string.IsNullOrEmpty(input.Id)) result = !string.IsNullOrEmpty(_studentCourseArrangeRepository.Update(arrange).Id);
             else
             {
-                
-                if (input.CrossWeek.Value)
+                if (validDate(input))
                 {
-                    StringBuilder builder = new StringBuilder();
-                    using (var unitOfWork = _unitOfWorkManager.Begin()) //启用工作单元  
+                    if (input.CrossWeek.Value)
                     {
-                        try
+                        StringBuilder builder = new StringBuilder();
+                        using (var unitOfWork = _unitOfWorkManager.Begin()) //启用工作单元  
                         {
-                            var lastDate=CalendarHelper.LastDayOfMonth(input.BeginTime);
-                            var crossTimes = Math.Floor(Convert.ToDecimal((lastDate.Day - input.BeginTime.Day) / 7));
-                            for (int i =0; i <= crossTimes; i++)
+                            try
                             {
-                                var newArrange = input.MapTo<StudentCourseArrange>();
-                                newArrange.Id = IdentityCreator.NewGuid;
-                                newArrange.ArrangeTime = DateTime.Now;
-                                newArrange.CreatorUserId = AbpSession.UserId.Value;
-                                newArrange.StudentId = studentIds;
-                                newArrange.BeginTime = newArrange.BeginTime.Value.AddDays(7*i);
-                                newArrange.EndTime = newArrange.EndTime.Value.AddDays(7*i);
-                                _studentCourseArrangeRepository.Insert(newArrange);
+                                var lastDate = CalendarHelper.LastDayOfMonth(input.BeginTime);
+                                var crossTimes = Math.Floor(Convert.ToDecimal((lastDate.Day - input.BeginTime.Day) / 7));
+                                for (int i = 0; i <= crossTimes; i++)
+                                {
+                                    var newArrange = input.MapTo<StudentCourseArrange>();
+                                    newArrange.Id = IdentityCreator.NewGuid;
+                                    newArrange.ArrangeTime = DateTime.Now;
+                                    newArrange.CreatorUserId = AbpSession.UserId.Value;
+                                    newArrange.StudentId = studentIds;
+                                    newArrange.BeginTime = newArrange.BeginTime.Value.AddDays(7 * i);
+                                    newArrange.EndTime = newArrange.EndTime.Value.AddDays(7 * i);
+                                    _studentCourseArrangeRepository.Insert(newArrange);
+                                }
+                                unitOfWork.Complete(); //提交事务  
                             }
-                            unitOfWork.Complete(); //提交事务  
+                            catch (Exception ex)
+                            {
+                                builder.AppendLine(ex.Message);
+                            }
+                            result = builder.Length == 0;
                         }
-                        catch (Exception ex)
-                        {
-                            builder.AppendLine(ex.Message);
-                        }
-                        result = builder.Length == 0;
+                    }
+                    else
+                    {
+                        result = !string.IsNullOrEmpty(_studentCourseArrangeRepository.Insert(arrange).Id); //.InsertOrUpdate(arrange);
                     }
                 }
-                else
+            }
+
+            return result;
+        }
+
+
+        private bool validDate(CreateStudentCourseArrangeInput input)
+        {
+            var arranges = _studentCourseArrangeRepository.GetAll();
+            var day = input.BeginTime.Day;
+            bool flag = false;
+            foreach (var item in arranges)
+            {
+                if (item.BeginTime.Value.Day == day)//同一天
                 {
-                    result = !string.IsNullOrEmpty(_studentCourseArrangeRepository.Insert(arrange).Id); //.InsertOrUpdate(arrange);
+                    if ((input.BeginTime < item.BeginTime && input.EndTime < input.BeginTime)
+                        || (input.BeginTime > item.EndTime)
+                        )
+                        flag = true;
                 }
             }
-           
-            return result;
+            return flag;
         }
         private string GenerateStudentIds(CreateStudentCourseArrangeInput input)
         {

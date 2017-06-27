@@ -2,7 +2,7 @@
  * name: tm.pagination
  * Version: 0.0.2
  */
-angular.module('tm.pagination', []).directive('tmPagination', [function () {
+angular.module('tm.pagination', []).directive('tmPagination', [function () { //AngularJS 会自动转换这些特性为小写，例如“tmPagination" 指令变成"tm-pagination" (就像内置的指令ngApp, ngController, 和ngModel会转换成 "ng-app", "ng-controller", 和"ng-model"。
     return {
         restrict: 'EA',
         template: '<div class="page-list">' +
@@ -23,10 +23,18 @@ angular.module('tm.pagination', []).directive('tmPagination', [function () {
         '</div>',
         replace: true,
         scope: {
-            conf: '='
+            conf: '=' /*
+            创建指令的作用范围，scope在指令中作为属性标签传递。Scope 是创建可以复用指令的必要条件，每个指令（不论是处于嵌套指令的哪一级）都有其唯一的作用域，它不依赖于父scope。scope 对象定义names 和types 变量。上面的例子即创建了3个scope变量。
+                name: "@" （值传递，单向绑定）：
+                "@"符号表示变量是值传递。指令会检索从父级scope中传递而来字符串中的值。指令可以使用该值但无法修改，是最常用的变量。
+                amount: "=" （引用,双向绑定）
+                "="符号表示变量是引用传递。指令检索主Scope中的引用取值。值可以是任意类型的，包括复合对象和数组。指令可以更改父级Scope中的值，所以当指令需要修改父级Scope中的值时我们就需要使用这种类型。
+                save: "&" (表达式)
+                “&”符号表示变量是在父级Scope中启作用的表达式。它允许指令实现比修改值更高级的操作。*/
         },
-        link: function (scope, element, attrs) {
-
+        link: function (scope, element, attrs) {//在指令中担任重要角色，负责执行DOM操作和注册事件监听器等
+            //参数说明 scope指令scope的引用，scope变量在初始化的时候是不被定义的,link方法会注册监视器监视值变化事件;element 包含指令的DOM元素的引用，link方法一般通过jquery操作实例，（如果没有引用Jquery还可以使用Angular's jqLit）;controller在嵌套指令的情况下使用，这个参数作用在于把子指令的引用提供给父指令，允许指令之间进行交互
+            //当调用link 方法时， 通过值传递（"@"）的scope 变量将不会被初始化，它们将会在指令的生命周期中另一个时间点进行初始化，如果你需要监听这个事件，可以使用scope.$watch 方法。 
             // 变更当前页
             scope.changeCurrentPage = function (item) {
                 if (item == '...') {
@@ -38,7 +46,7 @@ angular.module('tm.pagination', []).directive('tmPagination', [function () {
 
             // 定义分页的长度必须为奇数 (default:9)
             scope.conf.pagesLength = parseInt(scope.conf.pagesLength) ? parseInt(scope.conf.pagesLength) : 9;
-            if (scope.conf.pagesLength % 2 === 0) {
+            if (scopeconf.pagesLength % 2 === 0) {
                 // 如果不是奇数的时候处理一下
                 scope.conf.pagesLength = scope.conf.pagesLength - 1;
             }
