@@ -148,38 +148,42 @@ namespace CourseManager.CourseArrange
                 arrange.Id = IdentityCreator.NewGuid;
                 arrange.ArrangeTime = DateTime.Now;
                 arrange.CreatorUserId = AbpSession.UserId.Value;
-                if (input.CrossWeek != null && input.CrossWeek.Value)
+                result = validDate(input);
+                if (result)
                 {
-                    StringBuilder builder = new StringBuilder();
-                    using (var unitOfWork = _unitOfWorkManager.Begin()) //启用工作单元  
+                    if (input.CrossWeek != null && input.CrossWeek.Value)
                     {
-                        try
+                        StringBuilder builder = new StringBuilder();
+                        using (var unitOfWork = _unitOfWorkManager.Begin()) //启用工作单元  
                         {
-                            var lastDate = CalendarHelper.LastDayOfMonth(input.BeginTime);
-                            var crossTimes = Math.Floor(Convert.ToDecimal((lastDate.Day - input.BeginTime.Day) / 7));
-                            for (int i = 0; i <= crossTimes; i++)
+                            try
                             {
-                                var newArrange = input.MapTo<TeacherCourseArrange>();
-                                newArrange.Id = IdentityCreator.NewGuid;
-                                newArrange.ArrangeTime = DateTime.Now;
-                                newArrange.CreatorUserId = AbpSession.UserId.Value;
-                                newArrange.StudentId = studentIds;
-                                newArrange.BeginTime = newArrange.BeginTime.Value.AddDays(7 * i);
-                                newArrange.EndTime = newArrange.EndTime.Value.AddDays(7 * i);
-                                _teacherCourseArrangeRepository.Insert(newArrange);
+                                var lastDate = CalendarHelper.LastDayOfMonth(input.BeginTime);
+                                var crossTimes = Math.Floor(Convert.ToDecimal((lastDate.Day - input.BeginTime.Day) / 7));
+                                for (int i = 0; i <= crossTimes; i++)
+                                {
+                                    var newArrange = input.MapTo<TeacherCourseArrange>();
+                                    newArrange.Id = IdentityCreator.NewGuid;
+                                    newArrange.ArrangeTime = DateTime.Now;
+                                    newArrange.CreatorUserId = AbpSession.UserId.Value;
+                                    newArrange.StudentId = studentIds;
+                                    newArrange.BeginTime = newArrange.BeginTime.Value.AddDays(7 * i);
+                                    newArrange.EndTime = newArrange.EndTime.Value.AddDays(7 * i);
+                                    _teacherCourseArrangeRepository.Insert(newArrange);
+                                }
+                                unitOfWork.Complete(); //提交事务  
                             }
-                            unitOfWork.Complete(); //提交事务  
+                            catch (Exception ex)
+                            {
+                                builder.AppendLine(ex.Message);
+                            }
+                            result = builder.Length == 0;
                         }
-                        catch (Exception ex)
-                        {
-                            builder.AppendLine(ex.Message);
-                        }
-                        result = builder.Length == 0;
                     }
-                }
-                else
-                {
-                    result = !string.IsNullOrEmpty(_teacherCourseArrangeRepository.Insert(arrange).Id); //.InsertOrUpdate(arrange);
+                    else
+                    {
+                        result = !string.IsNullOrEmpty(_teacherCourseArrangeRepository.Insert(arrange).Id); //.InsertOrUpdate(arrange);
+                    }
                 }
             }
             //只有创建成功才发送邮件和通知
@@ -200,6 +204,39 @@ namespace CourseManager.CourseArrange
             }
             // return result ?? new TeacherCourseArrange();
             return result;
+        }
+        private bool validDate(CreateTeacherCourseArrangeInput input)
+        {
+
+            var crossTimes = 0.0M;
+            if (input.CrossWeek != null && input.CrossWeek.Value)
+            {
+                var lastDate = CalendarHelper.LastDayOfMonth(input.BeginTime);
+                crossTimes = Math.Floor(Convert.ToDecimal((lastDate.Day - input.BeginTime.Day) / 7));
+            }
+            var arranges = _teacherCourseArrangeRepository.GetAll();
+            List<int> days = new List<int>() { input.BeginTime.Day };
+            if (crossTimes > 1)
+            {
+                for (int i = 1; i < crossTimes; i++)
+                {
+                    days.Add(input.BeginTime.AddDays(7 * i).Day);
+                }
+            }
+        
+            var day = input.BeginTime.Day;
+            bool flag = true;
+            foreach (var item in arranges)
+            {
+                if (item.BeginTime.Value != null && days.IndexOf(item.BeginTime.Value.Day) != -1)//同一天
+                {
+                    if ((input.BeginTime >= item.BeginTime && input.BeginTime <= item.EndTime)
+                        || (input.BeginTime <= item.BeginTime && (input.EndTime >= item.BeginTime && input.EndTime <= item.EndTime))
+                        )
+                        flag = false;
+                }
+            }
+            return flag;
         }
         private string GenerateStudentIds(CreateTeacherCourseArrangeInput input)
         {

@@ -86,17 +86,24 @@ namespace CourseManager.Web.Controllers
             ViewBag.CourseType = categorys.Where(c => c.CategoryType == "CourseType").ToList().CreateSelect("CategoryName", "Id", "");
             ViewBag.CourseAddressType = categorys.Where(c => c.CategoryType == "CourseAddressType").ToList().CreateSelect("CategoryName", "Id", "");
 
-            //要加载数据需要先选择老师 初始化页面的时候 数据为空
             var courseArrangeData = new ListResultDto<StudentCourseArrangeListDto>();
+            var now = DateTime.Now;
+            yearMonth = string.IsNullOrEmpty(yearMonth) ? string.Format("{0}-{1}", now.Year, now.Month) : yearMonth;
             if (!string.IsNullOrEmpty(yearMonth))
             {
                 string[] yearMonthArr = yearMonth.Split('-');
                 int year = Convert.ToInt32(yearMonthArr[0]);
                 int month = Convert.ToInt32(yearMonthArr[1]);
                 ViewBag.YearMonth = new DateTime(year, month, 01, 00, 00, 00);
-                courseArrangeData = _studentCourseArrangeAppService.GetArranages(new StudentCourseArrangeInput()
+                if (!string.IsNullOrEmpty(studentId))
+                    courseArrangeData = _studentCourseArrangeAppService.GetArranages(new StudentCourseArrangeInput()
+                    {
+                        StudentId = studentId,
+                        BeginTime = new DateTime(year, month, 01, 00, 00, 00),
+                        EndTime = new DateTime(year, month + 1, 01, 00, 00, 00)
+                    });
+                else courseArrangeData = _studentCourseArrangeAppService.GetArranages(new StudentCourseArrangeInput()
                 {
-                    StudentId = studentId,
                     BeginTime = new DateTime(year, month, 01, 00, 00, 00),
                     EndTime = new DateTime(year, month + 1, 01, 00, 00, 00)
                 });

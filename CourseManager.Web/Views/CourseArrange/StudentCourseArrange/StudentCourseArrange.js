@@ -29,7 +29,7 @@ Bk.StudentCourseArrange = {
             CourseArrangeValidator.init();
             if ($('.course-arrange-form').validate().form()) {
                 var postData = $('#add-studentCourse-form').serializeJson();
-                console.info(postData);
+                //console.info(postData);
 
                 //console.log(JSON.stringify(postData));
                 var beginTime = postData.BeginTime, endTime = postData.EndTime;
@@ -55,7 +55,7 @@ Bk.StudentCourseArrange = {
                         return;
                     }
                 }
-                postData = $.extend(postData, { "StudentId": $('#hidStudentId').val() });
+                //postData = $.extend(postData, { "StudentId": $('#hidStudentId').val() });
                 if ($(this).attr('crossweek') == 1) {
                     postData = $.extend(postData, { "CrossWeek": true });
                 }
@@ -66,12 +66,12 @@ Bk.StudentCourseArrange = {
                         type: 'POST',
                         data: JSON.stringify(postData) //abp需要进行转换
                     }).done(function (res) {
-                        console.log(res);
+                        console.log(typeof res);
                         if (typeof res == "string") res = res == "true" ? true : false;
                         if (res) {// != ''
                             abp.notify.success("排课成功");
                             window.location.reload();
-                        } else abp.notify.info("排课失败，请联系管理员");
+                        } else abp.notify.warn("排课时间可能存在冲突,请重新选择时间");
                     }).fail(function (error) {
                         console.info(error);
                         //abp.notify.error(error.responseText);

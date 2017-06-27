@@ -94,7 +94,7 @@ Bk.TeacherCourseArrange = {
                         if (res) {// != ''
                             abp.notify.success("排课成功");
                             window.location.reload();
-                        } else abp.notify.info("排课失败，请联系管理员");
+                        } else abp.notify.warn("排课时间存在冲突 请重新调整时间");
                     }).fail(function (error) {
                         console.info(error);
                         //abp.notify.error(error.responseText);

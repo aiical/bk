@@ -54,9 +54,8 @@ namespace CourseManager.CourseArrange
             var query = _studentCourseArrangeRepository.GetAll()
                         .WhereIf(!input.Id.IsNullOrEmpty(), o => o.Id == input.Id)
                          .WhereIf(!input.StudentId.IsNullOrEmpty(), o => o.StudentId == input.StudentId)
-                        .WhereIf(!input.ClassType.IsNullOrEmpty(), t => t.ClassType == input.Filter)
                         .WhereIf(input.BeginTime != null, o => o.BeginTime.Value > input.BeginTime)
-                        .WhereIf(input.BeginTime != null && input.EndTime != null, o => (input.BeginTime < o.BeginTime.Value && o.EndTime.Value < input.EndTime))
+                        .WhereIf(input.EndTime != null, o => o.EndTime.Value < input.EndTime)
                         .Where(o => o.IsDeleted == false);
             query = string.IsNullOrEmpty(input.Sorting)
                         ? query.OrderBy(t => t.BeginTime)
@@ -129,9 +128,13 @@ namespace CourseManager.CourseArrange
             if (!string.IsNullOrEmpty(input.Id)) result = !string.IsNullOrEmpty(_studentCourseArrangeRepository.Update(arrange).Id);
             else
             {
-                if (validDate(input))
+                arrange.Id = IdentityCreator.NewGuid;
+                arrange.ArrangeTime = DateTime.Now;
+                arrange.CreatorUserId = AbpSession.UserId.Value;
+                result = validDate(input);
+                if (result)
                 {
-                    if (input.CrossWeek.Value)
+                    if (input.CrossWeek != null && input.CrossWeek.Value)
                     {
                         StringBuilder builder = new StringBuilder();
                         using (var unitOfWork = _unitOfWorkManager.Begin()) //启用工作单元  
@@ -173,17 +176,30 @@ namespace CourseManager.CourseArrange
 
         private bool validDate(CreateStudentCourseArrangeInput input)
         {
+            var crossTimes = 0.0M;
+            if (input.CrossWeek != null && input.CrossWeek.Value)
+            {
+                var lastDate = CalendarHelper.LastDayOfMonth(input.BeginTime);
+                crossTimes = Math.Floor(Convert.ToDecimal((lastDate.Day - input.BeginTime.Day) / 7));
+            }
             var arranges = _studentCourseArrangeRepository.GetAll();
-            var day = input.BeginTime.Day;
-            bool flag = false;
+            List<int> days = new List<int>() { input.BeginTime.Day };
+            if (crossTimes > 1)
+            {
+                for (int i = 1; i < crossTimes; i++)
+                {
+                    days.Add(input.BeginTime.AddDays(7 * i).Day);
+                }
+            }
+            bool flag = true;
             foreach (var item in arranges)
             {
-                if (item.BeginTime.Value.Day == day)//同一天
+                if (item.BeginTime.Value != null && days.IndexOf(item.BeginTime.Value.Day) != -1)//同一天
                 {
-                    if ((input.BeginTime < item.BeginTime && input.EndTime < input.BeginTime)
-                        || (input.BeginTime > item.EndTime)
+                    if ((input.BeginTime >= item.BeginTime && input.BeginTime <= item.EndTime)
+                        || (input.BeginTime <= item.BeginTime && (input.EndTime >= item.BeginTime && input.EndTime <= item.EndTime))
                         )
-                        flag = true;
+                        flag = false;
                 }
             }
             return flag;
