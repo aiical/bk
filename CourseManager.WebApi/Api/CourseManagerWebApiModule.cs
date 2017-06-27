@@ -9,6 +9,8 @@ using Swashbuckle.Application;
 using System;
 using System.IO;
 using System.Linq;
+using System.Web.Http.Cors;
+
 namespace CourseManager.Api
 {
     [DependsOn(typeof(AbpWebApiModule), typeof(CourseManagerApplicationModule))]
@@ -25,6 +27,10 @@ namespace CourseManager.Api
             //    .For<IStudentAppService>("app/student")
             //    .Build();
             Configuration.Modules.AbpWebApi().HttpConfiguration.Filters.Add(new HostAuthenticationFilter("Bearer"));
+
+            //解决跨域问题： 来源-http://www.cnblogs.com/farb/p/ABPWebAPICrossDomain.html
+            var cors = new EnableCorsAttribute("*", "*", "*");
+            GlobalConfiguration.Configuration.EnableCors(cors);
             ConfigureSwaggerUi();
         }
 
