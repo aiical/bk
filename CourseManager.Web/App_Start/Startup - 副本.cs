@@ -11,6 +11,7 @@ using Microsoft.Owin.Security.Cookies;
 //using Microsoft.Owin.Security.Twitter;
 using Owin;
 using Hangfire;
+using Abp.Hangfire;
 
 [assembly: OwinStartup(typeof(Startup))]
 
@@ -30,10 +31,13 @@ namespace CourseManager.Web
                 LoginPath = new PathString("/Account/Login")
             });
 
-            GlobalConfiguration.Configuration.UseSqlServerStorage("default");
-            app.UseHangfireDashboard();
-            app.UseHangfireServer();
-            BackgroundJob.Enqueue(() => Console.WriteLine("Fire-and-forget"));
+            //Hangfire可以提供一个面板页面，实时显示所有后台作业的状态，你可以按它自己的文档描述那样配置，默认情况下，所有用户都可以使用这个面板页面，不需要授权，你可以用定义在Abp.HangFire包里的AbphangfireAuthorizationFilter类，把它集成到ABP的授权系统里
+            app.UseHangfireDashboard("/hangfire", new DashboardOptions
+            {
+                Authorization=new[] {new AbpHangfireAuthorizationFilter() } //如果需要得到一个额外的许可可以再 AbpHangfireAuthorizationFilter 构造函数中传参数 MyHangFireDashboardPermissionName
+            });
+            //注意：UsehangifreDashboard应该在你的Startup类里的授权中间件运行后调用（可能是在最后一行）。否则，授权会一直失败。
+
             //app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             //if (IsTrue("ExternalAuth.Facebook.IsEnabled"))

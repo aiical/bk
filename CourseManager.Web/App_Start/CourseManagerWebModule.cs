@@ -12,6 +12,8 @@ using CourseManager.Api;
 using Hangfire;
 using Abp.Configuration.Startup;
 using System;
+using Abp.Threading.BackgroundWorkers;
+using CourseManager.HangfireTest;
 
 namespace CourseManager.Web
 {
@@ -58,6 +60,15 @@ namespace CourseManager.Web
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+        }
+        /// <summary>
+        /// 虽然一般我们将工作者添加到PostInitialize方法中，但是没有强制要求。你可以在任何地方注入IBackgroundWorkerManager，在运行时添加工作者。当应用要关闭时，IBackgroundWorkerManager会停止并释放所有注册的工作者
+        /// </summary>
+
+        public override void PostInitialize()
+        {
+            var workManager = IocManager.Resolve<IBackgroundWorkerManager>();
+            workManager.Add(IocManager.Resolve<MakeInactiveUsersPassiveWorker>());
         }
     }
 }

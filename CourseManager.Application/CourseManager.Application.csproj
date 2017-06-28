@@ -167,6 +167,11 @@
     <Compile Include="Dto\PagedSortedAndFilteredInputDto.cs" />
     <Compile Include="File\FileAppService.cs" />
     <Compile Include="File\IFileAppService.cs" />
+    <Compile Include="HangfireTest\Dto\SendEamilInput.cs" />
+    <Compile Include="HangfireTest\IMyEmailAppService.cs" />
+    <Compile Include="HangfireTest\MakeInactiveUsersPassiveWorker.cs" />
+    <Compile Include="HangfireTest\MyEmailAppService.cs" />
+    <Compile Include="HangfireTest\SimpleSendEmailJob.cs" />
     <Compile Include="MultiTenancy\Dto\CreateTenantInput.cs" />
     <Compile Include="MultiTenancy\ITenantAppService.cs" />
     <Compile Include="MultiTenancy\Dto\TenantListDto.cs" />
