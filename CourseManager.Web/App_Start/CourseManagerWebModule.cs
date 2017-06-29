@@ -15,7 +15,7 @@ using System;
 using Abp.Threading.BackgroundWorkers;
 using CourseManager.HangfireTest;
 using CourseManager.AuditLog;
-
+using Abp.Runtime.Caching.Redis;
 namespace CourseManager.Web
 {
     [DependsOn(
@@ -24,11 +24,14 @@ namespace CourseManager.Web
         typeof(CourseManagerWebApiModule),
         // typeof(AbpWebSignalRModule),
         typeof(AbpHangfireModule), //-ENABLE TO USE HANGFIRE INSTEAD OF DEFAULT JOB MANAGER
-        typeof(AbpWebMvcModule))]
+        typeof(AbpWebMvcModule),
+        typeof(AbpRedisCacheModule)
+        )]
     public class CourseManagerWebModule : AbpModule
     {
         public override void PreInitialize()
         {
+            Configuration.Caching.UseRedis();
             //Enable database based localization
             Configuration.Modules.Zero().LanguageManagement.EnableDbLocalization();
 

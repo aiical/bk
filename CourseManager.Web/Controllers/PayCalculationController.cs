@@ -12,6 +12,7 @@ using System.Web;
 using System.Web.Mvc;
 using CourseManager.Web.Models.PayCalculation;
 using CourseManager.Students;
+using Abp.Runtime.Caching;
 
 namespace CourseManager.Web.Controllers
 {
@@ -20,11 +21,15 @@ namespace CourseManager.Web.Controllers
     {
         private readonly IClassHourStatisticsAppService _teacherClassHoursStatisticsAppService;
         private readonly IStudentAppService _studentAppService;
-        public PayCalculationController(IClassHourStatisticsAppService teacherClassHoursStatisticsAppService
-            , IStudentAppService studentAppService)
+        private readonly ICacheManager _cacheManager;
+        public PayCalculationController(
+            IClassHourStatisticsAppService teacherClassHoursStatisticsAppService
+            , IStudentAppService studentAppService
+            , ICacheManager cacheManager)
         {
             this._teacherClassHoursStatisticsAppService = teacherClassHoursStatisticsAppService;
             this._studentAppService = studentAppService;
+            this._cacheManager = cacheManager;
         }
 
         public ActionResult PayCalculation()
@@ -104,6 +109,26 @@ namespace CourseManager.Web.Controllers
             vm.AllOfficeHoursBonus = totalOfficeHours >= CourseManagerConsts.JuneOfficeHours ? CourseManagerConsts.AllOfficeHoursBonus : 0.0M;
 
             #region 统计各个学生当前月需要上课多少个小时 以及续学学生
+            CountUpStudentCourses(input, result, vm);
+            #endregion
+
+            ResultData data = new ResultData()
+            {
+                returnData = new Dictionary<string, object> {
+                    { "result",vm}
+                }
+            };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 统计各个学生当前月需要上课多少个小时 以及续学学生
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="result"></param>
+        /// <param name="vm"></param>
+        private void CountUpStudentCourses(ClassHourStatisticsInput input, IReadOnlyList<ClassHourStatisticsOutput> result, PayCalculationViewModel vm)
+        {
             var result2DealAbsentFee = from p in result
                                        where p.BeginTime > input.BeginTime && p.EndTime <= input.EndTime
                                        select p;
@@ -126,7 +151,9 @@ namespace CourseManager.Web.Controllers
 
             var absentHoursFee = new Dictionary<string, PayCalculation2StuViewModel>();
             var renewFee = new List<string>();//续学记录
-            var stus = _studentAppService.GetStudents().Items;
+
+            var stus = _cacheManager.GetCache("ControllerCache").Get("AllStudents", () => _studentAppService.GetStudents().Items);
+            //  var stus = _studentAppService.GetStudents().Items;
             foreach (var item in allGroupHours)
             {
                 foreach (var absent in allGroupAbsentHours)
@@ -168,15 +195,6 @@ namespace CourseManager.Web.Controllers
 
             vm.RenewNum = renewFee.Count;
             vm.RenewFee = vm.RenewNum > 0 ? vm.RenewNum * CourseManagerConsts.RenewBonus : 0;
-            #endregion
-
-            ResultData data = new ResultData()
-            {
-                returnData = new Dictionary<string, object> {
-                    { "result",vm}
-                }
-            };
-            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
 }
