@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cache\CacheKeys.cs" />
+    <Compile Include="Domains\AuditLog\AuditLogs.cs" />
     <Compile Include="Domains\Category\Categorys.cs" />
     <Compile Include="Domains\CourseArrange\AddTeacherCourseArrangeEventData.cs" />
     <Compile Include="Domains\CourseArrange\StudentCourseArrange\StudentCourseArrange.cs" />

@@ -136,6 +136,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuditLog\Dto\UpdateAuditLogInput.cs" />
+    <Compile Include="AuditLog\IAuditLogAppService.cs" />
+    <Compile Include="AuditLog\AuditLogAppService.cs" />
     <Compile Include="Category\CategorysAppService.cs" />
     <Compile Include="Category\Dtos\CategorysCreateInput.cs" />
     <Compile Include="Category\Dtos\CategorysDto.cs" />

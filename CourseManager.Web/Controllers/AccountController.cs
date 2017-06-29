@@ -24,6 +24,9 @@ using CourseManager.Web.Models.Account;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Hangfire;
+using Abp.Dependency;
+using CourseManager.AuditLog;
 
 namespace CourseManager.Web.Controllers
 {
@@ -35,7 +38,6 @@ namespace CourseManager.Web.Controllers
         private readonly IUnitOfWorkManager _unitOfWorkManager;
         private readonly IMultiTenancyConfig _multiTenancyConfig;
         private readonly LogInManager _logInManager;
-
         private IAuthenticationManager AuthenticationManager
         {
             get
@@ -103,8 +105,9 @@ namespace CourseManager.Web.Controllers
                 }
                 return Json(new AjaxResponse { TargetUrl = returnUrl });
             }
-            else {
-                return Json(new AjaxResponse {Success=false,Result=(int)loginResult.Result, TargetUrl = returnUrl });
+            else
+            {
+                return Json(new AjaxResponse { Success = false, Result = (int)loginResult.Result, TargetUrl = returnUrl });
             }
         }
 

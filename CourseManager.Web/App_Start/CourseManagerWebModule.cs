@@ -14,6 +14,7 @@ using Abp.Configuration.Startup;
 using System;
 using Abp.Threading.BackgroundWorkers;
 using CourseManager.HangfireTest;
+using CourseManager.AuditLog;
 
 namespace CourseManager.Web
 {
@@ -22,7 +23,7 @@ namespace CourseManager.Web
         typeof(CourseManagerApplicationModule),
         typeof(CourseManagerWebApiModule),
         // typeof(AbpWebSignalRModule),
-        //typeof(AbpHangfireModule), - ENABLE TO USE HANGFIRE INSTEAD OF DEFAULT JOB MANAGER
+        typeof(AbpHangfireModule), //-ENABLE TO USE HANGFIRE INSTEAD OF DEFAULT JOB MANAGER
         typeof(AbpWebMvcModule))]
     public class CourseManagerWebModule : AbpModule
     {
@@ -44,7 +45,7 @@ namespace CourseManager.Web
             {
                 cache.DefaultSlidingExpireTime = TimeSpan.FromMinutes(10);
             });
-            Configuration.Auditing.IsEnabled = false;
+            Configuration.Auditing.IsEnabled = false; //记录访问日志
             //Configuration.Modules.AbpWebCommon().MultiTenancy.DomainFormat = WebUrlService.WebSiteRootAddress;
             //Configure Hangfire - ENABLE TO USE HANGFIRE INSTEAD OF DEFAULT JOB MANAGER
             //Configuration.BackgroundJobs.UseHangfire(configuration =>
