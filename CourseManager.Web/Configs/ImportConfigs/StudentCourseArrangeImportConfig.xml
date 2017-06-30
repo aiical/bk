@@ -1,51 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <root>
 	<TableMapping excelSheet="Sheet1">
-    <ColumnMapping>
-      <sqlCol>Number</sqlCol>
-      <excelCol>A</excelCol>
-      <inherit>false</inherit>
-    </ColumnMapping>
 		<ColumnMapping>
 			<sqlCol>StudentName</sqlCol>
+			<excelCol>A</excelCol>
+			<inherit>false</inherit>
+		</ColumnMapping>
+		<ColumnMapping>
+			<sqlCol>ClassType</sqlCol>
 			<excelCol>B</excelCol>
 			<inherit>false</inherit>
 		</ColumnMapping>
 		<ColumnMapping>
-			<sqlCol>ContryAndSchool</sqlCol>
+			<sqlCol>CourseType</sqlCol>
 			<excelCol>C</excelCol>
 			<inherit>false</inherit>
 		</ColumnMapping>
 		<ColumnMapping>
-			<sqlCol>SchoolLevel</sqlCol>
+			<sqlCol>CourseAddressType</sqlCol>
 			<excelCol>D</excelCol>
 			<inherit>false</inherit>
 		</ColumnMapping>
-    <ColumnMapping>
-      <sqlCol>Profession</sqlCol>
-      <excelCol>E</excelCol>
-      <inherit>false</inherit>
-    </ColumnMapping>
 		<ColumnMapping>
-			<sqlCol>AcademicBackground</sqlCol>
+			<sqlCol>Address</sqlCol>
+			<excelCol>E</excelCol>
+			<inherit>false</inherit>
+		</ColumnMapping>
+		<ColumnMapping>
+			<sqlCol>BeginTime</sqlCol>
 			<excelCol>F</excelCol>
 			<inherit>false</inherit>
 		</ColumnMapping>
 		<ColumnMapping>
-			<sqlCol>ApplySchool</sqlCol>
+			<sqlCol>EndTime</sqlCol>
 			<excelCol>G</excelCol>
 			<inherit>false</inherit>
 		</ColumnMapping>
 		<ColumnMapping>
-			<sqlCol>PassedSchool</sqlCol>
+			<sqlCol>Remark</sqlCol>
 			<excelCol>H</excelCol>
 			<inherit>false</inherit>
 		</ColumnMapping>
-		<ColumnMapping>
-			<sqlCol>Description</sqlCol>
-			<excelCol>I</excelCol>
-			<inherit>false</inherit>
-		</ColumnMapping>
-    
   </TableMapping>
 </root>

@@ -35,47 +35,7 @@
     @Styles.Render("~/Bundles/App/Main/css")
     @RenderSection("Styles", false)
 
-    <script type="text/javascript">
-        //This is used to get the application's root path from javascript. It's useful if you're running application in a virtual directory under IIS.
-        var abp = abp || {}; abp.appPath = '@ApplicationPath';
-    </script>
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-        @Html.IncludeScript("~/Scripts/others/html5shiv.js")
-        @Html.IncludeScript("~/Scripts/others/respond.min.js")
-    <![endif]-->
-
-
-    @Html.IncludeScript("~/Abp/Framework/scripts/utils/ie10fix.js")
-    @Html.IncludeScript("~/Scripts/modernizr-2.8.3.js")
-
-    @Html.IncludeScript("~/Scripts/json2.min.js")
-    @Html.IncludeScript("~/Scripts/jquery-2.2.0.min.js")
-    @Html.IncludeScript("~/Scripts/jquery-ui-1.11.4.min.js")
-    @Html.IncludeScript("~/Scripts/bootstrap.min.js")
-
-    @Html.IncludeScript("~/Scripts/jquery.validate.min.js")
-    @Html.IncludeScript("~/Scripts/jquery.blockUI.js")
-    @Html.IncludeScript("~/Scripts/toastr.min.js")
-    @Html.IncludeScript("~/Scripts/others/spinjs/spin.js")
-    @Html.IncludeScript("~/Scripts/others/spinjs/jquery.spin.js")
-    @Html.IncludeScript("~/Scripts/sweetalert/sweet-alert.min.js")
-
-    @Html.IncludeScript("~/Abp/Framework/scripts/abp.js")
-    @Html.IncludeScript("~/Abp/Framework/scripts/libs/abp.jquery.js")
-    @Html.IncludeScript("~/Abp/Framework/scripts/libs/abp.toastr.js")
-    @Html.IncludeScript("~/Abp/Framework/scripts/libs/abp.blockUI.js")
-    @Html.IncludeScript("~/Abp/Framework/scripts/libs/abp.spin.js")
-    @Html.IncludeScript("~/Abp/Framework/scripts/libs/abp.sweet-alert.js")
-
-    <!-- Dynamic scripts of ABP system (They are created on runtime and can not be bundled) -->
-    <script src="~/api/AbpServiceProxies/GetAll?v=@(Clock.Now.Ticks)"></script>
-    <script src="~/AbpScripts/GetScripts?v=@(Clock.Now.Ticks)" type="text/javascript"></script>
-    @*highCharts cdn*@
-    <script src="https://cdn.hcharts.cn/highcharts/highcharts.js"></script>
-    <script src="~/Assets/js/tool.js"></script>
-    @RenderSection("Scripts", false)
+    
 </head>
 <body>
     <div id="bodyWrapper">
@@ -89,6 +49,50 @@
         </div>
         @Html.Partial("_Footer")
 
+
+        @*<recommend script position>*@
+        @*尽管脚本下载会阻塞另外一个脚本，但是页面大部分内容已经下载并显示给用户了，因此页面下载不会太慢，这个是雅虎性能小组提出 参见高性能javascript*@
+        <script type="text/javascript">
+        //This is used to get the application's root path from javascript. It's useful if you're running application in a virtual directory under IIS.
+        var abp = abp || {}; abp.appPath = '@ApplicationPath';
+        </script>
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        @Html.IncludeScript("~/Scripts/others/html5shiv.js")
+        @Html.IncludeScript("~/Scripts/others/respond.min.js")
+    <![endif]-->
+
+
+        @Html.IncludeScript("~/Abp/Framework/scripts/utils/ie10fix.js")
+        @Html.IncludeScript("~/Scripts/modernizr-2.8.3.js")
+
+        @Html.IncludeScript("~/Scripts/json2.min.js")
+        @Html.IncludeScript("~/Scripts/jquery-2.2.0.min.js")
+        @Html.IncludeScript("~/Scripts/jquery-ui-1.11.4.min.js")
+        @Html.IncludeScript("~/Scripts/bootstrap.min.js")
+
+        @Html.IncludeScript("~/Scripts/jquery.validate.min.js")
+        @Html.IncludeScript("~/Scripts/jquery.blockUI.js")
+        @Html.IncludeScript("~/Scripts/toastr.min.js")
+        @Html.IncludeScript("~/Scripts/others/spinjs/spin.js")
+        @Html.IncludeScript("~/Scripts/others/spinjs/jquery.spin.js")
+        @Html.IncludeScript("~/Scripts/sweetalert/sweet-alert.min.js")
+
+        @Html.IncludeScript("~/Abp/Framework/scripts/abp.js")
+        @Html.IncludeScript("~/Abp/Framework/scripts/libs/abp.jquery.js")
+        @Html.IncludeScript("~/Abp/Framework/scripts/libs/abp.toastr.js")
+        @Html.IncludeScript("~/Abp/Framework/scripts/libs/abp.blockUI.js")
+        @Html.IncludeScript("~/Abp/Framework/scripts/libs/abp.spin.js")
+        @Html.IncludeScript("~/Abp/Framework/scripts/libs/abp.sweet-alert.js")
+
+        <!-- Dynamic scripts of ABP system (They are created on runtime and can not be bundled) -->
+        <script src="~/api/AbpServiceProxies/GetAll?v=@(Clock.Now.Ticks)"></script>
+        <script src="~/AbpScripts/GetScripts?v=@(Clock.Now.Ticks)" type="text/javascript"></script>
+        @*highCharts cdn*@
+        <script src="https://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+        <script src="~/Assets/js/tool.js"></script>
+        @RenderSection("Scripts", false)
     </div>
 </body>
 </html>

@@ -18,7 +18,6 @@ using CourseManager.Users;
 using Abp.Domain.Uow;
 using CourseManager.Students;
 using CourseManager.Students.Dto;
-
 namespace CourseManager.CourseArrange
 {
     public class StudentCourseArrangeAppService : CourseManagerAppServiceBase, IStudentCourseArrangeAppService
@@ -222,6 +221,26 @@ namespace CourseManager.CourseArrange
         public bool UpdateCourseArrange(StudentCourseArrange updateModel)
         {
             return !string.IsNullOrEmpty(_studentCourseArrangeRepository.Update(updateModel).Id);
+        }
+
+        /// <summary>
+        /// 批量保存
+        /// </summary>
+        /// <param name="list"></param>
+        public void BatchInsert(List<CreateStudentCourseArrangeInput> list)
+        {
+            if (list.Any())
+            {
+                list.MapTo<List<StudentCourseArrange>>().ForEach(o =>
+                {
+                    SetOtherData(o);
+                    _studentCourseArrangeRepository.Insert(o);
+                });
+            }
+        }
+
+        private void SetOtherData(StudentCourseArrange model)
+        {
         }
     }
 }

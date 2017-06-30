@@ -69,7 +69,7 @@ namespace CourseManager.Web
                 r.Run(context =>
                 {
                     //任务每分钟执行一次
-                    RecurringJob.AddOrUpdate(() => Console.WriteLine($"ASP.NET Core LineZero"), Cron.Minutely());
+                    RecurringJob.AddOrUpdate(() => Console.WriteLine($"ASP.NET Core LineZero"), Cron.Daily());
                     return context.Response.WriteAsync("ok");
                 });
             });
@@ -89,7 +89,7 @@ namespace CourseManager.Web
                 r.Run(context =>
                 {
                     //任务延时两分钟执行
-                    BackgroundJob.Schedule(() => Console.WriteLine($"ASP.NET Core await LineZero{DateTime.Now}"), TimeSpan.FromMinutes(2));
+                    BackgroundJob.Schedule(() => Console.WriteLine($"ASP.NET Core await LineZero{DateTime.Now}"), TimeSpan.FromDays(2));//TimeSpan.FromMinutes(2)
                     return context.Response.WriteAsync("ok");
                 });
             });

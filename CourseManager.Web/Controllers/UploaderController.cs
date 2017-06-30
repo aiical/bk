@@ -3,6 +3,8 @@ using CourseManager.Application.Utils.Upload;
 using CourseManager.Common;
 using CourseManager.Core.EntitiesFromCustom;
 using CourseManager.File;
+using System;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -10,13 +12,8 @@ namespace CourseManager.Web.Controllers
 {
     public class UploaderController : CourseManagerControllerBase
     {
-        private IFileAppService _fileAppService = null;
-        public UploaderController(IFileAppService fileAppService)
-        {
-            this._fileAppService = fileAppService;
-        }
         /// <summary>
-        /// 上传图片，软实力项目的详情页面的图片
+        /// 上传文件
         /// </summary>
         /// <param name="flag"></param>
         /// <param name="exts"></param>
@@ -31,51 +28,59 @@ namespace CourseManager.Web.Controllers
         [HttpPost]
         public JsonResult UploadFile(string flag, string exts, string inputName, string inputId, string dpi, string videoCoverDpi, string base64String, string fileName, bool multi = false)
         {
-            UploadifyResult uploadifyResult = new DealWithUploadFileHelper().DealWithUploadFile(base64String, flag, dpi, videoCoverDpi, fileName); //返回类
-            uploadifyResult.inputName = inputName;
-            uploadifyResult.inputId = inputId;
-            uploadifyResult.multi = multi;
-            return AbpJson(data: uploadifyResult, wrapResult: false, camelCase: false);
+            try
+            {
+                UploadifyResult uploadifyResult = new DealWithUploadFileHelper().DealWithUploadFile(base64String, flag, dpi, videoCoverDpi, fileName); //返回类
+                uploadifyResult.inputName = inputName;
+                uploadifyResult.inputId = inputId;
+                uploadifyResult.multi = multi;
+                return Json(uploadifyResult);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+                return Json(new UploadifyResult() { isSuccess = false, msg = ex.Message });
+            }
         }
-
-        [AbpMvcAuthorize]
-        /// <summary>
-        /// 手动根据尺寸生成图片
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult CreateImgByTypeAndDpi(string cateType, string dpi)
+        public ActionResult CreateImgByFolderPathAndDpi(string folderPath, string dpi)
         {
             int count = 0;
-            if (!string.IsNullOrWhiteSpace(cateType) && !string.IsNullOrWhiteSpace(dpi))
+            var path = Server.MapPath(Request.ApplicationPath + folderPath);
+            DirectoryInfo folder = new DirectoryInfo(path);
+            string fileFullName;
+            dpi = dpi.ToUpper();
+            int[] dpiWAndH = dpi.Split('X').Select(o => int.Parse(o)).Where(w => w > 0).ToArray();
+            foreach (FileInfo file in folder.GetFiles())
             {
-                dpi = dpi.ToUpper();
-                int[] dpiWAndH = dpi.Split('X').Select(o => int.Parse(o)).Where(w => w > 0).ToArray();
-                if (dpiWAndH != null && dpiWAndH.Length == 2)
+                fileFullName = file.FullName;
+                if (fileFullName.IndexOf(dpi, StringComparison.Ordinal) == -1)
                 {
-                    if (dpi.StartsWith("-") == false)
+                    if (dpiWAndH != null && dpiWAndH.Length == 2)
                     {
-                        dpi = string.Concat("-", dpi);
-                    }
-                    var files = _fileAppService.GetFilesList(f => f.CategoryType == cateType).ToList();
-                    if (files.Any())
-                    {
-                        foreach (var file in files)
+                        if (dpi.StartsWith("-") == false)
                         {
-                            string sourcePath = WebHelper.GetMapPath(file.Url);
-                            if (System.IO.File.Exists(sourcePath))
+                            dpi = string.Concat("-", dpi);
+                        }
+                        if (System.IO.File.Exists(fileFullName))
+                        {
+                            string descPath = fileFullName.Insert(fileFullName.LastIndexOf('.'), dpi);
+                            if (System.IO.File.Exists(descPath) == false)
                             {
-                                string descPath = sourcePath.Insert(sourcePath.LastIndexOf('.'), dpi);
-                                if (System.IO.File.Exists(descPath) == false)
-                                {
-                                    count++;
-                                    ThumbnailHelper.GenerateImage2(sourcePath, descPath, dpiWAndH[0], dpiWAndH[1]);
-                                }
+                                count++;
+                                ThumbnailHelper.GenerateImage2(fileFullName, descPath, dpiWAndH[0], dpiWAndH[1]);
                             }
                         }
                     }
                 }
             }
-            return Content(string.Format("{0}--变更了尺寸{1}的图片{2}张", cateType, dpi, count));
+            return Content("生成缩略图总计：" + count);
+        }
+
+
+        public ActionResult DealWithVideoByTypeAndPath(string dir, string filename, string cateType, string relateId)
+        {
+
+            return Content("");
         }
     }
 }

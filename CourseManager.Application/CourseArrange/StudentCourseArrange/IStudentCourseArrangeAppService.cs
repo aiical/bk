@@ -32,5 +32,11 @@ namespace CourseManager.CourseArrange
 
         bool UpdateCourseArrange(UpdateStudentCourseArrangeInput updateInput);
         bool UpdateCourseArrange(StudentCourseArrange updateModel);
+
+        /// <summary>
+        /// 批量保存
+        /// </summary>
+        /// <param name="list"></param>
+        void BatchInsert(List<CreateStudentCourseArrangeInput> list);
     }
 }

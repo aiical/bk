@@ -184,11 +184,11 @@ namespace CourseManager.Common.Config
 
             #region 成功案例导入配置
 
-            public string SuccessCaseImportConfig
+            public string StudentCourseArrangeImportConfig
             {
                 get
                 {
-                    return GetWebSettingValueByKey("SuccessCaseImportConfig", "/Configs/ImportConfigs/SuccessCaseImportConfig.xml");
+                    return GetWebSettingValueByKey("StudentCourseArrangeImportConfig", "/Configs/ImportConfigs/StudentCourseArrangeImportConfig.xml");
                 }
             }
             #endregion

@@ -1,10 +1,11 @@
 ﻿using Abp.AutoMapper;
+using Abp.Runtime.Validation;
 using System;
 
 namespace CourseManager.CourseArrange.Dto
 {
     [AutoMap(typeof(StudentCourseArrange))]
-    public class CreateStudentCourseArrangeInput
+    public class CreateStudentCourseArrangeInput : ICustomValidate
     {
         public string Id { get; set; }
         /// <summary>
@@ -44,9 +45,20 @@ namespace CourseManager.CourseArrange.Dto
         /// </summary>
         public bool? CrossWeek { get; set; }
 
+
+        public int TenantId { get; set; }
+
+        public DateTime CreationTime { get; set; }
         public CreateStudentCourseArrangeInput()
         {
-            this.CourseStatus = "Normal";
+            CourseStatus = "Normal";
+            CreationTime = DateTime.Now;
+            TenantId = 1;
+        }
+
+        public void AddValidationErrors(CustomValidationContext context)
+        {
+            throw new NotImplementedException();
         }
     }
 }
