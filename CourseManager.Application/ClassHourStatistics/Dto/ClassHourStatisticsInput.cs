@@ -25,5 +25,8 @@ namespace CourseManager.ClassHourStatistics.Dto
         /// </summary>
 
         public string TeacherName { get; set; }
+
+        public long? TeacherId { get; set; }
+        public string StudentId { get; set; }
     }
 }

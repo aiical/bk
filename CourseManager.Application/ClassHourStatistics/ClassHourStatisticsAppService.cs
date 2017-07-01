@@ -35,7 +35,10 @@ namespace CourseManager.ClassHourStatistics
         private IQueryable<SignInRecord> GetArrangesByCondition(ClassHourStatisticsInput input)
         {
             var query = _signInRepository.GetAll()
-                        .WhereIf(!input.Filter.IsNullOrEmpty(), t => t.Type == input.Filter)
+                 //.WhereIf(input.TeacherId!=null,t=>t.TeacherId==input.TeacherId.Value)
+                 .WhereIf(!input.StudentId.IsNullOrEmpty(), t => t.StudentId == input.StudentId)
+                           .WhereIf(input.BeginTime != null && input.BeginTime.ToString() != "0001/1/1 0:00:00", o => o.BeginTime > input.BeginTime)
+                        .WhereIf(input.BeginTime != null && input.BeginTime.ToString() != "0001/1/1 0:00:00" && input.EndTime != null, o => (input.BeginTime < o.BeginTime && o.EndTime < input.EndTime))
                         .Where(o => o.IsDeleted == false);
             query = string.IsNullOrEmpty(input.Sorting)
                         ? query.OrderByDescending(t => t.CreationTime)

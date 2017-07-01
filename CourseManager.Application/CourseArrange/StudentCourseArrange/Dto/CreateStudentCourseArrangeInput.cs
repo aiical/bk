@@ -58,7 +58,7 @@ namespace CourseManager.CourseArrange.Dto
 
         public void AddValidationErrors(CustomValidationContext context)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }
