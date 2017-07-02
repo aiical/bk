@@ -80,15 +80,9 @@ namespace CourseManager.CourseArrange
         {
             var res = GetArrangesByCondition(input);
             var mapData = res.MapTo<List<TeacherCourseArrangeListDto>>();
-            // SetOtherExtendData(mapData);
+             SetOtherExtendData(mapData);
             return new ListResultDto<TeacherCourseArrangeListDto>(mapData);
         }
-
-        private void SetOtherExtendData(IEnumerable<TeacherCourseArrangeListDto> list)
-        {
-
-        }
-
         public TeacherCourseArrange GetArranage(TeacherCourseArrangeInput input)
         {
             return _teacherCourseArrangeRepository.Get(input.Id);
@@ -129,7 +123,26 @@ namespace CourseManager.CourseArrange
 
             return new PagedResultDto<TeacherCourseArrangeListDto>(count, list.MapTo<List<TeacherCourseArrangeListDto>>());
         }
-
+        private void SetOtherExtendData(IEnumerable<TeacherCourseArrangeListDto> list)
+        {
+            if (list != null && list.Any())
+            {
+                var students = _studentAppService.GetStudents();
+                StudentListDto studentModel = new StudentListDto();
+                foreach (var item in list)
+                {
+                    var studentIds = item.StudentId.Split(',');
+                    string stuName = string.Empty;
+                    foreach (var stu in studentIds)
+                    {
+                        studentModel = students.Items.FirstOrDefault(s => s.Id == stu);
+                        if (studentModel != null && !string.IsNullOrEmpty(studentModel.Id))
+                            stuName += students.Items.FirstOrDefault(s => s.Id == stu).CnName + ",";
+                    }
+                    item.StudentName = stuName.TrimEnd(',');
+                }
+            }
+        }
         /// <summary>
         /// 排课
         /// </summary>

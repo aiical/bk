@@ -56,7 +56,6 @@ namespace CourseManager.CourseArrange
         /// 必须选择学生 因为要知道是安排给哪个学生上课 如果是班级课 那么是选择多个学生用逗号,隔开填写
         /// </summary>
         [Required]
-        [MaxLength(MaxIdLength)]
         public string StudentId { get; set; }
         /// <summary>
         /// 对应系统存储的学生中文名
