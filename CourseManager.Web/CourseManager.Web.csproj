@@ -395,6 +395,13 @@
     <Content Include="Assets\images\Btn\NextMonth.jpg" />
     <Content Include="Assets\images\Btn\SqtkBtn.jpg" />
     <Content Include="Assets\images\Btn\StudyProgress.jpg" />
+    <Content Include="Assets\images\filetype\doc.png" />
+    <Content Include="Assets\images\filetype\docx.png" />
+    <Content Include="Assets\images\filetype\pdf.png" />
+    <Content Include="Assets\images\filetype\ppt.png" />
+    <Content Include="Assets\images\filetype\pptx.png" />
+    <Content Include="Assets\images\filetype\xls.png" />
+    <Content Include="Assets\images\filetype\xlsx.png" />
     <Content Include="Assets\images\Icon\01.png" />
     <Content Include="Assets\images\Icon\02.png" />
     <Content Include="Assets\images\Icon\03.png" />
