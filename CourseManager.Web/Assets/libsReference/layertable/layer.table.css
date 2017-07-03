@@ -1,0 +1,10 @@
+﻿.dg-cell-nowrap {word-break: break-all;}
+.dg-cell-no-nowrap {white-space: nowrap;word-wrap: normal;overflow: hidden;}
+.table-th-div {text-align: center;font-size: 14px;}
+.body-cell-div-height {line-height: 28px;height: 28px;}
+.datagrid-tr-even {background-color: #f8f8f8;}
+.layui-table > tbody > tr.active > td, .layui-table > tbody > tr.active > th, .layui-table > tbody > tr > td.active, .layui-table > tbody > tr > th.active {
+    background-color: #d9edf7;
+}
+.fhui-admin-pagelist {padding: 0px 15px;margin-top: -10px;}
+.layui-elem-field .layui-field-box {padding-bottom:5px;}

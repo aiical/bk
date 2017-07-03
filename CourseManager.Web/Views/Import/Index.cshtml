@@ -2,9 +2,10 @@
     ViewBag.Title = "(DataImport Manager)系统数据导入管理页";
 }
 @section Styles{
-   
+    <link href="/Assets/libsReference/layui/css/layui.css" rel="stylesheet" />
+    <link href="/Assets/libsReference/layertable/layer.table.css" rel="stylesheet" />
     <link href="/Assets/libsReference/uploadify/uploadify.css" rel="stylesheet" />
-    <link href="~/Assets/libsReference/uploadify/h5.upload.css" rel="stylesheet" />
+    <link href="/Assets/libsReference/layertable/layer.upload.css" rel="stylesheet" />
     <style type="text/css">
         .template-position {
             margin: 20px;
@@ -15,105 +16,91 @@
         }
     </style>
 }
-
-<div style="margin:15px">
-    <h5 style="color:red; margin-bottom:20px;">说明：分别单击各个按钮选择进行相应的符合给定的Excel模板格式数据导入操作(请不要重复导入！)</h5>
-    <div id="loadding" style="text-align:center"></div>
-
-    <div class="panel panel-success pull-left" style="width: 23%; margin: 2px">
-        <div class="panel-heading">
-            <h3 class="panel-title">导入学生排课</h3>
-        </div>
-        <div class="panel-body">
-            <input type="file" name="file_upload" class="file_upload" schoollevel="College" actionname="ImportStudentCourseArrangeToDB" id="ImportStudentCourseArrangeToDB" />&nbsp;&nbsp;&nbsp;
-            <a class="btn btn-default glyphicon glyphicon-upload" href="javascript:$('#ImportStudentCourseArrangeToDB').uploadify('upload')">&nbsp;Confirm Import</a>
-        </div>
-
-        <div class="Template">
-            <div class="uploadingImg">
-                <div class="uploadify">
-                    <div class="site-demo-upbar">
-                        <div class="layui-box layui-upload-button">
-                            <input type="file" name="pathList" class="layui-upload-file" id="studentCourseArrange-upload" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
-                            <span class="layui-upload-icon"><i class="layui-icon"></i>上传图片</span>
-                        </div><span class="fontTip img-tips">请上传一张格式为.JPG或.PNG图片</span>
+<div class="admin-main">
+    <form id="studentCourseArrange-form" action="/Import/ImportStudentCourseArrangeToDB" method="post" class="layui-form">
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">导入学生排课</label>
+            <div class="layui-input-block">
+                <div class="Template">
+                    <div class="uploadingImg">
+                        <div class="uploadify">
+                            <div class="site-demo-upbar">
+                                <div class="layui-box layui-upload-button">
+                                    <input type="file" name="pathList" class="layui-upload-file" id="studentCourseArrange-upload" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                                    <span class="layui-upload-icon"><i class="layui-icon"></i>上传文件</span>
+                                </div><span class="fontTip img-tips" style="color:red;">说明：选择符合给定的Excel模板格式数据导入操作(请不要重复导入！)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="allImg cf">
                     </div>
                 </div>
             </div>
-            <div class="allImg cf">
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" id="studentCourseArrange" lay-filter="studentCourseArrange-form">导入到数据库</button>
             </div>
         </div>
-    </div>
-    <script src="~/Scripts/jquery-2.2.0.min.js"></script>
-    <script src="/Assets/libsReference/uploadify/jquery.uploadify.min.js"></script>
-    <script type="text/javascript" src="/Assets/js/bootstrap.tool.js"></script>
-    <script src="~/Assets/libsReference/uploadify/h5.upload.js"></script>
-    <script>
+    </form>
+</div>
 
-        var ImportHandler = {
-            init: function () {
-                this.initUpload();
-                this.event();
-            },
-            event: function () {
-            },
-            initUpload: function () {
-                var actionName = $(this).attr('actionname')
-                BootStrap.Uploadify.init("studentCourseArrange-upload", {
-                    multi: false,
-                    fileTypeExts: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                    buttonText: '上传excel',
-                    maxSize: 15,//单位是MB
-                    onSuccess: function (file, data) {
-                        alert(actionname);
+<script src="~/Scripts/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="/Assets/libsReference/layui/layui.js"></script>
+<script type="text/javascript" src="/Assets/js/bootstrap.tool.js"></script>
+<script type="text/javascript" src="/Assets/libsReference/layertable/layer.upload.js"></script>
+<script>
+    layui.config({
+        base: '../../Assets/js/lay_ext/'
+    });
 
-                        readExcel(actionName, filePath);
-                    }
+    layui.use(['layer', 'form'], function () {
+        //下面是全局变量
+        layerTips = parent.layer === undefined ? layui.layer : parent.layer, //获取父窗口的layer对象
+            form = layui.form(),
+            layer = layui.layer;//获取当前窗口的layer对象
+        //初始化列表
+        ImportHandler.init();
+    });
+
+    var ImportHandler = {
+        init: function () {
+            this.initUpload();
+            this.event();
+        },
+        event: function () {
+            form.on("submit(studentCourseArrange-form)", function (data) {
+                var actionUrl = $(data.form).attr("action");
+                var postData = $(data.form).serializeJson();
+                $.ajax({
+                    type: "POST",
+                    url: actionUrl,
+                    data: postData,
+                    dataType: "json",
+                    success: function (d) {
+                        console.info(d)
+                        if (d.success) {
+                            layer.msg(d.result.msg);
+                        } else {
+                            layer.msg("保存异常!");
+                        }
+                    }, error: function (d) { layer.msg("保存异常!") }
                 });
-            }
-        };
-        //$(function () {
-        //    $(".file_upload").each(function () {
-        //        var actionName = $(this).attr('actionname'), schoolLevel = $(this).attr('schoollevel');
-
-        //        $(this).uploadify({
-        //            'formData': { 'SummaryId': 1, 'someOtherKey': 1 },
-        //            'multi': false,
-        //            'auto': false,
-        //            'swf': '/Assets/lib/uploadify/uploadify.swf',
-        //            'uploader': '/ReadDataFromExcel/upload',
-        //            'fileTypeDesc': '导入excel文档',
-        //            'fileTypeExts': '*.xlsx; *.xls;',
-        //            buttonText: '<button class="btn btn-default glyphicon glyphicon-plus" >&nbsp;Choose Excel</button>',
-        //            onUploadSuccess: function (file, filePath) {
-        //                readExcel(actionName, filePath, schoolLevel);
-        //            }
-        //        });
-        //    });
-
-        //});
-        function readExcel(action, filePath) {
-            $("#loadding").html("<img src='/Assets/images/loading.gif'>");
-            $.ajax({
-                type: "POST",
-                dataType: "text",
-                cache: false,
-                url: "/Import/ImportStudentCourseArrangeToDB", //+ action,//ImportStudentCourseArrangeToDB
-                data: { "filePath": filePath },
-                success: function (result) {
-                    console.log(result);
-                    if (result == "success") {
-                        layer.msg('数据导入成功(Data Import Success)!', { icon: 1, time: 1000 });
-                        $("#loadding").empty();
-                    } else {
-                        layer.msg('异常(Exception)!', { icon: 7, time: 1000 });
-                    }
-                },
-                error: function (data) {
-                    layer.msg('读取数据失败,请检查Excel数据是否匹配导入模板!', { icon: 1, time: 1500 });
-                    $("#loadding").empty();
+                return false;
+            })
+        },
+        initUpload: function () {
+            //
+            BootStrap.Uploadify.init("studentCourseArrange-upload", {
+                multi: false,
+                fileTypeExts: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                buttonText: '上传学生排课Excel',
+                maxSize: 15,//单位是MB
+                onSuccess: function (file, data) {
+                    console.log(data);
                 }
             });
         }
-    </script>
-</div>
+    };
+</script>
+

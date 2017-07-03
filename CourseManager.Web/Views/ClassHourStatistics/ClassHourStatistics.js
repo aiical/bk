@@ -51,7 +51,7 @@ Bk.ClassHourStatistics = {
             $.each(days, function (index, item) {
                 xCategories.push(startTimeMonth + "月" + item + "日");
             })
-            console.log(xCategories);
+            //console.log(xCategories);
             console.log(postData);
             abp.ui.setBusy(
                 $('#chart-show'),
@@ -60,7 +60,7 @@ Bk.ClassHourStatistics = {
                     type: 'POST',
                     data: JSON.stringify(postData) //abp需要进行转换
                 }).done(function (res) {
-                    //console.log(res);
+                    console.log(res);
                     var result = res.returnData, totalClassHours = result.total;
                     $chartContainer.highcharts({
                         chart: {
