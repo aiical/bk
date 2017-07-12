@@ -61,6 +61,12 @@ namespace CourseManager.CourseArrange
         /// </summary>
         [Required]
         public string StudentId { get; set; }
+        /// <summary>
+        /// 对应系统存储的学生中文名
+        /// </summary>
+        [MaxLength(64)]
+        [Required]
+        public string StudentName { get; set; }
         public bool IsDeleted { get; set; }
         public long? CreatorUserId { get; set; }
         public DateTime CreationTime { get; set; }

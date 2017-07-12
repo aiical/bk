@@ -1,79 +1,147 @@
-﻿@*@model CourseManager.Tasks.Dtos.CreateTaskInput*@
+﻿@model CourseManager.CourseArrange.Dto.UpdateTeacherCourseArrangeInput
+@using Abp.Web.Mvc.Extensions;
 @{
-    ViewBag.Title = @L("Add");
+    ViewBag.Title = @L("Edit");
 }
-<div class="modal fade" id="addTeacherCourseArrangeModal" tabindex="-1" role="dialog" aria-labelledby="createTask" data-backdrop="static">
+<div class="modal fade" id="editTeacherCourseArrangeModal" tabindex="-1" role="dialog" aria-labelledby="createTask" data-backdrop="static">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">
                     <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel">@L("ArrangeCourse")</h4>
+                <h4 class="modal-title" id="myModalLabel">@L("Edit")</h4>
             </div>
             <div class="modal-body" id="modalContent">
-                @using (Ajax.BeginForm("Create", "TeacherCourseArrange", new AjaxOptions()
-                {
-                    OnBegin = "Bk.TeacherCourseArrange.actions.beginPost('#addTeacherCourseArrangeModal')",
-                    OnSuccess = "Bk.TeacherCourseArrange.actions.hideForm('#addTeacherCourseArrangeModal')"
-                }))
-                {
-                    @Html.AntiForgeryToken()
+                <form id="edit-teacherCourse-form" class="course-arrange-form">
+                    @Html.HiddenFor(model => model.Id)
+                    @*@Html.AntiForgeryToken()*@
                     <div class="form-horizontal">
                         <div class="form-group">
-                            <div class="col-md-6">
-                                <label>@L("Teacher")</label>
-                                <input type="hidden" value="" name="TeacherId" />
-                                <input class="form-control form-inline" type="text" name="CnName" />
-                            </div>
-                            <div class="col-md-6">
-                                <label>@L("ClassType")</label>
-                                <input type="text" name="ClassType" class="form-control form-inline" />
+                  
+                            <div class="col-md-12">
+                                <label>@L("Students")</label>
+                                @*<input type="hidden" value="" name="StudentId" />*@
+                                <input class="form-control form-inline required" value="@Model.StudentName" placeholder="请输入准确完整的学生中文名" type="text" name="StudentId" />
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-6">
-                                <label>@L("Student")</label>
-                                <input type="hidden" value="" name="StudentId" />
-                                <input class="form-control form-inline" type="text" name="Student" />
+                                <label>@L("Address")</label>
+                                @Html.DropDownList("CourseAddressType", ViewBag.CourseAddressType as IEnumerable<SelectListItem>, new { @class = "form-control" })
+
                             </div>
                             <div class="col-md-6">
+                                <label>@L("DetailAddress")</label>
+                                <input class="form-control form-inline required" placeholder="请输入具体的上课地点" value="@Model.Address" type="text" name="Address" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label>@L("ClassType")</label>
+                                @Html.DropDownList("ClassType", ViewBag.ClassType as IEnumerable<SelectListItem>, new { @class = "form-control required" })
+                            </div>
+
+                            <div class="col-md-6">
                                 <label>@L("CourseType")</label>
-                                <input type="text" name="ClassType" class="form-control form-inline" />
+                                @Html.DropDownList("CourseType", ViewBag.CourseType as IEnumerable<SelectListItem>, new { @class = "form-control required" })
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-6">
                                 <label>@L("BeginTime")</label>
 
-                                <input class="form-control form-inline" type="text" name="Student" />
+                                <input class="form-control form-inline datetime required" value="@Model.BeginTime"  readonly="readonly" id="BeginTime" type="text" name="BeginTime" />
                             </div>
 
                             <div class="col-md-6">
                                 <label>@L("EndTime")</label>
 
-                                <input class="form-control form-inline" type="text" name="Student" />
+                                <input class="form-control form-inline datetime required" value="@Model.EndTime" readonly="readonly" id="EndTime" type="text" name="EndTime" />
                             </div>
 
                         </div>
                         <div class="form-group">
                             <div class="col-md-12">
                                 <label>@L("Remark")</label>
-
-                                <input class="form-control form-inline" type="text" name="Remark" />
+                                <input class="form-control form-inline required" type="text" value="@Model.Remark" placeholder="模板如：赵晟奎 上午九点半到十一点 在蛇口  上1v1 提高课1个半小时" name="Remark" />
                             </div>
 
                         </div>
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <button type="button" class="btn btn-default cancel">@L("Cancel")</button>
-                                <button type="submit" class="btn btn-primary blue">@L("Save")</button>
-                            </div>
-                        </div>
+
                     </div>
-                }
-
+                </form>
+                @*}*@
+                <div class="form-group" style="height:40px">
+                    <div class="col-md-12">
+                        <button id="btn-edit-save" class="btn btn-primary blue">@L("Save")</button>
+                        @*<button id="btn-week-save" class="btn btn-primary blue  save-arrange" crossweek="1">@L("WeekSave")</button>*@
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+    <script type="text/javascript">
+        $(function () {
+            $('.datetime').datetimepicker({
+                lang: 'ch',
+                scrollTime: true,
+                step: 15
+            });
+            $('#btn-edit-save').click(function () {
+                CourseArrangeValidator.init();
+                if ($('#edit-teacherCourse-form').validate().form()) {
+                    var postData = $('#edit-teacherCourse-form').serializeJson();
+                    console.info(postData);
+                    //console.log(JSON.stringify(postData));
+                    var beginTime = postData.BeginTime, endTime = postData.EndTime;
+                    //验证数据 如开始时间和结束时间
+                    if (
+                        (endTime == null || endTime == "")
+                        || (beginTime == null || beginTime == "")
+                    ) {
+                        abp.notify.warn("请先选择上课时间");
+                        $('#BeginTime').focus();
+                        return false;
+                    }
+
+                    if (endTime != null && endTime != "" && beginTime != null && beginTime != "") {
+                        if (endTime < beginTime
+                            ||
+                            new Date(endTime).getTime() < new Date(beginTime).getTime()
+                        ) {
+                            endTime = null;
+                            abp.notify.error("上课时间不能大于下课时间");
+                            abp.ui.clearBusy();
+                            $('#BeginTime').focus();
+                            return;
+                        }
+                    }
+                    postData = $.extend(postData, { "TeacherId": $('#hidTeacherId').val() });
+                    if ($(this).attr('crossweek') == 1) {
+                        postData = $.extend(postData, { "CrossWeek": true });
+                    }
+                    abp.ui.setBusy(
+                        abp.ajax({
+                            context: this,
+                            url: abp.appPath + 'CourseArrange/AddTeacherCourseArrange',
+                            type: 'POST',
+                            data: JSON.stringify(postData) //abp需要进行转换
+                        }).done(function (res) {
+                            console.log(res);
+                            if (typeof res == "string") res = res == "true" ? true : false;
+                            if (res) {// != ''
+                                abp.notify.success("排课成功");
+                                window.location.reload();
+                            } else abp.notify.warn("排课时间存在冲突 请重新调整时间");
+                        }).fail(function (error) {
+                            console.info(error);
+                            //abp.notify.error(error.responseText);
+                        })
+                    );
+                }
+            });
+        })
+    </script>

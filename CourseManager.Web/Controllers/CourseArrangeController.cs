@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services.Dto;
+using AutoMapper;
 using CourseManager.Category;
 using CourseManager.Common.Extensions;
 using CourseManager.CourseArrange;
@@ -38,10 +39,7 @@ namespace CourseManager.Web.Controllers
         public ActionResult TeacherCourseArrange(int teacherId = 1, string yearMonth = "")
         {
             ViewBag.ActiveMenu = "ArrangeCourse";
-            var categorys = _categoryAppService.GetAllCategorys();
-            ViewBag.ClassType = categorys.Where(c => c.CategoryType == "ClassType").ToList().CreateSelect("CategoryName", "Id", "");
-            ViewBag.CourseType = categorys.Where(c => c.CategoryType == "CourseType").ToList().CreateSelect("CategoryName", "Id", "");
-            ViewBag.CourseAddressType = categorys.Where(c => c.CategoryType == "CourseAddressType").ToList().CreateSelect("CategoryName", "Id", "");
+            CommonCourseArrangeSelectData();
 
             //要加载数据需要先选择老师 初始化页面的时候 数据为空
             var courseArrangeData = new ListResultDto<TeacherCourseArrangeListDto>();
@@ -67,6 +65,13 @@ namespace CourseManager.Web.Controllers
             ViewBag.CourseArranges = courseArrangeData;
             return View();
         }
+        private void CommonCourseArrangeSelectData()
+        {
+            var categorys = _categoryAppService.GetAllCategorys();
+            ViewBag.ClassType = categorys.Where(c => c.CategoryType == "ClassType").ToList().CreateSelect("CategoryName", "Id", "");
+            ViewBag.CourseType = categorys.Where(c => c.CategoryType == "CourseType").ToList().CreateSelect("CategoryName", "Id", "");
+            ViewBag.CourseAddressType = categorys.Where(c => c.CategoryType == "CourseAddressType").ToList().CreateSelect("CategoryName", "Id", "");
+        }
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public JsonResult AddTeacherCourseArrange(CreateTeacherCourseArrangeInput input)
@@ -74,6 +79,21 @@ namespace CourseManager.Web.Controllers
             var teacherCourseArrangeResult = _teacherCourseArrangeAppService.TeacherArrangeCourse(input);
             return AbpJson(teacherCourseArrangeResult);
             //return AbpJson((teacherCourseArrange!=null&&!string.IsNullOrEmpty(teacherCourseArrange.Id))?true:false);
+        }
+
+        public PartialViewResult EditTeacherCourseArrange(string id)
+        {
+            var singleCourseArrange = _teacherCourseArrangeAppService.GetArranage(new TeacherCourseArrangeInput() { Id = id });
+
+            var updateCourseArrangeDto = Mapper.Map<UpdateTeacherCourseArrangeInput>(singleCourseArrange);
+
+            //var userList = _userAppService.GetUsers();
+            //ViewBag.AssignedPersonId = new SelectList(userList.Items, "Id", "Name", updateTaskDto.AssignedPersonId);
+            var categorys = _categoryAppService.GetAllCategorys();
+            ViewBag.ClassType = categorys.Where(c => c.CategoryType == "ClassType").ToList().CreateSelect("CategoryName", "Id", categorys.FirstOrDefault(c => c.Id == singleCourseArrange.ClassType).CategoryName);
+            ViewBag.CourseType = categorys.Where(c => c.CategoryType == "CourseType").ToList().CreateSelect("CategoryName", "Id", categorys.FirstOrDefault(c => c.Id == singleCourseArrange.CourseType).CategoryName);
+            ViewBag.CourseAddressType = categorys.Where(c => c.CategoryType == "CourseAddressType").ToList().CreateSelect("CategoryName", "Id", categorys.FirstOrDefault(c => c.Id == singleCourseArrange.CourseAddressType).CategoryName);
+            return PartialView("_EditTeacherCourseArrange", updateCourseArrangeDto);
         }
 
         #endregion

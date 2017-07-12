@@ -226,6 +226,10 @@
     <Compile Include="Migrations\201707020752446_Update_CourseArrange_Entity.Designer.cs">
       <DependentUpon>201707020752446_Update_CourseArrange_Entity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707120928278_Update_Entity_TeacherCourseArrange_AddField_StudentName.cs" />
+    <Compile Include="Migrations\201707120928278_Update_Entity_TeacherCourseArrange_AddField_StudentName.Designer.cs">
+      <DependentUpon>201707120928278_Update_Entity_TeacherCourseArrange_AddField_StudentName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="CourseManagerDataModule.cs" />
@@ -324,6 +328,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707020752446_Update_CourseArrange_Entity.resx">
       <DependentUpon>201707020752446_Update_CourseArrange_Entity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707120928278_Update_Entity_TeacherCourseArrange_AddField_StudentName.resx">
+      <DependentUpon>201707120928278_Update_Entity_TeacherCourseArrange_AddField_StudentName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

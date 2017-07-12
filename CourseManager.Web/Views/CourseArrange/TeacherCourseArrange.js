@@ -16,7 +16,25 @@ Bk.TeacherCourseArrange = {
             $('#Month').val(nowMonth);
         };
         $(".course-edit").on("click", function () {
-            abp.notify.info('排课编辑 暂未开放，程序员正在奋力开发中');
+            if ($('#hidTeacherId').val() > 0) {
+                var id = $(this).attr('tag');
+                //abp.ui.setBusy(
+                abp.ajax({
+                    url: "/CourseArrange/EditTeacherCourseArrange",
+                    data: { "id": id },
+                    type: "GET",
+                    dataType: "html"
+                    })
+                    .done(function (data) {
+                        $("#edit").html(data);
+                        $("#editTeacherCourseArrangeModal").modal("show");
+                    })
+                    .fail(function (data) {
+                        abp.notify.error('编辑异常');
+                    });
+                //);
+            }
+            // abp.notify.info('排课编辑 暂未开放，程序员正在奋力开发中');
         });
     },
     initStyle: function () {
@@ -53,7 +71,7 @@ Bk.TeacherCourseArrange = {
             if ($('.course-arrange-form').validate().form()) {
                 var postData = $('#add-teacherCourse-form').serializeJson();
                 console.info(postData);
-
+                return;
                 //console.log(JSON.stringify(postData));
                 var beginTime = postData.BeginTime, endTime = postData.EndTime;
                 //验证数据 如开始时间和结束时间

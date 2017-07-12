@@ -18,7 +18,7 @@ namespace CourseManager.Common.Extensions
             {
                 selectListItems.Add(new SelectListItem() { Text = "请选择", Value = "", Selected = true });
             }
-            else selectListItems.Add(new SelectListItem() { Text = defaultVal, Value = "-1", Selected = true });
+            //   else selectListItems.Add(new SelectListItem() { Text = defaultVal, Value = "-1", Selected = true });
             foreach (var item in t)
             {
                 var propers = item.GetType().GetProperty(text);

@@ -80,7 +80,7 @@ namespace CourseManager.CourseArrange
         {
             var res = GetArrangesByCondition(input);
             var mapData = res.MapTo<List<TeacherCourseArrangeListDto>>();
-             SetOtherExtendData(mapData);
+            SetOtherExtendData(mapData);
             return new ListResultDto<TeacherCourseArrangeListDto>(mapData);
         }
         public TeacherCourseArrange GetArranage(TeacherCourseArrangeInput input)
@@ -152,6 +152,7 @@ namespace CourseManager.CourseArrange
         {
             Logger.Info("AddTeacherCourseArrange: " + input);
             var arrange = input.MapTo<TeacherCourseArrange>();
+            arrange.StudentName = input.StudentId;
             string studentIds = GenerateStudentIds(input);
             arrange.StudentId = studentIds;
             bool result = true;
@@ -236,7 +237,7 @@ namespace CourseManager.CourseArrange
                     days.Add(input.BeginTime.AddDays(7 * i).Day);
                 }
             }
-        
+
             var day = input.BeginTime.Day;
             bool flag = true;
             foreach (var item in arranges)

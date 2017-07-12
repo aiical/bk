@@ -69,10 +69,11 @@ namespace CourseManager.Web
         /// 虽然一般我们将工作者添加到PostInitialize方法中，但是没有强制要求。你可以在任何地方注入IBackgroundWorkerManager，在运行时添加工作者。当应用要关闭时，IBackgroundWorkerManager会停止并释放所有注册的工作者
         /// </summary>
 
+        //注释后台任务
         public override void PostInitialize()
         {
-            var workManager = IocManager.Resolve<IBackgroundWorkerManager>();
-            workManager.Add(IocManager.Resolve<MakeInactiveUsersPassiveWorker>());
+            //var workManager = IocManager.Resolve<IBackgroundWorkerManager>();
+            //workManager.Add(IocManager.Resolve<MakeInactiveUsersPassiveWorker>());
         }
     }
 }

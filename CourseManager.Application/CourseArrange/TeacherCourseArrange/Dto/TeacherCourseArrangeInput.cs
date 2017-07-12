@@ -35,5 +35,9 @@ namespace CourseManager.CourseArrange.Dto
         public string StudentId { get; set; }
 
         public string CourseStatus { get; set; }
+        /// <summary>
+        /// 备注信息 显示在首页提醒作用
+        /// </summary>
+        public string Remark { get; set; }
     }
 }

@@ -35,5 +35,8 @@ namespace CourseManager.CourseArrange.Dto
         public string StudentId { get; set; }
 
         public string CourseStatus { get; set; }
+
+        public string Remark { get; set; }
+        public string StudentName { get; set; }
     }
 }
