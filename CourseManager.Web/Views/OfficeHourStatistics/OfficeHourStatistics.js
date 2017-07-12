@@ -75,7 +75,12 @@ Bk.OfficeHourStatistics = {
                             enabled: false
                         },
                          xAxis: {
-                            type: 'datetime'
+                           // type: 'datetime'//格式化X 轴时间显示
+                             labels: {
+                                 formatter: function () {
+                                     return Highcharts.dateFormat('%m-%d', this.value);
+                                 }
+                             } 
                         },
                          yAxis: [{ 
                             title: {
@@ -85,7 +90,7 @@ Bk.OfficeHourStatistics = {
                                 }
                             } 
                         }],
-                        tooltip: {
+                         tooltip: {
                             xDateFormat: '%m-%d',
                             shared: true
                         },
