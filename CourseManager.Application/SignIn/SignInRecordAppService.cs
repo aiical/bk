@@ -66,6 +66,7 @@ namespace CourseManager.SignIn
                 TimeSpan ts2 = new TimeSpan(input.BeginTime.Ticks);
                 TimeSpan diff = ts1.Subtract(ts2).Duration();
                 record.Duration = Convert.ToDecimal(Math.Ceiling(diff.TotalMinutes));
+                var studentName = input.StudentId;
                 var students = input.StudentId.Trim().Split(',');
                 var studentIds = "";
                 foreach (var stu in students)
@@ -77,7 +78,8 @@ namespace CourseManager.SignIn
                 if (!string.IsNullOrEmpty(result.Id))
                 {
                     var courseArrange = _teacherCourseArrangeAppService.GetArranage(new CourseArrange.Dto.TeacherCourseArrangeInput() { Id = result.CourseArranges });
-                    courseArrange.CourseStatus = Common.Enums.ArrageCourseStatus.Effective.ToString();
+                    courseArrange.CourseStatus = ArrageCourseStatus.Effective.ToString();
+                    courseArrange.StudentName = studentName;
                     _teacherCourseArrangeAppService.UpdateCourseArrange(courseArrange);
                 }
             }
