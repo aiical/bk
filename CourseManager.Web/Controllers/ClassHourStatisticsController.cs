@@ -32,18 +32,23 @@ namespace CourseManager.Web.Controllers
         //[ValidateAntiForgeryToken]
         public JsonResult GetTeacherClassHourStatistics(ClassHourStatisticsInput input)
         {
-            var result = _teacherClassHoursStatisticsAppService.GetClassHourStatistics(input).Items;
-            var classResult = result.Where(r => r.ClassType == CourseManagerConsts.ClassClassType && r.Type != CourseManagerConsts.NoCourseSignInRecordType).ToList();
-            var one2OneResult = result.Where(r => r.ClassType == CourseManagerConsts.One2OneClassType && r.Type != CourseManagerConsts.NoCourseSignInRecordType).ToList();
+            var totalRecord = _teacherClassHoursStatisticsAppService.GetClassHourStatistics(input).Items;
+            var result = totalRecord.Where(r => r.Type != CourseManagerConsts.NoCourseSignInRecordType);
+            var classResult = result.Where(r => r.ClassType == CourseManagerConsts.ClassClassType).ToList();
+            var one2OneResult = result.Where(r => r.ClassType == CourseManagerConsts.One2OneClassType).ToList();
+            
             List<decimal> durations = new List<decimal>();
-            var totalDuration = result.Where(r=>r.Type != CourseManagerConsts.NoCourseSignInRecordType).Sum(r => r.Duration);
+            var totalDuration = result.Sum(r => r.Duration);
             var one2oneDuration = one2OneResult.Sum(r => r.Duration);
+            var absentResult = totalRecord.Where(r => r.Type == CourseManagerConsts.NoCourseSignInRecordType).ToList();
+            var absentDuration = absentResult.Sum(r => r.Duration);
             var classDuration = classResult.Sum(r => r.Duration);
             var beginTimeDay = input.BeginTime.Day;
             var endTimeDay = input.EndTime.Day;
             decimal[] classHoursArray = new decimal[endTimeDay - beginTimeDay + 1]; //取得的值是大于等于开始时间 小于结束时间
             decimal[] one2OneDurationsArray = new decimal[endTimeDay - beginTimeDay + 1];
             decimal[] classCourseDurationsArray = new decimal[endTimeDay - beginTimeDay + 1];
+            decimal[] absentCourseDurationsArray = new decimal[endTimeDay - beginTimeDay + 1];
             int index = 0;
             for (int i = beginTimeDay - 1; i < endTimeDay; i++)
             {
@@ -62,6 +67,10 @@ namespace CourseManager.Web.Controllers
                 {
                     classCourseDurationsArray[index] = decimal.Round(classResult.Where(r => r.EndTime.Day == i + 1).Sum(c => c.Duration) / 60, 1);
                 }
+                if (absentResult.Any(v => v.EndTime.Day == i + 1))
+                {
+                    absentCourseDurationsArray[index] = decimal.Round(absentResult.Where(r => r.EndTime.Day == i + 1).Sum(c => c.Duration) / 60, 1);
+                }
                 index++;
             }
             ResultData data = new ResultData();
@@ -69,10 +78,13 @@ namespace CourseManager.Web.Controllers
             {
                 { "durations",classHoursArray},// durations.ToArray()
                 { "one2OneDurations",one2OneDurationsArray},
-                  { "classCourseDurations",classCourseDurationsArray},
+                { "classCourseDurations",classCourseDurationsArray},
+                 {"absentCourseDurations",absentCourseDurationsArray },
                 {"total",decimal.Round(totalDuration/60,1) },
-                        {"one2oneDuration",decimal.Round(one2oneDuration/60,1) },
-                        {"classDuration",decimal.Round(classDuration/60,1) }
+                {"one2oneDuration",decimal.Round(one2oneDuration/60,1) },
+                {"classDuration",decimal.Round(classDuration/60,1) },
+                 {"absentDuration",decimal.Round(absentDuration/60,1) }
+               
             };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
