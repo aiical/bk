@@ -47,6 +47,7 @@ Bk.PayCalculation = {
                 }).done(function (res) {
                    // console.log(res.returnData.result);
                     var data = res.returnData.result, earlyLateNum = data.earlyCourseTimes + data.nightCourseTimes, unit = "元";
+                   // console.log(data);
                     $('#ShowTeacherName').val(data.teacherName);
                     $('#BasicSalary').val(data.basicSalary + unit);
                     $('#One2OneFee').val(data.one2OneDuration * 50 + unit);
@@ -61,21 +62,21 @@ Bk.PayCalculation = {
                     $('#ExtraSalary').val(data.studentAbsentFees + unit + "-" + data.studentAbsentFeeDes);
                     $('#AllOfficeHoursSalary').val(data.allOfficeHoursBonus + unit);
 
-                    if (data.basicSalary >= 4000 && data.totalDuration >= 70) {//工资达到了底薪标准 且工时达到了70个小时标准 则有其他福利
+                    if (data.basicSalary >= 4000 && data.totalDuration >= 40) {//工资达到了底薪标准 且工时达到了40个小时标准 则有其他福利
                         $('#TotalSalary').val(
                             data.basicSalary + "+"
                             + data.allOfficeHoursBonus + "+"
                             + data.earlyCourseTimes * 5 + "+"
                             + data.assignmentTimes * 10 + "+"
                             + (data.renewNum < 1 ? 0 : data.renewFee) + "+"
-                            + data.extraFee + "="
-                            + (data.basicSalary + data.allOfficeHoursBonus + (data.earlyCourseTimes * 5) + (data.assignmentTimes * 10) + (data.renewNum < 1 ? 0 : data.renewFee))
-                            + data.studentAbsentFees || 0
+                            + data.studentAbsentFees + "="
+                            + parseInt((data.basicSalary + data.allOfficeHoursBonus + (data.earlyCourseTimes * 5) + (data.assignmentTimes * 10) + (data.renewNum < 1 ? 0 : data.renewFee))
+                            + data.studentAbsentFees || 0)
                             + unit
                         );
                     }
                     else {
-                        $('#TotalSalary').val(data.basicSalary + unit + "  (因为工时未超过70个小时 所以只能拿到底薪) ");
+                        $('#TotalSalary').val(data.basicSalary + unit + "  (因为工时未超过40个小时 所以只能拿到底薪) ");
                     }
                     // var result = res.returnData, totalClassHours = result.total;
                 }).fail(function (error) {

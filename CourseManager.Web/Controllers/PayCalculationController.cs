@@ -51,8 +51,8 @@ namespace CourseManager.Web.Controllers
             --学生当前月上课是否80%达标，防止学生随意请假，影响老师收益（如果学生当月需要上课20小时，然后请假次数太多导致不够80% 也就是不够16个小时 那么缺少的课时按照正常课时的80%费用收取 如仅仅上了8个小时，那么就是缺少8个小时也就是需要补贴老师8*50*0.8=320元） 这里暂只处理 1对1
             --统计输出的话 就是按照自定义的格式综合输出
              */
-            var classResult = result.Where(r => r.ClassType == CourseManagerConsts.ClassClassType).ToList();
-            var one2OneResult = result.Where(r => r.ClassType == CourseManagerConsts.One2OneClassType).ToList();
+            var classResult = result.Where(r => r.ClassType == CourseManagerConsts.ClassClassType && r.Type != CourseManagerConsts.NoCourseSignInRecordType).ToList();
+            var one2OneResult = result.Where(r => r.ClassType == CourseManagerConsts.One2OneClassType && r.Type != CourseManagerConsts.NoCourseSignInRecordType).ToList();
             List<decimal> durations = new List<decimal>();
             var totalDuration = decimal.Round(result.Sum(r => r.Duration) / 60, 1);
             var one2oneDuration = one2OneResult.Sum(r => r.Duration);
