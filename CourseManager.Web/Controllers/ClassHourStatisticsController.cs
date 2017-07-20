@@ -33,10 +33,10 @@ namespace CourseManager.Web.Controllers
         public JsonResult GetTeacherClassHourStatistics(ClassHourStatisticsInput input)
         {
             var result = _teacherClassHoursStatisticsAppService.GetClassHourStatistics(input).Items;
-            var classResult = result.Where(r => r.ClassType == "f756be8fe8b6487dbb50e6d63c69895c").ToList();
-            var one2OneResult = result.Where(r => r.ClassType == "64c951d110044a51bd83c7e7e82f96ec").ToList();
+            var classResult = result.Where(r => r.ClassType == CourseManagerConsts.ClassClassType && r.Type != CourseManagerConsts.NoCourseSignInRecordType).ToList();
+            var one2OneResult = result.Where(r => r.ClassType == CourseManagerConsts.One2OneClassType && r.Type != CourseManagerConsts.NoCourseSignInRecordType).ToList();
             List<decimal> durations = new List<decimal>();
-            var totalDuration = result.Sum(r => r.Duration);
+            var totalDuration = result.Where(r=>r.Type != CourseManagerConsts.NoCourseSignInRecordType).Sum(r => r.Duration);
             var one2oneDuration = one2OneResult.Sum(r => r.Duration);
             var classDuration = classResult.Sum(r => r.Duration);
             var beginTimeDay = input.BeginTime.Day;

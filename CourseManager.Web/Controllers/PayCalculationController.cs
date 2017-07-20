@@ -51,8 +51,8 @@ namespace CourseManager.Web.Controllers
             --学生当前月上课是否80%达标，防止学生随意请假，影响老师收益（如果学生当月需要上课20小时，然后请假次数太多导致不够80% 也就是不够16个小时 那么缺少的课时按照正常课时的80%费用收取 如仅仅上了8个小时，那么就是缺少8个小时也就是需要补贴老师8*50*0.8=320元） 这里暂只处理 1对1
             --统计输出的话 就是按照自定义的格式综合输出
              */
-            var classResult = result.Where(r => r.ClassType == "f756be8fe8b6487dbb50e6d63c69895c").ToList();
-            var one2OneResult = result.Where(r => r.ClassType == "64c951d110044a51bd83c7e7e82f96ec").ToList();
+            var classResult = result.Where(r => r.ClassType == CourseManagerConsts.ClassClassType).ToList();
+            var one2OneResult = result.Where(r => r.ClassType == CourseManagerConsts.One2OneClassType).ToList();
             List<decimal> durations = new List<decimal>();
             var totalDuration = decimal.Round(result.Sum(r => r.Duration) / 60, 1);
             var one2oneDuration = one2OneResult.Sum(r => r.Duration);
@@ -104,7 +104,7 @@ namespace CourseManager.Web.Controllers
             vm.TotalDuration = totalDuration;
             vm.EarlyCourseTimes = result.Where(r => r.BeginTime.Hour <= CourseManagerConsts.EarlyHour).Count();
             vm.NightCourseTimes = result.Where(r => r.BeginTime.Hour >= CourseManagerConsts.NigthHour).Count();
-            vm.AssignmentTimes = result.Where(r => r.CourseAddressType == "55c431fd26b845b0a00880243d1a25a3").Count(); //外派
+            vm.AssignmentTimes = result.Where(r => r.CourseAddressType == CourseManagerConsts.OutSideCourseType).Count(); //外派
             vm.OfficeHours = totalOfficeHours;
             vm.AllOfficeHoursBonus = totalOfficeHours >= CourseManagerConsts.JuneOfficeHours ? CourseManagerConsts.AllOfficeHoursBonus : 0.0M;
 
@@ -141,7 +141,7 @@ namespace CourseManager.Web.Controllers
                                 };
 
             var allGroupAbsentHours = from p in result2DealAbsentFee
-                                      where p.UnNormalType == "c9749429307348e08f1dc8aba035eaed" //学生请假
+                                      where p.UnNormalType == CourseManagerConsts.StudentNoCourseReasonType //学生请假
                                       group p by p.StudentId into g
                                       select new PayCalculation2StuViewModel
                                       {
