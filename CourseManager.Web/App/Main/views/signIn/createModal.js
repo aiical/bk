@@ -55,7 +55,7 @@
             function getCategorys() {
                 $categoryService.getAllCategorys()
                     .then(function (res) {
-                        console.log(res.data);
+                        //console.log(res.data);
                         $.each(res.data, function (index, item) {
                             var cd = { "CategoryName": item.categoryName, "Id": item.id };
                             switch (item.categoryType) {
@@ -77,7 +77,7 @@
                                 default:
                             }
                         });
-                        console.log(vm.signInRecord);
+                        // console.log(vm.signInRecord);
                         $scope.selectedType = vm.signInRecord.type[0];//如果想要第一个值
                         $scope.selectedClassType = vm.signInRecord.classType[0]
                         $scope.selectedCourseType = vm.signInRecord.courseType[0];
@@ -85,12 +85,37 @@
                         $scope.selectedUnNormalType = vm.signInRecord.unNormalType[0];
                     });
             }
+            // 日期，在原有日期基础上，增加days天数
+            function addDate(date, days) {
+                if (days == undefined || days == '') {
+                    days =0;
+                }
+                var date = new Date(date);
+                date.setDate(date.getDate() + days);
+                var month = date.getMonth() + 1;
+                var day = date.getDate();
+                return date.getFullYear() + '-' + getFormatDate(month) + '-' + getFormatDate(day);
+            }
 
+            // 日期月份/天的显示，如果是1位数，则在前面加上'0'
+            function getFormatDate(arg) {
+                if (arg == undefined || arg == '') {
+                    return '';
+                }
+
+                var re = arg + '';
+                if (re.length < 2) {
+                    re = '0' + re;
+                }
+
+                return re;
+            }
             function getCourseArrange() {
-                var now = new Date(), year = now.getFullYear(), month = now.getMonth() + 1, day = now.getDate();
-                $teacherCourseArrangeService.getTeacherCourseArrange2SignIn(
-                    { "beginTime": year + "-" + month + "-" + day, "endTime": year + "-" + month + "-" + (day + 1) }
-                )
+                var now = new Date(), year = now.getFullYear(), month = now.getMonth() + 1, day = now.getDate(), curMonthDate = new Date(year, month, 0), curMonthMaxDays = curMonthDate.getDate(), endDate = addDate(now, 1);
+                //var postData = { "beginTime": year + "-" + month + "-" + day, "endTime": year + "-" + (day == curMonthMaxDays ? (month + 1) : month) + "-" + (day < curMonthMaxDays ? (day + 1) : '01') };
+                var postData = { "beginTime": addDate(now, 0), "endTime": endDate };
+                console.log(postData);
+                $teacherCourseArrangeService.getTeacherCourseArrange2SignIn(postData)
                     .then(function (res) {
                         console.log(res.data);
                         var data = res.data;

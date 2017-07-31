@@ -60,7 +60,7 @@ namespace CourseManager.CourseArrange
                          .WhereIf(input.TeacherId > 0, o => o.TeacherId == input.TeacherId)
                         .WhereIf(!input.ClassType.IsNullOrEmpty(), t => t.ClassType == input.Filter)
                         .WhereIf(input.BeginTime != null, o => o.BeginTime.Value > input.BeginTime)
-                        .WhereIf(input.BeginTime != null && input.EndTime != null, o => (input.BeginTime < o.BeginTime.Value && o.EndTime.Value < input.EndTime))
+                        .WhereIf(input.BeginTime != null && input.EndTime != null, o => (input.BeginTime <= o.BeginTime.Value && o.EndTime.Value <= input.EndTime))
                         .Where(o => o.IsDeleted == false);
             query = string.IsNullOrEmpty(input.Sorting)
                         ? query.OrderBy(t => t.BeginTime)
