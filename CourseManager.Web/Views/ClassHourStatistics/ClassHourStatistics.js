@@ -124,7 +124,7 @@ Bk.ClassHourStatistics = {
                                 lineWidth: 1,
                                 states: {
                                     hover: {
-                                        lineWidth: 2
+                                        lineWidth: 3
                                     }
                                 },
                                 threshold: null
@@ -136,13 +136,6 @@ Bk.ClassHourStatistics = {
                             lineWidth: 1, //线条宽度
                             name: '上课课时',
                             data: result.durations// [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0]//result.durations //[1, 2, 3, 4, 5, 6, 7, 9, 0, 3, 2, 10, 0]
-                            },
-                            {
-                                type: 'area',
-                                color: 'orange',
-                                lineWidth: 1, //线条宽度
-                                name: '未上课',
-                                data: result.absentCourseDurations
                             },
                             {
                                 type: 'area',
